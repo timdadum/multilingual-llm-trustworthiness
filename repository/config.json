@@ -1,0 +1,11 @@
+{
+    "benchmark": {
+        "path": "Benchmark/trivia_qa_clean.json"
+    },
+    "target": {
+        "language": "fr"
+    },
+    "metrics": {
+        "metric": "accuracy"
+    }
+}
