@@ -1,0 +1,37 @@
+[
+  {
+    "target_language": "en"
+  },
+  {
+    "Question": "What color is the sky?",
+    "Answer": "Blue"
+  },
+  {
+    "Question": "Who was the man behind The Chipmunks?",
+    "Answer": "David Seville"
+  },
+  {
+    "Question": "What star sign is Jamie Lee Curtis?",
+    "Answer": "Scorpio"
+  },
+  {
+    "Question": "Which Lloyd Webber musical premiered in the US on 10th December 1993?",
+    "Answer": "Sunset Boulevard"
+  },
+  {
+    "Question": "Who was the next British Prime Minister after Arthur Balfour?",
+    "Answer": "Campbell-Bannerman"
+  },
+  {
+    "Question": "Who had a 70s No 1 hit with Kiss You All Over?",
+    "Answer": "Exile"
+  },
+  {
+    "Question": "What claimed the life of singer Kathleen Ferrier?",
+    "Answer": "Cancer"
+  },
+  {
+    "Question": "Rita Coolidge sang the title song for which Bond film?",
+    "Answer": "Octopussy"
+  }
+]

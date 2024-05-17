@@ -1,11 +1,18 @@
 {
     "benchmark": {
-        "path": "Benchmark/trivia_qa_clean.json"
+        "path": "repository/benchmarks/clean/trivia_qa_clean.json"
     },
     "target": {
-        "language": "fr"
+        "language": "en"
     },
     "metrics": {
         "metric": "accuracy"
+    },
+    "paths": {
+        "BLOOMZ_TOKENIZER_PATH": "repository/models/bloomz_tokenizer",
+        "BLOOMZ_MODEL_PATH": "repository/models/bloomz_model" 
+    },
+    "models": {
+        "bloomz": "-7b1-mt"
     }
 }
