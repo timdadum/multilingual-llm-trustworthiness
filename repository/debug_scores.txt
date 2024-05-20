@@ -1,0 +1,5 @@
+language,acc,model
+en,0.5606060606060606,bloomz-3b
+es,0.5303030303030303,bloomz-3b
+ar,0.3787878787878788,bloomz-3b
+sw,0.3181818181818182,bloomz-3b

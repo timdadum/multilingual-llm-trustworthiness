@@ -1,6 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import os
 import json
+import torch
 
 def save_model_and_tokenizer(tokenizer, model, tokenizer_path, model_path):
     tokenizer.save_pretrained(tokenizer_path)
@@ -17,6 +18,8 @@ def get_bloomz(model):
     return tokenizer, model
 
 def load_bloomz(model='7b1-mt'):
+    """Loads BLOOMZ model from Huggingface checkpoint. If
+    it is on disk, it will simply load. If it is not, it will load"""
     # Define the paths for saving the tokenizer and model
     with open('repository/config.json', 'r') as file:
         config = json.load(file)
@@ -29,4 +32,9 @@ def load_bloomz(model='7b1-mt'):
     else:
         tokenizer, model = get_bloomz(model)
         save_model_and_tokenizer(tokenizer, model, TOKENIZER_PATH, MODEL_PATH)
+    
+    # Place model on device
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    model = model.to(device)
+
     return tokenizer, model

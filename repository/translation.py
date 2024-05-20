@@ -18,7 +18,7 @@ def translate_benchmark(translator, benchmark, save=True, benchmark_name=None):
     
     and translates using translator (which is already set to target language)"""
     translated_benchmark = [{'target_language': translator.target}]
-    for i, sample in enumerate(tqdm(benchmark[:8], desc="Translating... This may take a while...")):
+    for i, sample in enumerate(tqdm(benchmark, desc="Translating... This may take a while...")):
         q = benchmark[i]["Question"]
         a = benchmark[i]["Answer"]
         translated_benchmark.append(
