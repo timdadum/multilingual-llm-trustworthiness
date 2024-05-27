@@ -1,0 +1,474 @@
+[
+    {
+        "target_language": "ja",
+        "Evaluation": null
+    },
+    {
+        "Question": "チック・フィル・アのキックオフゲームが行われている場所はどこですか ",
+        "Answer": " メルセデス・ベンツ・スタジアム",
+        "Output": "メルセデス・ベンツ・スタジアム",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "米国の投獄率はどれくらいですか ",
+        "Answer": " 人口の 0.71%",
+        "Output": "約700人 per 10万人",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "シーク教の創始者であり、10人の教祖の最初の人物は",
+        "Answer": " Nanakです",
+        "Output": "グル・ナーナク。",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ポリフォニー音楽の印刷技術を初めて習得した人 ",
+        "Answer": " Ottaviano Petrucci",
+        "Output": "ヨハン・ガッテンベルク",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "腸骨、坐骨、恥骨はどこで接していますか ",
+        "Answer": " acetabulum",
+        "Output": "仙骨で接しています。",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "パーティー・ライク・イット 1999 はいつ登場しました ",
+        "Answer": " 1982",
+        "Output": "1999 年",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ジェニファー・ローレンスがハンガー・ゲームでプレーするのは誰ですか ",
+        "Answer": " カットニス・エヴァディーン",
+        "Output": "ジョシュ・ハッチャーソン",
+        "Evaluation": "0 (not valid)"
+    },
+    {
+        "Question": "フォックス スポーツ オン ディッシュ何のチャンネルですか ",
+        "Answer": " Channel 150",
+        "Output": "チャンネルは150です。",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "トレックスは肉食動物ですか、草食動物ですか ",
+        "Answer": " carnivore",
+        "Output": "肉食動物",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "火星と木星の間を周回する天体のグループは",
+        "Answer": "小惑星帯です",
+        "Output": "小惑星帯",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "イングランドのプレミアリーグで最も多くのゴールを決めたのは誰 ",
+        "Answer": " アラン・シアラー",
+        "Output": "ハリー・ケイン",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "計画のある男でリーフを演じるのは誰 ",
+        "Answer": " Geoff Stults",
+        "Output": "キャストは誰？",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "スペインによるアステカ征服が始まったのはいつですか ",
+        "Answer": " 1519",
+        "Output": "1521年",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "エンジェルはいつバフィー・ザ・ヴァンパイア・スレイヤーを去りました ",
+        "Answer": " 1999",
+        "Output": "シーズン3",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ギャビンとステイシーでデイブコーチを演じる ",
+        "Answer": " Steffan Rhodri",
+        "Output": "はい",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ドイツがポーランドに侵攻した後、イギリスと共にドイツに宣戦布告した国 ",
+        "Answer": " フランス",
+        "Output": "フランス",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ナイキ ジャスト ドゥ イットはどこから来ていますか ",
+        "Answer": " ゲイリー ギルモア",
+        "Output": "アメリカ",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "映画「ラブ＆バスケットボール」はいつ公開されましたか？ ",
+        "Answer": " 2000 年 4 月 21 日",
+        "Output": "２００２年",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "アメリカ人のお父さん",
+        "Answer": "スコット・グライムズのスティーブ・スミスとして歌う人",
+        "Output": "いいえ",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ビートルズのメンバーでインドでシタールを学んだのは誰ですか",
+        "Answer": "ハリソン",
+        "Output": "ジョージ・ハリスン",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "シリーズ初のポケモン映画はいつ公開されますか ",
+        "Answer": " 71",
+        "Output": "2022年",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "テキサスが 28 番目の州になった後に勃発した戦争 ",
+        "Answer": " 米墨戦争",
+        "Output": "米墨戦争",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "アメリカン・パイでスティフラーの母親を演じるのは誰 ",
+        "Answer": " ジェニファー・オードリー・クーリッジ",
+        "Output": "ジェニファー・コールリッジ",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "私の秘密をすべて忘れてこの歌を歌うのは誰ですか ",
+        "Answer": " OneRepublic",
+        "Output": "誰も",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "サン ファン カピストラーノ ",
+        "Answer": " フアニョまたはアチャヘメンに住んでいたネイティブ アメリカンの部族は何ですか?",
+        "Output": "カリフォルニア",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "アメリカ労働連盟が設立されたのはいつですか ",
+        "Answer": " 1886 年 12 月",
+        "Output": "1886年",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "サンフランシスコ ",
+        "Answer": " Salesforce Tower で最も高い建物は何ですか?",
+        "Output": "金閣寺",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "映画『ラブリーボーン』で殺人者を演じるのは誰 ",
+        "Answer": " スタンリー・トゥッチ",
+        "Output": "スタンリー・トゥッチ",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "一歩進んで二歩下がると誰が言った ",
+        "Answer": " ウラジーミル・レーニン",
+        "Output": "無い",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ホーマー・シンプソンの弟 ",
+        "Answer": " ダニー・デヴィートの声を担当したのは誰ですか",
+        "Output": "ハーバート",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "原曲ユー・アー・マイ・サンシャインを歌ったのは誰ですか ",
+        "Answer": " Jimmie Davis",
+        "Output": "ジミー・デイヴィスSr.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "イースタンカンファレンス決勝",
+        "Answer": "7は何試合ある？",
+        "Output": "東カン決",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "猿の惑星の征服が撮影された場所 ",
+        "Answer": " ロサンゼルスのセンチュリーシティ",
+        "Output": "LA",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "太陽が太陽系の中心だと誰が考えた ",
+        "Answer": " ニコラウス・コペルニクス",
+        "Output": "キケロ。",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "『赤毛のアン』の出版はいつですか ",
+        "Answer": " 1876 ～ 1881 年",
+        "Output": "明治時代",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "『We Bare Bears』のクマの声を担当しているのは誰ですか ",
+        "Answer": " Bobby Moynihan",
+        "Output": "岩崎諒太",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "アメリカズ・ゴット・タレントのシーズン 10 で優勝したのは誰ですか ",
+        "Answer": " 腹話術師 Paul Zerdin",
+        "Output": "ポール・ザーディン",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "『レット・イット・ビー・レコード』でキーボードを演奏した5人目のビートルズになったのは誰だ ",
+        "Answer": " ビリー・プレストン",
+        "Output": "ビリー・プレストン",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ナミビアの通貨が初めて流通したのはいつですか ",
+        "Answer": " 1993 年 9 月 15 日",
+        "Output": "1978年",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Thicknet は、イーサネット標準 ",
+        "Answer": " 10BASE5 の俗名です。",
+        "Output": "で使用される同軸ケーブルの一種です。",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ラビンドラナート・タゴールというペンネームで最初に詩を発表した ",
+        "Answer": " Bhānusiṃha",
+        "Output": "はい",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "マット・サラセンはシーズン 4 ",
+        "Answer": " シカゴでどこへ行ったのか",
+        "Output": "QBとして活躍した。",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "家族の情事でバフィーとジョディを演じた人",
+        "Answer": "ジョディ（ジョニー・ウィテカー）",
+        "Output": "サラ・ミシェル・ゲラー",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "スキン ",
+        "Answer": " ジョン・ビショップでエミリーとケイティの父親を演じるのは誰ですか",
+        "Output": "クリーム",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "それは警察の音だと歌う人 ",
+        "Answer": " KRS-One",
+        "Output": "歌手",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "",
+        "Answer": "Koineで書かれた新約聖書は何のギリシャ語ですか",
+        "Output": "はい",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "p と q を気にしてくださいという用語は何を意味しますか ",
+        "Answer": " 言葉遣いに注意してください",
+        "Output": "論理学",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "弱虫の子供の日記が公開されたのはいつですか ",
+        "Answer": " 2007 年 4 月 1 日",
+        "Output": "昨日",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "鎌と槌を思いついたのは誰だ ",
+        "Answer": " エフゲニー・イワノビッチ・カムゾルキン",
+        "Output": "アマテラス。",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "カナダが京都議定書から離脱したのはいつですか ",
+        "Answer": " 2011 年 12 月",
+        "Output": "2001年",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "デイトナ500レース",
+        "Answer": "200は何周ですか",
+        "Output": "カーレース",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "大草原の小さな家でネリーを演じた人 ",
+        "Answer": " アリソン・マーガレット・アーングリム",
+        "Output": "マイケル・ランドン",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "メイフラワー号が出航したときイングランド王は誰だった ",
+        "Answer": " キング・ジェームス",
+        "Output": "ジェームズ1世",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "「夜は千の目を持っている」を書いたのは誰ですか ",
+        "Answer": " ベンジャミン・ワイズマン",
+        "Output": "久保田万太郎",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "100 万人に四捨五入すると、アリゾナ州フェニックスの現在の大都市人口は何ですか ",
+        "Answer": " 500 万人",
+        "Output": "100万人",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "『マイ・ベビーシッターズ・ア・ヴァンパイア』でイーサンを演じるのは誰 ",
+        "Answer": " Matthew Knight",
+        "Output": "マット・オルトゥガ",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "下院議長または代表者は誰ですか ",
+        "Answer": " Paul Ryan",
+        "Output": "下院議長",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "M&M'S ",
+        "Answer": " レッドの元の色は何ですか?",
+        "Output": "チョコレート",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "NBA の 1 試合で獲得した最高得点 ",
+        "Answer": " 100",
+        "Output": "81点",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ごめんなさい、ミス・ジャクソンはいつ出てきましたか ",
+        "Answer": " 2000 年 10 月 3 日",
+        "Output": "九時半",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "組織",
+        "Answer": "利害関係者のために情報を整理し配布する責任がある人",
+        "Output": "部門",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "バージニア計画とニュージャージー計画を提案したのは誰ですか、どの政府部門を創設したのですか ",
+        "Answer": " ウィリアム・パターソン",
+        "Output": "バージニア計画：ジェームズ・マディソン、国防総省\nニュージャージー計画：ウィリアム・パターソン、連邦最高裁判所",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "物質量の si 単位は ",
+        "Answer": " モルです",
+        "Output": "キログラムです。",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "夜間の犬の奇妙な出来事を書いた人",
+        "Answer": "マーク・ハドン",
+        "Output": "芥川龍之介",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "新しい環境運動にインスピレーションを与えた本「沈黙の春」を書いた人",
+        "Answer": "レイチェル・ルイーズ・カーソン",
+        "Output": "レイチェル・カーソン",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "棚のおもちゃのエルフ",
+        "Answer": "ピクシースカウトエルフとは何ですか",
+        "Output": "クリスマス",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ゴリラズ",
+        "Answer": "デル・ザ・ファンキー・ホモサピエンのクリント・イーストウッドでラップしているのは誰ですか",
+        "Output": "音楽グループ",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "フィール・イット・スティル",
+        "Answer": "ゾーイ・マンヴィルの女性ボーカリストは誰ですか？",
+        "Output": "感じろ",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "時系列の車輪が始まったのはいつですか ",
+        "Answer": " 1990 年 1 月",
+        "Output": "1980年。",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "オーストラリアで最も一般的な犯罪は何ですか ",
+        "Answer": " 違法薬物犯罪",
+        "Output": "殺人",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "英国に最初の ATM が設置されたのはいつですか ",
+        "Answer": " 1967 年 6 月 27 日",
+        "Output": "1967年",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "米国世界貿易センター ",
+        "Answer": " 110 は何階建てですか",
+        "Output": "ニューヨーク",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "米軍が軍属を雇用し始めたのはいつですか ",
+        "Answer": " 1871",
+        "Output": "戦後です。",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "芸者の回想録の本は何ページですか ",
+        "Answer": " 448",
+        "Output": "300ページ",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "グレートブリティッシュベイクオフシリーズ6 ",
+        "Answer": " Nadiya Hussainで優勝したのは誰ですか",
+        "Output": "シリーズ6",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ウォーキング・デッドの恐怖でニックを演じるのは誰 ",
+        "Answer": " フランク・スティーブンソン N. E. ディレイン",
+        "Output": "ノーマン・リーダス",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "旧約聖書に主の天使が登場するのは何回目 ",
+        "Answer": " 65",
+        "Output": "3回",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "初代スペイン人フィリピン総督 ",
+        "Answer": " ミゲル・ロペス・デ・レガスピ",
+        "Output": "マニラ",
+        "Evaluation": "0"
+    }
+]

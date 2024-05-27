@@ -1,0 +1,594 @@
+[
+    {
+        "target_language": "sw",
+        "Evaluation": null
+    },
+    {
+        "Question": "mchezo wa kick-fil-a kickoff unachezwa wapi ",
+        "Answer": " Mercedes-Benz Stadium",
+        "Output": "Uwanjani.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni kiwango gani cha kufungwa nchini Marekani ",
+        "Answer": " 0.71% ya watu",
+        "Output": "Takriban watu 2.3 milioni.",
+        "Evaluation": "1."
+    },
+    {
+        "Question": "ni bustani gani ya burudani inayoshikilia rekodi ya wapanda farasi wengi duniani ",
+        "Answer": " Six Flags Magic Mountain",
+        "Output": "Bustani ya Burudani ya Six Flags Great Adventure huko New Jersey, Marekani.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mwanzilishi na wa kwanza wa gurus kumi wa sikhism ni ",
+        "Answer": " Nanak",
+        "Output": "Guru Nanak.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alikuwa mtu wa kwanza kupata ujuzi wa uchapishaji wa muziki wa aina nyingi ",
+        "Answer": " Ottaviano Petrucci",
+        "Output": "Mtu wa kwanza kupata ujuzi wa uchapishaji wa muziki wa aina nyingi ni Johann Gutenberg.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ilium ischium na pubis zinakutana wapi ",
+        "Answer": " acetabulum",
+        "Output": "Kwenye pelvic bone.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "lini sherehe kama hiyo 1999 ilitoka ",
+        "Answer": " 1982",
+        "Output": "Ndio",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "jennifer lawrence anacheza nani kwenye michezo ya njaa ",
+        "Answer": " Katniss Everdeen",
+        "Output": "Katniss Everdeen.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambao binamu za kirk walicheza kwa 2017 ",
+        "Answer": " Washington Redskins",
+        "Output": "Ninaamini walikuwa LeBron James na Stephen Curry.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "vipi beverly alikufa august kaunti ya osage ",
+        "Answer": " alizama",
+        "Output": "Alifariki kwa overdose.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "fox sports kwenye dish ni chaneli gani ",
+        "Answer": " Channel 150",
+        "Output": "Fox Sports ni chaneli ya 149 kwenye Dish.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni t rex mla nyama au mla mimea ",
+        "Answer": " carnivore",
+        "Output": "Ni t-rex hula nyama.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kundi la vitu vinavyozunguka kati ya sayari ya Mars na Jupiter ni ",
+        "Answer": " The asteroid belt",
+        "Output": "vimondo.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "aliongoza kazi ya ofisi ya mtu huru ",
+        "Answer": " Rais Abraham Lincoln",
+        "Output": "Kiongozi.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "aliyefunga mabao mengi zaidi katika ligi kuu ya uingereza ",
+        "Answer": " Alan Shearer",
+        "Output": "Harry Kane.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye anacheza leif juu ya mtu na mpango ",
+        "Answer": " Geoff Stults",
+        "Output": "Mchezaji.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni albamu gani tuko pamoja na mariah carey on ",
+        "Answer": " The Emancipation of Mimi",
+        "Output": "Albamu ya \"All I Want for Christmas Is You\".",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni lini malaika alimwacha buffy muuaji wa vampire ",
+        "Answer": " 1999",
+        "Output": "Malaika alimwacha Buffy alipomuua muuaji wa vampire.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye hucheza makocha wa dave katika gavin na stacey ",
+        "Answer": " Steffan Rhodri",
+        "Output": "Mick.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "nchi ambayo pamoja na uingereza ilitangaza vita dhidi ya ujerumani baada ya uvamizi wa Ujerumani huko poland ",
+        "Answer": " Ufaransa",
+        "Output": "Ufaransa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "nike anaifanya inatoka wapi ",
+        "Answer": " Gary Gilmore",
+        "Output": "Nike inatoka Marekani.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "filamu ya mapenzi na mpira wa vikapu ilitoka lini ",
+        "Answer": " Aprili 21, 2000",
+        "Output": "Haitambuliki.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye anaimba kama Steve Smith kwa baba wa Marekani ",
+        "Answer": " Scott Grimes",
+        "Output": "Mwanawe.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni lini korea kusini na korea kaskazini iligawanywa ",
+        "Answer": " 1945",
+        "Output": "Vita baridi.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni mwanachama gani wa beatles alisoma sitar nchini india ",
+        "Answer": " Harrison",
+        "Output": "George Harrison.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Filamu ya kwanza ya pokemon inafanyika lini katika mfululizo wa ",
+        "Answer": " 71",
+        "Output": "Inafanyika baada ya msimu wa kwanza.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni vita gani vilizuka baada ya Texas kuwa jimbo la 28 ",
+        "Answer": " Vita vya Mexican-American",
+        "Output": "Migogoro ya ardhi.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye anacheza mama wa stifler katika pai ya amerika ",
+        "Answer": " Jennifer Audrey Coolidge",
+        "Output": "Jennifer Coolidge.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye anaimba wimbo siri zangu zote mbali ",
+        "Answer": " OneRepublic",
+        "Output": "Mwimbaji",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kabila gani la asili la Amerika liliishi san juan capistrano ",
+        "Answer": " The Juaneño au Acjachemen",
+        "Output": "Ukoo wa Waandishi wa Uhispania.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni lini shirikisho la wafanyikazi la marekani lilianzishwa ",
+        "Answer": " mnamo Desemba 1886",
+        "Output": "1935",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "jumla ya runs zilizofungwa na rohit sharma katika ligi kuu ya india ",
+        "Answer": " zaidi ya mikimbio 4000",
+        "Output": "Zaidi ya 5000.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Jengo refu zaidi huko san francisco ",
+        "Answer": " Salesforce Tower ni lipi",
+        "Output": "Transamerica Pyramid.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye alimbusu chura ambaye aligeuka kuwa mkuu ",
+        "Answer": " spoiled princess",
+        "Output": "Mchawi.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni nini maendeleo makubwa ya enzi ya mamboleo ",
+        "Answer": " kilimo",
+        "Output": "Teknolojia, elimu, afya, na maendeleo ya kijamii.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye anaigiza muuaji katika filamu ya kupendeza ya mifupa ",
+        "Answer": " Stanley Tucci",
+        "Output": "Ni mwigizaji.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alisema hatua moja mbele hatua mbili nyuma ",
+        "Answer": " Vladimir Lenin",
+        "Output": "Mtu huyo.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "slate inatoka wapi uk ",
+        "Answer": " Cornwall",
+        "Output": "Slate inatoka UK.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alikuwa sauti ya kaka wa homer simpson ",
+        "Answer": " Danny DeVito",
+        "Output": "Dan Castellaneta",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye aliimba wimbo asili wewe ni jua langu ",
+        "Answer": " Jimmie Davis",
+        "Output": "Aliimba wimbo.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye anacheza monster ya zamani ya homoni kwenye mdomo mkubwa ",
+        "Answer": " Nick Kroll",
+        "Output": "Anacheza monster ya zamani ya homoni kwenye mdomo mkubwa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni michezo mingapi kwenye fainali za mkutano wa mashariki ",
+        "Answer": " 7",
+        "Output": "Kumi.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kama sehemu ya ukuaji wa kiinitete, mirija ya neva itakuwa ",
+        "Answer": " mfumo mkuu wa neva",
+        "Output": "mechini.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kwenda kutoka luxor hadi bonde la wafalme unavuka mto upi ",
+        "Answer": " Nile",
+        "Output": "Nile",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambapo ushindi wa sayari ya nyani ulirekodiwa ",
+        "Answer": " Century City, Los Angeles",
+        "Output": "Ushindi wa sayari ya nyani ulirekodiwa.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye alifikiri kwamba jua lilikuwa kitovu cha mfumo wa jua ",
+        "Answer": " Nicolaus Copernicus",
+        "Output": "Anayeamini kwamba jua ni kitovu cha mfumo wa jua ni Galileo.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni lini kitabu cha anne of green gables kinafanyika ",
+        "Answer": " 1876-1881",
+        "Output": "Kitabu cha Anne of Green Gables kinafanyika mwishoni mwa karne ya 19.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye anasikiza dubu ndani yetu dubu tupu ",
+        "Answer": " Bobby Moynihan",
+        "Output": "Mtu huyo ni mlinzi.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye alishinda msimu wa 10 wa amerika's got talent ",
+        "Answer": " Ventriloquist Paul Zerdin",
+        "Output": "Shin Lim.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "simba mchawi na kabati la nguo hufanyika lini ",
+        "Answer": " 1940",
+        "Output": "Simba mchawi na kabati la nguo hufanyika usiku.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye alikua mdundo wa tano kwenye let it be plays keyboards on the lp ",
+        "Answer": " Billy Preston",
+        "Output": "ambaye alikua mdundo wa tano kwenye let it be anapiga keyboards kwenye lp.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "thicknet ni jina la mazungumzo ambalo kiwango cha ethernet ",
+        "Answer": " 10BASE5",
+        "Output": "Thicknet ni Ethernet.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambapo jina bandia la rabindranath tagore alichapisha mashairi yake kwa mara ya kwanza ",
+        "Answer": " Bhānusiṃha",
+        "Output": "Kolkata.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "matt saracen alienda wapi msimu wa 4 ",
+        "Answer": " Chicago",
+        "Output": "Tim Riggins na Lyla Garrity.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye alicheza buffy na jody katika mambo ya familia ",
+        "Answer": " Jody (Johnny Whitaker)",
+        "Output": "Sarah Michelle Gellar",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye anacheza baba wa emily na katie katika ngozi ",
+        "Answer": " John Bishop",
+        "Output": "Mwigizaji.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "anayeimba hiyo ni sauti ya polisi ",
+        "Answer": " KRS-One",
+        "Output": "Sauti ya polisi.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni lini mtu wa mwisho kunyongwa nchini uingereza ",
+        "Answer": " 13 Agosti 1964",
+        "Output": "Hakuna hukumu ya kunyongwa nchini Uingereza.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni aina gani ya Kigiriki ni agano jipya lililoandikwa katika ",
+        "Answer": " Koine",
+        "Output": "Kigiriki ya Kikorintho.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "je neno mind your p na q's linamaanisha nini ",
+        "Answer": " zingatia lugha yako",
+        "Output": "Neno \"mind\" linamaanisha kujali au kuzingatia.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alikuja na nyundo na mundu ",
+        "Answer": " Yevgeny Ivanovich Kamzolkin",
+        "Output": "Mchonga.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Kanada ilijiondoa lini kutoka kwa itifaki ya kyoto ",
+        "Answer": " Disemba 2011",
+        "Output": "2001",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mbio za daytona 500 ni mizunguko ngapi ",
+        "Answer": "200",
+        "Output": "2021 ni mzunguko wa 63 wa Daytona 500.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mtu hubadilishaje mafuta yasiyokolea kuwa mafuta yaliyoshiba ",
+        "Answer": " Uhaidrojeni kamili",
+        "Output": "Kwa kuchakata.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alicheza nellie katika nyumba ndogo kwenye prairie ",
+        "Answer": " Alison Margaret Arngrim",
+        "Output": "Alison Arngrim.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alikuwa mfalme wa uingereza wakati mayflower iliposafiri ",
+        "Answer": " King James",
+        "Output": "James I.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye alicheza paka katika kipindi cha tv batman ",
+        "Answer": " Julie Newmar",
+        "Output": "Julie Newmar",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "aliyeandika usiku ana macho elfu ",
+        "Answer": " Benjamin Weisman",
+        "Output": "Inaleta mwangaza.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Imezungukwa hadi mamilioni kamili, idadi ya watu wa sasa wa mji mkuu wa phoenix arizona ",
+        "Answer": " milioni 5 ni nini",
+        "Output": "2.1 million",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye anacheza ethan katika mlezi wangu wa vampire ",
+        "Answer": " Matthew Knight",
+        "Output": "Ethan ni mhusika anayechezwa na mlezi wangu wa vampire.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye ni spika wa bunge au wawakilishi ",
+        "Answer": " Paul Ryan",
+        "Output": "Spika wa bunge.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "walipiga wapi waliopotea kwenye netflix ya anga ",
+        "Answer": " Vancouver, British Columbia",
+        "Output": "Season 1, episode 2.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni rangi gani asili ya m&m's ",
+        "Answer": " nyekundu",
+        "Output": "Rangi ya asili ya M&M's ni hudhurungi.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pointi za juu zaidi katika nba katika mchezo mmoja ",
+        "Answer": " 100",
+        "Output": "100",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye ana jukumu la kupata kuandaa na kusambaza taarifa za shirika ",
+        "Answer": " wadau",
+        "Output": "Msemaji.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alipendekeza mpango wa virginia na mpango wa jezi mpya ni tawi gani la serikali walilounda ",
+        "Answer": " William Paterson",
+        "Output": "Tawi la serikali.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kitengo cha si cha kiasi cha dutu ni ",
+        "Answer": " mole",
+        "Output": "ndani ya kemikali.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye aliandika tukio la kushangaza la mbwa wakati wa usiku ",
+        "Answer": " Mark Haddon",
+        "Output": "Mwandishi.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye aliandika kitabu cha 'silent spring' akihamasisha harakati mpya ya mazingira ",
+        "Answer": " Rachel Louise Carson",
+        "Output": "Rachel Carson",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni elf gani kwenye toy ya rafu ",
+        "Answer": " pixie scout elf",
+        "Output": "Giraffe.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye anarap katika clint eastwood na gorillaz ",
+        "Answer": " Del the Funky Homosapien",
+        "Output": "Del the Funky Homosapien.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye ni mwimbaji wa kike kwenye feel it still ",
+        "Answer": " Zoe Manville",
+        "Output": "Portugal. The Man.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambapo ni moja akaruka juu ya kuweka kiota cuckoo ",
+        "Answer": " Oregon",
+        "Output": "Mti.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "gurudumu la saa lilianza lini ",
+        "Answer": " Januari, 1990",
+        "Output": "Gurudumu la saa lilianza saa ngapi?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ni uhalifu gani unaofanywa zaidi nchini australia ",
+        "Answer": " makosa haramu ya dawa za kulevya",
+        "Output": "Uhalifu wa wizi.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Atm ya kwanza iliwekwa lini nchini uk ",
+        "Answer": " 27 Juni 1967",
+        "Output": "Mwaka wa 1997.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni hadithi ngapi katika kituo cha biashara cha ulimwengu cha Merika ",
+        "Answer": " 110",
+        "Output": "Kumi na mbili.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni lini jeshi la marekani lilianza kuajiri wafanyikazi wa kiraia ",
+        "Answer": " 1871",
+        "Output": "Mwaka 2003.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni kurasa ngapi za kumbukumbu za kitabu cha geisha ",
+        "Answer": " 448",
+        "Output": "Sita.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "iko wapi hoteli ya ritz huko paris iko ",
+        "Answer": " 15 Place Vendome",
+        "Output": "Paris.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alisema sichagui kugombea ",
+        "Answer": " Rais Calvin Coolidge",
+        "Output": "Hakuchagua kugombea.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye alishinda bake bora ya uingereza katika mfululizo wa 6 ",
+        "Answer": " Nadiya Hussain",
+        "Output": "Nadiya Hussein",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ambaye anacheza nick kwa kuogopa wafu wanaotembea ",
+        "Answer": " Frank Stephenson N. E. Dillane",
+        "Output": "Anaogopa.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Nchi 5 za baraza la usalama la marekani ",
+        "Answer": " Ufaransa",
+        "Output": "China, France, Russia, UK, US.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ni mara ngapi malaika wa bwana ametajwa katika agano la kale ",
+        "Answer": " 65",
+        "Output": "Hawajatajwa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "nadharia ya kila kitu inafanyika wapi ",
+        "Answer": " Chuo Kikuu cha Cambridge",
+        "Output": "Nadharia ya kila kitu inafanyika darasani.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mwanasayansi wa kwanza kuhoji mfano wa geocentric alikuwa ",
+        "Answer": " Johannes Kepler",
+        "Output": "Aristoteles.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ambaye alikuwa Gavana Mkuu wa kwanza wa Uhispania wa Ufilipino ",
+        "Answer": " Miguel Lopez de Legazpi",
+        "Output": "Miguel López de Legazpi.",
+        "Evaluation": "1"
+    }
+]

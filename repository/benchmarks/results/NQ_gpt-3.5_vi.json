@@ -1,0 +1,618 @@
+[
+    {
+        "target_language": "vi",
+        "Evaluation": null
+    },
+    {
+        "Question": "Trận đấu khai mạc với chú gà con đang diễn ra ở đâu ",
+        "Answer": " Sân vận động Mercedes-Benz",
+        "Output": "Ở đâu?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "tỷ lệ giam giữ ở Hoa Kỳ là bao nhiêu ",
+        "Answer": " 0,71% dân số",
+        "Output": "85%",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "công viên giải trí nào giữ kỷ lục về số trò chơi nhiều nhất trên toàn cầu ",
+        "Answer": " Six Flags Magic Mountain",
+        "Output": "Disneyland",
+        "Evaluation": "0 (Không hợp lệ)"
+    },
+    {
+        "Question": "người sáng lập và là người đầu tiên trong số mười bậc thầy của đạo Sikh là ",
+        "Answer": " Nanak",
+        "Output": "Guru Nanak.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ai là người đầu tiên nắm vững nghệ thuật in nhạc đa âm ",
+        "Answer": " Ottaviano Petrucci",
+        "Output": "Leonardo da Vinci",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "xương chậu và xương mu gặp nhau ở đâu ",
+        "Answer": " ổ cối",
+        "Output": "Xương chậu và xương mu gặp nhau ở hông.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "khi nào bữa tiệc như nó 1999 ra đời ",
+        "Answer": " 1982",
+        "Output": "1999",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ai là người chơi jennifer Lawrence trong trò chơi đói khát ",
+        "Answer": " Katniss Everdeen",
+        "Output": "Jennifer Lawrence",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "ai đã chơi cho anh em họ Kirk vào năm 2017 ",
+        "Answer": " Washington Redskins",
+        "Output": "Tôi chơi cho anh em họ Kirk vào năm 2017.",
+        "Evaluation": "1 (Hợp lệ)"
+    },
+    {
+        "Question": "Làm thế nào mà Beverly chết ở quận Osage tháng 8 ",
+        "Answer": " bị chết đuối",
+        "Output": "Tai nạn giao thông.",
+        "Evaluation": "0 (Không hợp lệ)"
+    },
+    {
+        "Question": "cáo thể thao trên món ăn là kênh gì ",
+        "Answer": " Channel 150",
+        "Output": "Kênh ESPN.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "t rex là động vật ăn thịt hay động vật ăn cỏ ",
+        "Answer": " carnivore",
+        "Output": "động vật ăn thịt",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "một nhóm vật thể quay quanh sao Hỏa và sao Mộc là ",
+        "Answer": " Vành đai tiểu hành tinh",
+        "Output": "vũ trụ.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ông lãnh đạo công việc của văn phòng người được giải phóng ",
+        "Answer": " Tổng thống Abraham Lincoln",
+        "Output": "Lãnh đạo công việc văn phòng đã được giải phóng.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "người ghi nhiều bàn thắng nhất ở giải ngoại hạng Anh ",
+        "Answer": " Alan Shearer",
+        "Output": "Alan Shearer",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "người chơi trò leif với người có kế hoạch ",
+        "Answer": " Geoff Stults",
+        "Output": "đồng đội",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "album nào chúng ta thuộc về nhau của Mariah Carey trên ",
+        "Answer": " The Emancipation of Mimi",
+        "Output": "Ca khúc \"We Belong Together\" của Mariah Carey xuất hiện trên album \"The Emancipation of Mimi\".",
+        "Evaluation": "1 (Hợp lệ)"
+    },
+    {
+        "Question": "Cuộc chinh phục người Aztec của người Tây Ban Nha bắt đầu khi nào ",
+        "Answer": " 1519",
+        "Output": "Khi đến Mỹ châu Âu",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "khi nào thiên thần rời khỏi buffy kẻ giết ma cà rồng ",
+        "Answer": " 1999",
+        "Output": "Khi Angel biến thành Angelus.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "người đóng vai huấn luyện viên Dave ở Gavin và Stacey ",
+        "Answer": " Steffan Rhodri",
+        "Output": "Rob Brydon",
+        "Evaluation": "0 (Không hợp lệ)"
+    },
+    {
+        "Question": "quốc gia cùng với Anh tuyên chiến với Đức sau khi Đức xâm lược Ba Lan ",
+        "Answer": " Pháp",
+        "Output": "Anh đồng minh với quốc gia chống Đức.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Nike làm điều đó đến từ đâu ",
+        "Answer": " Gary Gilmore",
+        "Output": "từ Mỹ",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "khi nào bộ phim tình yêu và bóng rổ ra mắt ",
+        "Answer": " 21 tháng 4 năm 2000",
+        "Output": "chưa có thông tin cụ thể",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người hát với vai Steve Smith trong American Dad ",
+        "Answer": " Scott Grimes",
+        "Output": "Seth MacFarlane",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Nam Triều Tiên và Bắc Triều Tiên bị chia cắt khi nào ",
+        "Answer": " 1945",
+        "Output": "1953",
+        "Evaluation": "0 (Không hợp lệ)"
+    },
+    {
+        "Question": "thành viên nào của nhóm Beatles đã học đàn sitar ở Ấn Độ ",
+        "Answer": " Harrison",
+        "Output": "George Harrison",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Khi nào bộ phim pokemon đầu tiên diễn ra trong bộ phim ",
+        "Answer": " 71",
+        "Output": "1998",
+        "Evaluation": "1 (Hợp lệ)."
+    },
+    {
+        "Question": "chiến tranh nào nổ ra sau khi Texas trở thành tiểu bang thứ 28 ",
+        "Answer": " Chiến tranh Mỹ-Mexico",
+        "Output": "Chiến tranh Việt Nam.",
+        "Evaluation": "0 (Không hợp lệ). Chiến tranh Việt Nam không phải là câu trả lời hợp lệ cho câu hỏi về chiến tranh nổ ra sau khi Texas trở thành tiểu bang thứ 28, đó là Chiến tranh Mỹ-Mexico."
+    },
+    {
+        "Question": "người đóng vai mẹ của kẻ cứng đầu trong chiếc bánh kiểu Mỹ ",
+        "Answer": " Jennifer Audrey Coolidge",
+        "Output": "đó là diễn viên chính",
+        "Evaluation": "1 (Hợp lệ)"
+    },
+    {
+        "Question": "người hát bài hát cuốn đi tất cả bí mật của tôi ",
+        "Answer": " OneRepublic",
+        "Output": "đúng",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "bộ lạc người Mỹ bản địa nào sống ở san juan capistrano ",
+        "Answer": " The Juaneño hoặc Acjachemen",
+        "Output": "Các bộ lạc người Mỹ bản địa Tongva sống ở San Juan Capistrano.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Liên đoàn lao động Mỹ được thành lập khi nào ",
+        "Answer": " vào tháng 12 năm 1886",
+        "Output": "1947",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "tổng số lần chạy được ghi bởi rohit sharma ở giải đấu hàng đầu Ấn Độ ",
+        "Answer": " hơn 4000 lần chạy",
+        "Output": "15.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "tòa nhà cao nhất ở san francisco ",
+        "Answer": " Salesforce Tower là gì",
+        "Output": "tòa nhà cao nhất ở San Francisco là Salesforce Tower.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ai đã hôn chú ếch biến thành hoàng tử ",
+        "Answer": " công chúa hư hỏng",
+        "Output": "Chú ếch biến thành hoàng tử do ai hôn?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sự phát triển chính của thời đại đồ đá mới ",
+        "Answer": " nông nghiệp là gì",
+        "Output": "là sự tiến bộ công nghệ",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người đóng vai kẻ sát nhân trong bộ phim đáng yêu ",
+        "Answer": " Stanley Tucci",
+        "Output": "Diễn viên.",
+        "Evaluation": "1 (Hợp lệ)"
+    },
+    {
+        "Question": "ai nói một bước tiến hai bước ",
+        "Answer": " Vladimir Lenin",
+        "Output": "nói một tiến hai",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "đá phiến đến từ đâu ở Anh ",
+        "Answer": " Cornwall",
+        "Output": "từ Anh",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ai là người lồng tiếng cho anh trai của homer simpson ",
+        "Answer": " Danny DeVito",
+        "Output": "Dan Castellaneta",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người đã hát bài hát gốc you are my sunshine ",
+        "Answer": " Jimmie Davis",
+        "Output": "Johnny Cash",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người đóng vai con quái vật hormone già mồm to ",
+        "Answer": " Nick Kroll",
+        "Output": "đóng vai con quái vật hormone già mồm to",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "có bao nhiêu trận đấu trong trận chung kết hội nghị phía đông ",
+        "Answer": " 7",
+        "Output": "5",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "để đi từ nơi xa hoa đến thung lũng của các vị vua bạn băng qua con sông nào ",
+        "Answer": " sông Nile",
+        "Output": "sông nào",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Cuộc chinh phục hành tinh khỉ được quay ở đâu ",
+        "Answer": " Century City, Los Angeles",
+        "Output": "Đâu",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ai nghĩ mặt trời là trung tâm của hệ mặt trời ",
+        "Answer": " Nicolaus Copernicus",
+        "Output": "Mặt trời là trung tâm.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "khi nào cuốn sách Anne of Green Gables diễn ra ",
+        "Answer": " 1876-1881",
+        "Output": "trong thế kỷ 19",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "người lồng tiếng cho những chú gấu trong chúng tôi gấu trần ",
+        "Answer": " Bobby Moynihan",
+        "Output": "Diễn viên lồng tiếng",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Ai đã chiến thắng mùa 10 của America's Got Talent ",
+        "Answer": " Nghệ sĩ nói tiếng bụng Paul Zerdin",
+        "Output": "Shin Lim",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "khi nào thì phù thủy sư tử và tủ quần áo diễn ra ",
+        "Answer": " 1940",
+        "Output": "3h chiều mai",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người đã trở thành beatle thứ năm trên hãy để nó chơi keyboard trên lp ",
+        "Answer": " Billy Preston",
+        "Output": "Ringo.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Khi nào tiền tệ của Namibia được lưu hành lần đầu tiên ",
+        "Answer": " vào ngày 15 tháng 9 năm 1993",
+        "Output": "1993",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "Thicknet là tên thông tục của tiêu chuẩn ethernet ",
+        "Answer": " 10BASE5",
+        "Output": "Thicknet: tiêu chuẩn ethernet.",
+        "Evaluation": "1 (Hợp lệ)"
+    },
+    {
+        "Question": "bút danh rabindranath tagore lần đầu tiên xuất bản những bài thơ của ông ",
+        "Answer": " Bhānusiṃha",
+        "Output": "đây là bài thơ của Rabindranath Tagore.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Matt Saracen đã đi đâu trong phần 4 ",
+        "Answer": " Chicago",
+        "Output": "Đến Chicago.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "tòa án tối cao đầu tiên được thành lập ở Ấn Độ khi nào ",
+        "Answer": " 28 tháng 1 năm 1950",
+        "Output": "1844",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người đóng vai trâu bò và vui vẻ trong chuyện gia đình ",
+        "Answer": " Jody (Johnny Whitaker)",
+        "Output": "đóng vai trâu bò và vui vẻ",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "người đóng vai bố của Emily và Katie trong bộ đồ da ",
+        "Answer": " John Bishop",
+        "Output": "John Krasinski.",
+        "Evaluation": "0 (Không hợp lệ)"
+    },
+    {
+        "Question": "người hát đó là âm thanh của cảnh sát ",
+        "Answer": " KRS-One",
+        "Output": "người hát là cảnh sát",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người cuối cùng bị hành quyết ở Anh là khi nào ",
+        "Answer": " 13 tháng 8 năm 1964",
+        "Output": "1985",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "bản di chúc mới được viết bằng ",
+        "Answer": " Koine thuộc loại tiếng Hy Lạp nào",
+        "Output": "tay.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "từ mind p và q của bạn có nghĩa là gì ",
+        "Answer": " mind your ngôn ngữ",
+        "Output": "p và q là biến logic hoặc giá trị đầu vào trong lý thuyết logic.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "nhật ký chú bé nhút nhát được xuất bản khi nào ",
+        "Answer": " 1 tháng 4 năm 2007",
+        "Output": "Chưa rõ.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "người đã nghĩ ra búa liềm ",
+        "Answer": " Yevgeny Ivanovich Kamzolkin",
+        "Output": "Thượng tọa Vĩnh Lợi",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Canada rút khỏi Nghị định thư Kyoto khi nào ",
+        "Answer": " tháng 12 năm 2011",
+        "Output": "Hiện tại.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "cuộc đua Daytona 500 ",
+        "Answer": " 200 có bao nhiêu vòng",
+        "Output": "là một sự kiện đua xe nổi tiếngở Mỹ.",
+        "Evaluation": "0 (Không hợp lệ)"
+    },
+    {
+        "Question": "làm thế nào để chuyển đổi chất béo không bão hòa đa thành chất béo bão hòa ",
+        "Answer": " Hydro hóa hoàn toàn",
+        "Output": "- Sử dụng chất béo bão hòa\n- Nấu ăn bằng dầu olive hoặc dầu hạt lanh\n- Ăn nhiều cá hồi hoặc hạt óc chó",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người đóng vai Nellie trong ngôi nhà nhỏ trên thảo nguyên ",
+        "Answer": " Alison Margaret Arngrim",
+        "Output": "Nellie",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ai là vua nước Anh khi hoa hướng dương ra khơi ",
+        "Answer": " King James",
+        "Output": "William.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người đóng vai người mèo trong chương trình truyền hình Batman ",
+        "Answer": " Julie Newmar",
+        "Output": "Julie Newmar",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "người viết đêm có ngàn mắt ",
+        "Answer": " Benjamin Weisman",
+        "Output": ": châu báu",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "làm tròn thành hàng triệu, dân số đô thị Phoenix Arizona hiện tại là bao nhiêu ",
+        "Answer": " 5 triệu",
+        "Output": "1 triệu",
+        "Evaluation": "0 (Không hợp lệ)"
+    },
+    {
+        "Question": "người đóng vai Ethan trong người giữ trẻ của tôi là ma cà rồng ",
+        "Answer": " Matthew Knight",
+        "Output": "Ethan là ma cà rồng.",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "ai là người phát ngôn của Hạ viện hoặc người đại diện ",
+        "Answer": " Paul Ryan",
+        "Output": "Người phát ngôn của Hạ viện hoặc người đại diện là ai?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "họ quay phim lạc trong không gian Netflix ",
+        "Answer": " Vancouver, British Columbia",
+        "Output": "- Họ quay phim lạc Netflix.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "màu ban đầu của m&m's ",
+        "Answer": " red là gì",
+        "Output": "- xanh, đỏ, vàng, cam, nâu",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "số điểm cao nhất ghi được ở nba trong một trận đấu ",
+        "Answer": " 100",
+        "Output": "85",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "khi nào tôi xin lỗi cô jackson đi ra ",
+        "Answer": " 3 tháng 10 năm 2000",
+        "Output": "Sau khi tôi xin lỗi, cô Jackson đi ra.",
+        "Evaluation": "1 (Hợp lệ)"
+    },
+    {
+        "Question": "người chịu trách nhiệm thu thập và phân phối thông tin cho tổ chức ",
+        "Answer": " các bên liên quan",
+        "Output": "Người quản lý thông tin.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "người đề xuất kế hoạch Virginia và kế hoạch New Jersey họ đã thành lập nhánh chính phủ nào ",
+        "Answer": " William Paterson",
+        "Output": "Nhánh lập pháp.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "đơn vị si của lượng chất là ",
+        "Answer": " mol",
+        "Output": "mol/L",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "người đã viết sự việc gây tò mò về con chó vào ban đêm ",
+        "Answer": " Mark Haddon",
+        "Output": "Tác giả đã gây tò mò về con chó vào ban đêm.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "người đã viết cuốn sách 'mùa xuân im lặng' truyền cảm hứng cho một phong trào môi trường mới ",
+        "Answer": " Rachel Louise Carson",
+        "Output": "Trần Hồng Vũ",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Yêu tinh trên kệ đồ chơi là gì ",
+        "Answer": " Yêu tinh trinh sát pixie",
+        "Output": "Mèo.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ai đang rap trong bài Clint Eastwood của Gorillaz ",
+        "Answer": " Del the Funky Homosapien",
+        "Output": "Del the Funky Homosapien.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ai là giọng ca nữ trong Feel it still ",
+        "Answer": " Zoe Manville",
+        "Output": "Christine Hà.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "đâu là con chim bay qua tổ chim cúc cu ",
+        "Answer": " Oregon",
+        "Output": "Cúc cu.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Khi nào bánh xe thời gian bắt đầu ",
+        "Answer": " tháng 1 năm 1990",
+        "Output": "2:00 PM",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "tội phạm phổ biến nhất được thực hiện ở Úc là gì ",
+        "Answer": " tội phạm ma túy bất hợp pháp",
+        "Output": "1. Vụ trộm\n2. Cướp ngân hàng\n3. Buôn lậu ma túy",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "có bao nhiêu tầng ở trung tâm thương mại thế giới Hoa Kỳ ",
+        "Answer": " 110",
+        "Output": "5 tầng",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "khi nào quân đội Hoa Kỳ bắt đầu tuyển dụng nhân viên dân sự ",
+        "Answer": " 1871",
+        "Output": "1941",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "hồi ký của một geisha có bao nhiêu trang ",
+        "Answer": " 448",
+        "Output": "200 trang.",
+        "Evaluation": "0 (Không hợp lệ)"
+    },
+    {
+        "Question": "khách sạn ritz ở paris nằm ở đâu ",
+        "Answer": " 15 Place Vendôme",
+        "Output": "Paris.",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "ai nói tôi không chọn tranh cử ",
+        "Answer": " Tổng thống Calvin Coolidge",
+        "Output": "tôi không chọn tranh cử",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "người đã thắng loạt phim nướng bánh vĩ đại của Anh 6 ",
+        "Answer": " Nadiya Hussain",
+        "Output": "Paul Hollywood.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "người đóng vai nick vì sợ xác sống ",
+        "Answer": " Frank Stephenson N. E. Dillane",
+        "Output": "Sợ xác sống",
+        "Evaluation": "1 (hợp lệ)"
+    },
+    {
+        "Question": "5 quốc gia thuộc hội đồng an ninh Hoa Kỳ ",
+        "Answer": " Pháp",
+        "Output": "1. Mỹ\n2. Anh\n3. Pháp\n4. Nga\n5. Trung Quốc",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "thiên thần của chúa được nhắc đến bao nhiêu lần trong di chúc cũ ",
+        "Answer": " 65",
+        "Output": "5 lần",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "lý thuyết về mọi thứ diễn ra ở đâu ",
+        "Answer": " Đại học Cambridge",
+        "Output": "Tất cả ở đâu",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "nhà khoa học đầu tiên đặt câu hỏi về mô hình địa tâm là ",
+        "Answer": " Johannes Kepler",
+        "Output": "Archimedes.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ngày lực lượng không quân Ấn Độ được tổ chức vào ngày nào ",
+        "Answer": " 8 tháng 10",
+        "Output": "Ngày 8 tháng 10.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Toàn quyền Tây Ban Nha đầu tiên của Philippines là ai ",
+        "Answer": " Miguel Lopez de Legazpi",
+        "Output": "Miguel López de Legazpi",
+        "Evaluation": "1 (hợp lệ)"
+    }
+]

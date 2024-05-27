@@ -1,0 +1,564 @@
+[
+    {
+        "target_language": "fi",
+        "Evaluation": null
+    },
+    {
+        "Question": "mikä on vankien määrä Yhdysvalloissa ",
+        "Answer": " 0,71% väestöstä",
+        "Output": "En tiedä.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "millä huvipuistolla on ennätys useimpien ajelujen osalta maailmanlaajuisesti ",
+        "Answer": " Six Flags Magic Mountain",
+        "Output": "Tokion Disneyland.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "perustaja ja ensimmäinen kymmenestä sikhismin gurusta on ",
+        "Answer": " Nanak",
+        "Output": "Guru Nanak.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka oli ensimmäinen henkilö, joka hallitsi polyfonisen musiikin painamisen ",
+        "Answer": " Ottaviano Petrucci",
+        "Output": "Guillaume de Machaut",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "missä suoliluun istuin ja häpyvarsi kohtaavat ",
+        "Answer": " acetabulum",
+        "Output": "Suoliluun istuimessa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "milloin party like it 1999 ilmestyi ",
+        "Answer": " 1982",
+        "Output": "2000",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kuka Jennifer Lawrence pelaa nälkäpeleissä ",
+        "Answer": " Katniss Everdeen",
+        "Output": "Jennifer Lawrence.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Kenelle kirk serkut pelasivat vuonna 2017 ",
+        "Answer": " Washington Redskinsissä",
+        "Output": "Kenelle: Kenellekään\nKirk: Ei\nSerkut: En tiedä\nVuonna 2017: En muista",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kuinka Beverly kuoli elokuussa Osagen piirikunnassa ",
+        "Answer": " hukkui",
+        "Output": "Beverly kuoli auto-onnettomuudessa.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kettuurheilu lautasella mikä kanava se on ",
+        "Answer": " Channel 150",
+        "Output": "Discovery.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "on t rex lihansyöjä tai kasvinsyöjä ",
+        "Answer": " lihansyöjä",
+        "Output": "lihansyöjä",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Marsin ja Jupiterin välillä kiertävä esineryhmä on ",
+        "Answer": " Asteroidivyöhyke",
+        "Output": "asteroidivyöhyke.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "hän johti freedmanin toimiston työtä ",
+        "Answer": " Presidentti Abraham Lincoln",
+        "Output": "Hän johti freedmanin toimistoa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka teki eniten maaleja Englannin Valioliigassa ",
+        "Answer": " Alan Shearer",
+        "Output": "Harry Kane.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka leikkii leifiä miehellä suunnitelman kanssa ",
+        "Answer": " Geoff Stults",
+        "Output": "Mies leikkii.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mikä albumi on me kuulumme yhteen, kirjoittanut Mariah Cary ",
+        "Answer": " The Emancipation of Mimi -palvelussa",
+        "Output": "Mariah Careyn albumi \"Me kuulumme yhteen\"",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "milloin espanjalainen atsteekkien valloitus alkoi ",
+        "Answer": " 1519",
+        "Output": "1500-luvulla",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "milloin enkeli jätti buffyn vampyyritappajan ",
+        "Answer": " 1999",
+        "Output": "kukkakaupan.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka näyttelee dave-valmentajia pelissä gavin ja stacey ",
+        "Answer": " Steffan Rhodri",
+        "Output": "Rob Brydon",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "maa, joka julisti sodan Englannin kanssa Saksalle sen jälkeen, kun Saksa hyökkäsi Puolaan ",
+        "Answer": " Ranskassa",
+        "Output": "Neuvostoliitto.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mistä nike just do it tulee ",
+        "Answer": " Gary Gilmore",
+        "Output": "Mainoskampanjasta.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka laulaa steve Smithinä amerikkalaisessa isässä ",
+        "Answer": " Scott Grimes",
+        "Output": "soittaa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kun Etelä-Korea ja Pohjois-Korea jaettiin ",
+        "Answer": " 1945",
+        "Output": "poliittisista syistä.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka Beatlesin jäsen opiskeli sitaria Intiassa ",
+        "Answer": " Harrison",
+        "Output": "George Harrison.",
+        "Evaluation": "1 (Kelvollinen)"
+    },
+    {
+        "Question": "milloin ensimmäinen pokemon-elokuva tapahtuu sarjassa ",
+        "Answer": " 71",
+        "Output": "Ensimmäinen Pokemon-elokuva tapahtuu sarjassa ensimmäisen kauden lopussa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "mitä sota syttyi sen jälkeen, kun texasista tuli 28. osavaltio ",
+        "Answer": " Meksikon ja Amerikan välinen sota",
+        "Output": "Meksikon ja Yhdysvaltojen välillä.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka näyttelee stiflerin äitiä amerikkalaisessa piiraassa ",
+        "Answer": " Jennifer Audrey Coolidge",
+        "Output": "Jennifer Coolidge",
+        "Evaluation": "1 - Kelvollinen vastaus."
+    },
+    {
+        "Question": "joka laulaa kappaleen kaikki my secrets away ",
+        "Answer": " OneRepublic",
+        "Output": "tunnettu artisti",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "mikä syntyperäinen amerikkalainen heimo asui san juan capistrano ",
+        "Answer": " The Juaneño tai Acjachemen",
+        "Output": "Apachet.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "milloin amerikkalainen työväenliitto perustettiin ",
+        "Answer": " joulukuussa 1886",
+        "Output": "Vuonna 1886.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "rohit sharman tekemät juoksut yhteensä Intian Premier Leaguessa ",
+        "Answer": " yli 4000 juoksua",
+        "Output": "Rohit Sharma teki 500 juoksua IPL:ssä.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mikä on san franciscon korkein rakennus ",
+        "Answer": " Salesforce Tower",
+        "Output": "salesforcen torni",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka suuteli sammakkoa, josta tuli prinssi ",
+        "Answer": " hemmoteltu prinsessa",
+        "Output": "Satu.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "milloin ensimmäinen moderni postimerkki julkaistiin ",
+        "Answer": " 1840",
+        "Output": "1840",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "mikä oli uusoliittisen aikakauden tärkein kehitys ",
+        "Answer": " viljely",
+        "Output": "Maatalouden kehittyminen.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka näyttelee tappajaa ihanassa luut -elokuvassa ",
+        "Answer": " Stanley Tucci",
+        "Output": "Willem Dafoe",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka sanoi yksi askel eteenpäin kaksi askelta taaksepäin ",
+        "Answer": " Vladimir Lenin",
+        "Output": "Takapakkia.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka oli homer simpsonin veljen ",
+        "Answer": " Danny DeVito ääni",
+        "Output": "Herb.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka lauloi alkuperäisen kappaleen you are my sunshine ",
+        "Answer": " Jimmie Davis",
+        "Output": "Gene Autry",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka soittaa vanhaa hormonihirviötä isolla suulla ",
+        "Answer": " Nick Kroll",
+        "Output": "soittaja, vanha hormonihirviö, isolla suulla",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kuinka monta peliä on itäisen konferenssin finaalissa ",
+        "Answer": " 7",
+        "Output": "Kahdeksan.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "osana alkion kehitystä hermoputkesta tulee ",
+        "Answer": " keskushermosto",
+        "Output": "hermosto.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "mennäksesi Luxorista Kuninkaiden laaksoon, minkä joen ",
+        "Answer": " Niilin ylität",
+        "Output": "yli sinun täytyy mennä?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "missä apinoiden planeetan valloitus kuvattiin ",
+        "Answer": " Century City, Los Angeles",
+        "Output": "Kaliforniassa.",
+        "Evaluation": "1 (kelvollinen)"
+    },
+    {
+        "Question": "jotka luulivat auringon olevan aurinkokunnan keskus ",
+        "Answer": " Nicolaus Copernicus",
+        "Output": "geosentrinen maailmankuva",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "milloin vihreiden päätyjen kirja sijoittuu ",
+        "Answer": " 1876-1881",
+        "Output": "Ensi vuosisadan loppuun.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka puhuu karhuja me paljaissa karhuissa ",
+        "Answer": " Bobby Moynihan",
+        "Output": "Ei kannata.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka voitti kauden 10 america's got talent ",
+        "Answer": " Ventriloquist Paul Zerdin",
+        "Output": "Brandon Leake.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "milloin leijonaita ja vaatekaappi tapahtuu ",
+        "Answer": " 1940",
+        "Output": "En osaa vastata.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "josta tuli viides beatle, anna sen soittaa koskettimia LP:llä ",
+        "Answer": " Billy Preston",
+        "Output": "George Martin",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "milloin namibian valuutat tulivat ensimmäisen kerran liikkeelle ",
+        "Answer": " 15. syyskuuta 1993",
+        "Output": "vuonna 1993",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "paksu net on puhekieli, jolle ethernet-standardi ",
+        "Answer": " 10BASE5",
+        "Output": "on Ethernet.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "millä salanimellä rabindranath tagore julkaisi ensimmäisen kerran runonsa ",
+        "Answer": " Bhānusiṃha",
+        "Output": "Gurudev.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka näytteli buffy ja jodya perhesuhteissa ",
+        "Answer": " Jody (Johnny Whitaker)",
+        "Output": "Sarah Michelle Gellar",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka näyttelee emilyn ja katien isää skineissä ",
+        "Answer": " John Bishop",
+        "Output": "Joe Dempsie",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka laulaa, se on poliisin ääni ",
+        "Answer": " KRS-One",
+        "Output": "totta",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "milloin viimeinen henkilö teloitettiin Yhdistyneessä kuningaskunnassa ",
+        "Answer": " 13. elokuuta 1964",
+        "Output": "1970-luvulla.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "minkä tyyppistä kreikkaa uusi testamentti on kirjoitettu ",
+        "Answer": " Koine -kielellä",
+        "Output": "Koinekreikka",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "mitä termi mind your p ja q tarkoittaa ",
+        "Answer": " mind your kielesi",
+        "Output": "Se tarkoittaa \"pidä huoli omista asioistasi\".",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka keksi vasaran ja sirpin ",
+        "Answer": " Jevgeni Ivanovitš Kamzolkin",
+        "Output": "Neuvostoliitto",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kuinka monta kierrosta on daytona 500 race ",
+        "Answer": " 200",
+        "Output": "200.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kuinka monityydyttymättömät rasvat muunnetaan tyydyttyneiksi rasvoiksi ",
+        "Answer": " Täysi hydraus",
+        "Output": "entsyymien avulla.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka soitti Nellietä pienessä talossa preerialla ",
+        "Answer": " Alison Margaret Arngrim",
+        "Output": "Soittaja oli Laura Ingalls Wilder.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka oli Englannin kuningas, kun Mayflower purjehti ",
+        "Answer": " King James",
+        "Output": "Jaakko I.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka näytteli kissanaista tv-ohjelmassa batman ",
+        "Answer": " Julie Newmar",
+        "Output": "Julie Newmar",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka kirjoitti yöllä on tuhat silmää ",
+        "Answer": " Benjamin Weisman",
+        "Output": "tuntematon",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pyöristettynä kokonaisiin miljooniin, mikä on Phoenix arizonan nykyinen metropolin väkiluku ",
+        "Answer": " 5 miljoonaa",
+        "Output": "Phoenixin metropolialueen väkiluku on noin 4,9 miljoonaa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka näyttelee etania lapsenvahtissani on vampyyri ",
+        "Answer": " Matthew Knight",
+        "Output": "Ei ole totta.",
+        "Evaluation": "1 (kelvollinen)"
+    },
+    {
+        "Question": "kuka on talon puhuja tai edustajat ",
+        "Answer": " ​​Paul Ryan",
+        "Output": "Talon puhuja.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "missä he ampuivat eksyneenä avaruuteen Netflix ",
+        "Answer": " Vancouver, British Columbia",
+        "Output": "En löytänyt tietoja tästä.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mikä oli m&m's ",
+        "Answer": " redin alkuperäinen väri",
+        "Output": "suklaapatukan nimi?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "korkeimmat pisteet nba:ssa yhdessä pelissä ",
+        "Answer": " 100",
+        "Output": "72",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka vastaa organisaation tietojen hankkimisesta ja jakelusta ",
+        "Answer": " sidosryhmille",
+        "Output": "Tietohallinto.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kuka ehdotti Virginian suunnitelmaa ja New Jersey -suunnitelmaa, minkä hallituksen haaran he loivat ",
+        "Answer": " William Paterson",
+        "Output": "Thomas Jefferson; Yhdysvaltain hallituksen.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "aineen määrän si-yksikkö on ",
+        "Answer": " mol",
+        "Output": "mol/l.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka kirjoitti uteliaan tapauksen koirasta yöllä ",
+        "Answer": " Mark Haddon",
+        "Output": "Kirjoittaja uteliaasta koirasta yöllä.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "joka kirjoitti kirjan \"hiljainen kevät\", joka inspiroi uutta ympäristöliikettä ",
+        "Answer": " Rachel Louise Carson",
+        "Output": "Kirsi Piha.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mikä on tonttu hyllyllä lelu ",
+        "Answer": " pixie scout tonttu",
+        "Output": "Se on tonttu.",
+        "Evaluation": "1 (kelvollinen)"
+    },
+    {
+        "Question": "joka räppäilee clint eastwoodissa, kirjoittanut gorillaz ",
+        "Answer": " Del the Funky Homosapien",
+        "Output": "Del the Funky Homosapien.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kuka on Feel it still ",
+        "Answer": " Zoe Manvillen naisvokalisti",
+        "Output": "Feel it still on Portugal. The Man.",
+        "Evaluation": "1 (kelvollinen)"
+    },
+    {
+        "Question": "missä on yksi lensi yli käkipesä asetettu ",
+        "Answer": " Oregon",
+        "Output": "En tiedä.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "mikä on yleisin australiassa tehty rikos ",
+        "Answer": " laittomat huumerikokset",
+        "Output": "varkaus",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "milloin ensimmäinen pankkiautomaatti asennettiin Yhdistyneeseen kuningaskuntaan ",
+        "Answer": " 27. kesäkuuta 1967",
+        "Output": "Vuonna 1967.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kuinka monta tarinaa Yhdysvaltain maailmankauppakeskuksessa ",
+        "Answer": " 110",
+        "Output": "On kaksi tarinaa.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "milloin Yhdysvaltain armeija alkoi palkata siviilityöntekijöitä ",
+        "Answer": " 1871",
+        "Output": "1940-luvulla",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kuinka monta sivua on muistelmat geishakirjasta ",
+        "Answer": " 448",
+        "Output": "Kirjassa on 434 sivua.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka voitti suuren brittiläisen leipomosarjan 6 ",
+        "Answer": " Nadiya Hussain",
+        "Output": "Kimberly",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka leikkii kävelevien kuolleiden pelossa ",
+        "Answer": " Frank Stephenson N. E. Dillane",
+        "Output": "Zombie.",
+        "Evaluation": "1 (Frank Stephenson N. E. Dillane on näyttelijä, joka näyttelee kävelevien kuolleiden sarjassa, joten vastaus on kelvollinen)"
+    },
+    {
+        "Question": "5 Yhdysvaltain turvallisuusneuvoston maata ",
+        "Answer": " Ranska",
+        "Output": "1. Venäjä\n2. Kiina\n3. Ranska\n4. Iso-Britannia\n5. Yhdysvallat",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kuinka monta kertaa herran enkeli mainitaan vanhassa testamentissa ",
+        "Answer": " 65",
+        "Output": "Herran enkeli mainitaan Vanhassa testamentissa 63 kertaa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "missä teoria kaikesta tapahtuu ",
+        "Answer": " Cambridge University",
+        "Output": ": FI: fysiikan alalla, lyhyesti: fysiikassa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ensimmäinen tiedemies, joka kyseenalaisti geosentrisen mallin, oli ",
+        "Answer": " Johannes Kepler",
+        "Output": "Nikolai Kopernikus.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "joka oli ensimmäinen espanjalainen Filippiinien kenraalikuvernööri ",
+        "Answer": " Miguel Lopez de Legazpi",
+        "Output": "Miguel López de Legazpi.",
+        "Evaluation": "1"
+    }
+]

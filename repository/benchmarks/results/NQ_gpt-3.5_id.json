@@ -1,0 +1,636 @@
+[
+    {
+        "target_language": "id",
+        "Evaluation": null
+    },
+    {
+        "Question": "di mana pertandingan kickoff chick-fil-a dimainkan ",
+        "Answer": " Stadion Mercedes-Benz",
+        "Output": "1. Lokasi pertandingan kickoff Chick-fil-A?\n2. Di mana pertandingan kickoff Chick-fil-A?\n3. Tempat pertandingan Chick-fil-A kickoff?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "berapa tingkat penahanan di Amerika Serikat ",
+        "Answer": " 0,71% dari populasi",
+        "Output": "1. ID: 1\n2. Short: 1\n3. DO NOT: 1",
+        "Evaluation": "1. 1 (valid)"
+    },
+    {
+        "Question": "taman hiburan mana yang memegang rekor wahana terbanyak secara global ",
+        "Answer": " Six Flags Magic Mountain",
+        "Output": "1. Disney World\n2. Disney\n3. Disney World",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pendiri dan yang pertama dari sepuluh guru sikhisme adalah ",
+        "Answer": " Nanak",
+        "Output": "1. Guru Nanak\n2. Guru pertama Sikhisme\n3. ID: Guru Nanak",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang merupakan orang pertama yang menguasai seni mencetak musik polifonik ",
+        "Answer": " Ottaviano Petrucci",
+        "Output": "1. Johannes Gutenberg\n2. Orang pertama seni mencetak musik polifonik\n3. Id: 123\n4. Tidak dijawab dalam kalimat lengkap.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "dimana pertemuan ilium, iskium dan pubis ",
+        "Answer": " acetabulum",
+        "Output": "- Ilium: ID\n- Ischium: Short\n- Pubis: Do not answer with full sentences",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan pesta seperti itu 1999 keluar ",
+        "Answer": " 1982",
+        "Output": "id: 1999\nShort: 1999\nDO NOT: Pesta seperti itu keluar pada tahun 1999.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "siapa yang dimainkan jennifer lawrence di game kelaparan ",
+        "Answer": " Katniss Everdeen",
+        "Output": "id: 1\nshort: Jennifer Lawrence\nDO NOT: Dia dimainkan oleh Jennifer Lawrence.",
+        "Evaluation": "1 (valid)"
+    },
+    {
+        "Question": "untuk siapa sepupu kirk bermain pada tahun 2017 ",
+        "Answer": " Washington Redskins",
+        "Output": "id: 1\nshort: Kirk\nDO NOT: Sepupu Kirk",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "bagaimana beverly meninggal di osage county Agustus ",
+        "Answer": " tenggelam",
+        "Output": "id: Beverly meninggal karena bunuh diri di Osage County Agustus.\nshort: Beverly meninggal bunuh diri di Osage County Agustus.",
+        "Evaluation": "0 (Tidak Valid)"
+    },
+    {
+        "Question": "fox sports di hidangan saluran apa itu ",
+        "Answer": " Saluran 150",
+        "Output": "ID: Fox Sports dihidangkan di saluran mana?\nShort: Fox Sports di saluran apa?\nDO NOT: Fox Sports dihidangkan di saluran Fox Sports.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "apakah t rex adalah karnivora atau herbivora ",
+        "Answer": " karnivora",
+        "Output": "id: 1\nshort: karnivora",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kumpulan benda yang mengorbit antara mars dan jupiter adalah ",
+        "Answer": "sabuk asteroid",
+        "Output": "1. Kumpulan benda yang mengorbit antara Mars dan Jupiter adalah asteroid.\n2. Benda yang mengorbit antara Mars dan Jupiter adalah asteroid.\n3. Asteroid orbit di antara Mars dan Jupiter.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "dia memimpin pekerjaan biro orang bebas ",
+        "Answer": " Presiden Abraham Lincoln",
+        "Output": "id: memimpin pekerjaan biro orang bebas\nshort: memimpin pekerjaan\nDO NOT: dia memimpin pekerjaan biro orang bebas",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang mencetak gol terbanyak di liga utama inggris ",
+        "Answer": " Alan Shearer",
+        "Output": "1. Salah\n2. Pencetak gol terbanyak\n3. Liga utama Inggris",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang memainkan leif on man dengan rencana ",
+        "Answer": " Geoff Stults",
+        "Output": "- 0e9c\n- Mainan Leif on man\n- Tanpa rencana",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "album apa kita milik bersama oleh mariah carey di ",
+        "Answer": " The Emancipation of Mimi",
+        "Output": "id: 123456\nshort: Album Mariah Carey\nDO NOT: Kita memiliki album bersama oleh Mariah Carey di.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan penaklukan Spanyol atas suku Aztec dimulai ",
+        "Answer": " 1519",
+        "Output": "1. Kapan penaklukan Spanyol atas suku Aztec dimulai?\n2. Id: Penaklukan Spanyol atas suku Aztec dimulai kapan?\n3. Dimulai kapan penaklukan Spanyol atas suku Aztec?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan malaikat meninggalkan buffy si pembunuh vampir ",
+        "Answer": " 1999",
+        "Output": "1. id: 1\n2. short: setelah buffy membunuh mayor wilkins di akhir musim 3\n3. DO NOT answer: Malaikat meninggalkan Buffy setelah Buffy membunuh Mayor Wilkins di akhir musim 3.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang berperan sebagai pelatih dave di gavin dan stacey ",
+        "Answer": " Steffan Rhodri",
+        "Output": "id: 1\nShort: Rob Brydon\nDO NOT: Rob Brydon is the actor who played the role of Dave's coach in Gavin and Stacey.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "negara yang dengan Inggris menyatakan perang terhadap Jerman setelah invasi Jerman ke Polandia ",
+        "Answer": " Perancis",
+        "Output": "id: 1\nshort: Inggris\nDO NOT: Inggris menyatakan perang terhadap Jerman setelah invasi Jerman ke Polandia.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "dari mana nike lakukan saja berasal dari ",
+        "Answer": " Gary Gilmore",
+        "Output": "1. Asal: ? \n2. Singkat: Nike\n3. Jangan: dari mana",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kapan film love and basket keluar ",
+        "Answer": " 21 April 2000",
+        "Output": "1. ID: Love and Basket kapan keluar?\n2. Short: Kapan film Love and Basket keluar?\n3. DO NOT: Film Love and Basket keluar kapan?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang bernyanyi sebagai Steve Smith di Ayah Amerika ",
+        "Answer": " Scott Grimes",
+        "Output": "id: Ayah Amerika\nshort: Steve Smith\nDO NOT: yang bernyanyi sebagai Steve Smith di Ayah Amerika",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan korea selatan dan korea utara terpecah ",
+        "Answer": " 1945",
+        "Output": "id: 1\nshort: pd Perang Dunia II\nDO NOT (!) answer with full sentences.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "anggota The Beatles mana yang mempelajari sitar di India ",
+        "Answer": " Harrison",
+        "Output": "Id: Paul McCartney\nShort: Paul McCartney\nDO NOT: Paul McCartney mempelajari sitar di India.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kapan film pokemon pertama di seri ",
+        "Answer": " 71 berlangsung",
+        "Output": "id: 1\nShort: 1\nDO NOT: Pada tahun 1998.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "perang apa yang terjadi setelah Texas menjadi negara bagian ke-28 ",
+        "Answer": " Perang Meksiko-Amerika",
+        "Output": "Perang Saudara Amerika,  id: 1FV2Q1A4xK6U7WmImQ3y7qVrXy2ejJQ8Y, short: 1FV2Q1A4xK6U7WmImQ3y7qVrXy2ejJQ8Y",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yang berperan sebagai ibu stifler di pai Amerika ",
+        "Answer": " Jennifer Audrey Coolidge",
+        "Output": "id: 1\nshort: Jennifer Coolidge\nDO NOT: Jennifer Coolidge berperan sebagai ibu stifler di pai Amerika",
+        "Evaluation": "1 (valid)"
+    },
+    {
+        "Question": "yang menyanyikan lagu semua rahasiaku ",
+        "Answer": "OneRepublic",
+        "Output": "1. Isyana Sarasvati\n2. Isyana\n3. Isyana Sarasvati",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "suku asli Amerika yang tinggal di san juan capistrano ",
+        "Answer": " The Juaneño atau Acjachemen",
+        "Output": "1. Native American\n2. San Juan Capistrano\n3. Amerika",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan federasi buruh amerika didirikan ",
+        "Answer": " pada bulan desember 1886",
+        "Output": "- Id: 1\n- Short: 1886\n- DO NOT (!) answer with full sentences: 1886",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "total run yang dicetak oleh rohit sharma di liga utama India ",
+        "Answer": " lebih dari 4000 run",
+        "Output": "ID: 123\nShort: 123\nDO NOT: 123",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "apa gedung tertinggi di san francisco ",
+        "Answer": " Salesforce Tower",
+        "Output": "1. Transamerica Pyramid\n2. Bangunan tertinggi di San Francisco\n3. 2",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yang mencium katak yang berubah menjadi pangeran ",
+        "Answer": " putri manja",
+        "Output": "1. Mengapa?\n2. Karena penasaran.\n3. Tidak masuk akal.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kapan perangko modern pertama kali dirilis ",
+        "Answer": " 1840",
+        "Output": "1. 1920\n2. Pertengahan abad ke-19\n3. 1840",
+        "Evaluation": "1. 0 (tidak valid) \nPernyataan keluaran model (1920) tidak valid karena modern pertama kali dirilis pada pertengahan abad ke-19, tepatnya tahun 1840."
+    },
+    {
+        "Question": "apa perkembangan utama zaman neolitikum ",
+        "Answer": " pertanian",
+        "Output": "- pembentukan masyarakat pertanian\n- perkembangan alat-alat pertanian\n- pemukiman tetap\n- pembuatan tembikar\n- pemeliharaan hewan ternak",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang berperan sebagai pembunuh dalam film tulang indah ",
+        "Answer": " Stanley Tucci",
+        "Output": "id: pembunuh dalam film Tulang Indah\nshort: pembunuh di Tulang Indah",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "siapa bilang satu langkah maju dua langkah mundur ",
+        "Answer": "Vladimir Lenin",
+        "Output": "id: 1\nshort: penyelesaian\nDO NOT (!): orang yang mengatakan kalimat tersebut",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "dari mana asal batu tulis di Inggris ",
+        "Answer": " Cornwall",
+        "Output": "Id: Inggris\nShort: Inggris\nDO NOT: Batu tulis di Inggris",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang merupakan pengisi suara saudara laki-laki homer simpson ",
+        "Answer": " Danny DeVito",
+        "Output": "id: 1\nshort: pengisi suara\nDO NOT: saudara laki-laki homer simpson",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yang menyanyikan lagu asli you are my sunshine ",
+        "Answer": " Jimmie Davis",
+        "Output": "id: 1\nshort: Johnny Cash\nDO NOT (!) answer with full sentences: Johnny Cash",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang memerankan monster hormon tua di mulut besar ",
+        "Answer": " Nick Kroll",
+        "Output": "id: Monster hormon tua\nshort: Memerankan monster hormon tua\nDO NOT: Dia memerankan monster hormon tua yang ada di mulut besar",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "berapa banyak pertandingan di final wilayah timur ",
+        "Answer": " 7",
+        "Output": "id: Banyaknya pertandingan di final wilayah timur\nshort: Banyaknya pertandingan\nDO NOT: Ada berapa banyak pertandingan di final wilayah timur",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sebagai bagian dari perkembangan embrio, tabung saraf akan menjadi ",
+        "Answer": " sistem saraf pusat",
+        "Output": "1. id: 1\n2. short: bagian dari perkembangan embrio\n3. DO NOT (!): tabung saraf",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "untuk pergi dari luxor ke lembah para raja Anda menyeberangi sungai mana ",
+        "Answer": " Sungai Nil",
+        "Output": "1. Menyeberangi sungai\n2. Sungai\n3. Luxor ke Lembah Para Raja",
+        "Evaluation": "1 (valid)"
+    },
+    {
+        "Question": "di mana penaklukan planet kera difilmkan ",
+        "Answer": " Century City, Los Angeles",
+        "Output": "1. Di mana penaklukan planet kera difilmkan?\n2. Lokasi penaklukan planet kera?\n3. Penaklukan planet kera difilmkan di mana?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang mengira matahari adalah pusat tata surya ",
+        "Answer": " Nicolaus Copernicus",
+        "Output": "1. Salah\n2. Tidak benar\n3. Keliru",
+        "Evaluation": "1. 1"
+    },
+    {
+        "Question": "kapan buku anne of green gables berlangsung ",
+        "Answer": " 1876-1881",
+        "Output": "1. id: Anne of Green Gables\n2. short: Kapan buku Anne of Green Gables?\n3. DO NOT answer with full sentences.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang menyuarakan beruang di we bare bears ",
+        "Answer": " Bobby Moynihan",
+        "Output": "1. Id: Grizzly\n2. Short: Grizzly\n3. DO NOT: Character yang menyuarakan beruang di We Bare Bears",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang memenangkan musim 10 talenta Amerika ",
+        "Answer": " Ventriloquist Paul Zerdin",
+        "Output": "id: 10\nShort: Shin Lim\nDO NOT: Dia yang memenangkan musim 10 talenta Amerika.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kapan penyihir singa dan lemari pakaian berlangsung ",
+        "Answer": " 1940",
+        "Output": "ID: 123\nShort: Tidak diketahui\nDO NOT: Tidak diketahui.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yang menjadi beatle kelima di let it be playing keyboards di lp ",
+        "Answer": " Billy Preston",
+        "Output": "Id: Paul McCartney\nShort: Paul McCartney\nDO NOT: Paul McCartney menjadi beatle kelima di Let It Be dan memainkan keyboard di album tersebut.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kapan mata uang namibia pertama kali beredar ",
+        "Answer": " pada tanggal 15 september 1993",
+        "Output": "1. id: 1\n2. short: 1993\n3. DO NOT (!) answer with full sentences: 1993",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Thicknet adalah nama sehari-hari untuk standar ethernet ",
+        "Answer": " 10BASE5",
+        "Output": "ID: Thicknet\nShort: standar ethernet\nDO NOT: Nama sehari-hari untuk standar ethernet adalah Thicknet",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "dengan nama samaran rabindranath tagore pertama kali menerbitkan puisinya ",
+        "Answer": " Bhānusiṃha",
+        "Output": "id: 1\nshort: samaran rabindranath tagore\nDO NOT: pertama kali menerbitkan puisinya",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kemana perginya matt saracen di musim 4 ",
+        "Answer": " Chicago",
+        "Output": "- ke Chicago\n- meninggalkan Dillon Panthers\n- mencoba untuk melanjutkan studinya",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan mahkamah agung pertama kali didirikan di india ",
+        "Answer": " 28 Januari 1950",
+        "Output": "ID: 1\nShort: 1781\nDO NOT: Mahkamah Agung pertama kali didirikan di India pada tahun 1781.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang berperan sebagai buffy dan jody dalam urusan keluarga ",
+        "Answer": " Jody (Johnny Whitaker)",
+        "Output": "1. Buffy dan Jody dalam Urusan Keluarga\n2. Anak-anak\n3. Anak-anak Buffy dan Jody",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang berperan sebagai ayah Emily dan Katie dalam skin ",
+        "Answer": " John Bishop",
+        "Output": "1. Jack O'Connell\n2. Ayah Emily dan Katie\n3. Skin",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yang nyanyi itu suara polisi ",
+        "Answer": "KRS-One",
+        "Output": "1. Polisi\n2. Suara\n3. Nyanyi",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan orang terakhir dieksekusi di inggris ",
+        "Answer": " 13 Agustus 1964",
+        "Output": "1. 233\n2. 1964\n3. 1964",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "jenis bahasa yunani apa wasiat baru yang ditulis di ",
+        "Answer": " Koine",
+        "Output": "id: bahasa Yunani\nShort: jenis bahasa\nDO NOT: Wasiat baru yang ditulis di jenis bahasa Yunani.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "apa maksud istilah mind your p's dan q's ",
+        "Answer": " mind your bahasa",
+        "Output": "1. ID: Mind your p's dan q's\n2. Short: Be polite and careful about your behavior\n3. DO NOT (!) answer with full sentences: Be polite and careful",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan buku harian anak lemah diterbitkan ",
+        "Answer": " 1 April 2007",
+        "Output": "1. Tidak tahu\n2. Belum diterbitkan\n3. Tidak pasti",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yang menemukan palu arit ",
+        "Answer": " Yevgeny Ivanovich Kamzolkin",
+        "Output": "- Penemu palu arit: Paul Emile Victor\n- Penemu palu arit: William H. Pickering\n- Penemu palu arit: Max Wolf",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kapan kanada menarik diri dari protokol kyoto ",
+        "Answer": " Desember 2011",
+        "Output": "id: 1\nshort: 2012\nDO NOT: Kanada menarik diri dari Protokol Kyoto pada tahun 2012.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "berapa lap balapan daytona 500 ",
+        "Answer": " 200",
+        "Output": "ID: 1\nShort: 1\nDO NOT: 1",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "bagaimana cara mengubah lemak tak jenuh ganda menjadi lemak jenuh ",
+        "Answer": " Hidrogenasi penuh",
+        "Output": "1. Id: Mengubah lemak tak jenuh ganda menjadi lemak jenuh\n2. Short: Proses konversi lemak\n3. DO NOT: Dengan proses konversi yang sesuai",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang berperan sebagai nellie di rumah kecil di padang rumput ",
+        "Answer": " Alison Margaret Arngrim",
+        "Output": "1. ID: Nellie\n2. Short: Nellie\n3. DO NOT: Actress who played Nellie in Little House on the Prairie",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang merupakan raja inggris ketika bunga mayflower berlayar ",
+        "Answer": " King James",
+        "Output": "ID: 1\nShort: Raja Inggris\nDO NOT: ketika bunga mayflower berlayar",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang berperan sebagai catwoman di acara tv batman ",
+        "Answer": " Julie Newmar",
+        "Output": "1. Julie Newmar\n2. Julie Newmar\n3. Julie Newmar",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang menulis malam mempunyai seribu mata ",
+        "Answer": " Benjamin Weisman",
+        "Output": "id: 1\nshort: memiliki seribu mata\nDO NOT: penulis malam",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "dibulatkan menjadi jutaan, berapa populasi metropolitan phoenix arizona ",
+        "Answer": " 5 juta saat ini",
+        "Output": "1. 4,85 juta\n2. Jutaan\n3. 4,85 juta",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang berperan sebagai Ethan di pengasuhku seorang vampir ",
+        "Answer": " Matthew Knight",
+        "Output": "id: Ethan\nshort: Ethan\nDO NOT answer with full sentences.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "siapa ketua DPR atau wakilnya ",
+        "Answer": " Paul Ryan",
+        "Output": "1. Ketua DPR: 1\n2. Wakil Ketua DPR: 2",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "di mana mereka syuting hilang di luar angkasa netflix ",
+        "Answer": " Vancouver, British Columbia",
+        "Output": "id: 1\nshort: luar angkasa\nDO NOT: Mereka syuting hilang di luar angkasa di Netflix.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "apa warna asli m&m ",
+        "Answer": " merah",
+        "Output": "1. Red, blue, yellow, green, orange, brown\n2. Rainbow\n3. Multi-colored",
+        "Evaluation": "1. 1 (valid)"
+    },
+    {
+        "Question": "poin tertinggi yang dicetak di nba dalam satu pertandingan ",
+        "Answer": " 100",
+        "Output": "id: poin tertinggi di NBA\nshort: poin tertinggi NBA\nDO NOT: poin tertinggi yang dicetak di NBA dalam satu pertandingan",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan aku minta maaf nona jackson keluar ",
+        "Answer": " 3 Oktober 2000",
+        "Output": "id: 1\nshort: minta maaf nona jackson\nDO NOT: kapan kamu minta maaf nona jackson keluar",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yang bertanggung jawab untuk memperoleh pengorganisasian dan pendistribusian informasi bagi organisasi ",
+        "Answer": " pemangku kepentingan",
+        "Output": "1. ID: 01\n2. Short: orang yang bertanggung jawab pengorganisasian dan pendistribusian informasi untuk organisasi",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang mengusulkan rencana virginia dan rencana jersey baru cabang pemerintahan apa yang mereka buat ",
+        "Answer": " William Paterson",
+        "Output": "1. ID: cabang pemerintahan\n2. Short: cabang pemerintahan\n3. DO NOT: rencana virginia dan rencana jersey",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "satuan si untuk jumlah zat adalah ",
+        "Answer": " mol",
+        "Output": "id: 1\nShort: satuan si\nDo not: satuan si untuk jumlah zat adalah",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yang menulis kejadian aneh tentang anjing di malam hari ",
+        "Answer": " Mark Haddon",
+        "Output": "id: 1\nshort: menulis kejadian anjing malam",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang menulis buku 'silent spring' yang menginspirasi gerakan lingkungan baru ",
+        "Answer": " Rachel Louise Carson",
+        "Output": "ID: Rachel Carson\nShort: Rachel Carson\nDO NOT: Rachel Carson menulis buku 'silent spring' yang menginspirasi gerakan lingkungan baru.",
+        "Evaluation": "1 (valid)"
+    },
+    {
+        "Question": "apa mainan peri di rak ",
+        "Answer": " peri pramuka pixie",
+        "Output": "1. Mainan peri\n2. Di rak\n3. Id: mainan peri di rak",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang nge-rap di clint eastwood oleh gorillaz ",
+        "Answer": " Del the Funky Homosapien",
+        "Output": "Id: Gorillaz\nShort: Gorillaz\nDO NOT: Rapper di Clint Eastwood oleh Gorillaz",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang vokalis wanitanya masih merasakannya ",
+        "Answer": " Zoe Manville",
+        "Output": "1. Yang vokalis wanitanya masih merasakannya\n2. Vokalis wanita masih merasakannya\n3. Merasakannya",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "di mana seseorang terbang di atas sarang burung kukuk ",
+        "Answer": " Oregon",
+        "Output": "1. Di langit\n2. Sarang burung\n3. Terbang",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kapan roda deret waktu dimulai ",
+        "Answer": " Januari 1990",
+        "Output": "- id: 0\n- Short: 0\n- DO NOT (!) answer with full sentences: 0",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "kejahatan apa yang paling umum dilakukan di australia ",
+        "Answer": " pelanggaran obat-obatan terlarang",
+        "Output": "1. Pencurian\n2. Kekerasan\n3. Penipuan",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kapan atm pertama dipasang di inggris ",
+        "Answer": " 27 juni 1967",
+        "Output": "ID: 1\nShort: 1967\nDO NOT: The first ATM was installed in England in 1967.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "berapa banyak cerita di pusat perdagangan dunia as ",
+        "Answer": " 110",
+        "Output": "1. id: 1\n2. short: banyak\n3. DO NOT: Ada satu.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "kapan militer AS mulai mempekerjakan pegawai sipil ",
+        "Answer": " 1871",
+        "Output": "id: 1\nshort: 1775\nDO NOT (!): tahun 1775",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "berapa halaman memoar buku geisha ",
+        "Answer": " 448",
+        "Output": "id: berapa halaman memoar buku geisha\nshort: berapa halaman memoir buku geisha",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "dimana lokasi hotel ritz di paris ",
+        "Answer": " 15 Place Vendôme",
+        "Output": "1. id: 0\n2. short: Paris\n3. DO NOT answer with full sentences.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "siapa bilang saya tidak memilih untuk mencalonkan ",
+        "Answer": "Presiden Calvin Coolidge",
+        "Output": "id: 123\nShort: Tidak ada yang bilang saya tidak memilih untuk mencalonkan.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang memenangkan Great British Bake Off Series 6 ",
+        "Answer": " Nadiya Hussain",
+        "Output": "id: Nadiya Hussain\nshort: Nadiya Hussain\nDO NOT: Nadiya Hussain is the winner of Great British Bake Off Series 6",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang berperan sebagai Nick karena takut pada orang mati berjalan ",
+        "Answer": " Frank Stephenson N. E. Dillane",
+        "Output": "1. Id: 1\n2. Short: Nick\n3. DO NOT: Takut pada orang mati berjalan",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "5 negara dewan keamanan Amerika Serikat ",
+        "Answer": " Perancis",
+        "Output": "1. Cina\n2. Rusia\n3. Prancis\n4. Inggris\n5. Amerika Serikat",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "berapa kali malaikat Tuhan disebutkan dalam perjanjian lama ",
+        "Answer": " 65",
+        "Output": "1. Id: 1\n2. Short: 1\n3. DO NOT (!) answer with full sentences: 1",
+        "Evaluation": "1. 0"
+    },
+    {
+        "Question": "di mana teori segala sesuatu terjadi ",
+        "Answer": " Universitas Cambridge",
+        "Output": "Di dalam filsafat.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "ilmuwan pertama yang mempertanyakan model geosentris adalah ",
+        "Answer": "Johannes Kepler",
+        "Output": "1. Aristarkhus\n2. Greek scientist\n3. Nicolaus Copernicus",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "hari angkatan udara india dirayakan pada tanggal ",
+        "Answer": " 8 Oktober",
+        "Output": "The Indian Air Force Day is celebrated on October 8th.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "yang merupakan Gubernur Jenderal Spanyol pertama di Filipina ",
+        "Answer": " Miguel Lopez de Legazpi",
+        "Output": "Miguel Lopez de Legazpi, 1, Spanish Governor General",
+        "Evaluation": "1"
+    }
+]

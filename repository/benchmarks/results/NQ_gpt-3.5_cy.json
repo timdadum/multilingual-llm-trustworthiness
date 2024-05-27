@@ -1,0 +1,540 @@
+[
+    {
+        "target_language": "cy",
+        "Evaluation": null
+    },
+    {
+        "Question": "pa barc difyrion sydd â'r record am y rhan fwyaf o reidiau yn fyd-eang ",
+        "Answer": " Six Flags Magic Mountain",
+        "Output": "cy: Barc difyrion\nShort: Record reidiau\nDO NOT: Mae'r record hwn yn cynnwys y rhan fwyaf o reidiau yn y byd",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "y sylfaenydd a'r cyntaf o ddeg gurus sikhiaeth yw ",
+        "Answer": " Nanak",
+        "Output": "Guru Nanak",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pwy oedd y person cyntaf i feistroli'r grefft o argraffu cerddoriaeth bolyffonig ",
+        "Answer": " Ottaviano Petrucci",
+        "Output": "Thomas Edison",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "lle mae'r ilium yr ischium a'r pubis yn cwrdd ",
+        "Answer": " acetabulum",
+        "Output": "yn y garfan.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pryd ddaeth parti ei hoffi 1999 allan ",
+        "Answer": " 1982",
+        "Output": "1999",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pwy mae jennifer lawrence yn chwarae yn y gemau newyn ",
+        "Answer": " Katniss Everdeen",
+        "Output": "Katniss Everdeen",
+        "Evaluation": "1 (dytipiad)."
+    },
+    {
+        "Question": "pwy chwaraeodd cefndryd kirk iddo yn 2017 ",
+        "Answer": " Washington Redskins",
+        "Output": "Chris Godwin",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "sut y bu farw beverly yn sir osage august ",
+        "Answer": " boddi",
+        "Output": "Hunllef",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "chwaraeon llwynog ar ddysgl pa sianel yw hi ",
+        "Answer": " Channel 150",
+        "Output": "S4C",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yw t rex cigysydd neu llysysydd ",
+        "Answer": " cigysydd",
+        "Output": "t rex",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "grŵp o wrthrychau sy'n cylchdroi rhwng y blaned Mawrth a'r blaned Iau yw ",
+        "Answer": " Y gwregys asteroid",
+        "Output": "astroidâu",
+        "Evaluation": "Rydym yn gallu ateb \"1\" gan ystyried bod grŵp o reolwyr sy'n rheoli yn gallu cynnwys rhwydwaith asteroidau, ond nid yw'n golygu bod pob grŵp o reolwyr yn rheoli'r rhwydwaith hwn. Ateb dilys yw \"1\"."
+    },
+    {
+        "Question": "bu'n arwain gwaith biwro'r rhyddfreinwyr ",
+        "Answer": " yr Arlywydd Abraham Lincoln",
+        "Output": "Mae'r rhyddfreinwyr.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pwy sgoriodd y rhan fwyaf o goliau yn uwch gynghrair saesneg ",
+        "Answer": " Alan Shearer",
+        "Output": "Harry Kane.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "sy'n chwarae leif ar dyn gyda plan ",
+        "Answer": " Geoff Stults",
+        "Output": "Dyn sy'n chwarae leif.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pa albwm ydyn ni'n perthyn i'n gilydd gan mariah carey ar ",
+        "Answer": " The Emancipation of Mimi",
+        "Output": "Anhysbys.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pryd y gadawodd angel buffy the vampire Slayer ",
+        "Answer": " 1999",
+        "Output": "drosodd y byd byw.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sy'n chwarae dave coaches yn gavin and stacey ",
+        "Answer": " Steffan Rhodri",
+        "Output": "Dave.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "o ble mae nike jest yn neud o yn dod ",
+        "Answer": " Gary Gilmore",
+        "Output": "Ddim yn gwybod",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sy'n canu fel steve smith yn american dad ",
+        "Answer": " Scott Grimes",
+        "Output": "Haha, Steve Smith.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pryd y rhannwyd de Korea a gogledd Korea ",
+        "Answer": " 1945",
+        "Output": "De Korea a gogledd Korea y rhannwyd yn 1945.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pa aelod o'r beatles astudiodd y sitar yn india ",
+        "Answer": " Harrison",
+        "Output": "Ie",
+        "Evaluation": "1 (ddilys)"
+    },
+    {
+        "Question": "pryd mae'r ffilm Pokémon gyntaf yn digwydd yn y gyfres ",
+        "Answer": " 71",
+        "Output": "Rydych yn drafod y ffilm Pokémon gyntaf.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sy'n chwarae mam stifler mewn pastai Americanaidd ",
+        "Answer": " Jennifer Audrey Coolidge",
+        "Output": "Stifler's mom.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "sy'n canu'r gân fy holl gyfrinachau i ffwrdd ",
+        "Answer": " OneRepublic",
+        "Output": "Rwy'n canu'r gân.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pa lwyth brodorol Americanaidd oedd yn byw yn san juan capistrano ",
+        "Answer": " The Juaneño neu Acjachemen",
+        "Output": "pa lwyth Americanaidd",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "cyfanswm rhediadau a sgoriwyd gan rohit sharma ym mhrif gynghrair India ",
+        "Answer": " mwy na 4000 o rediadau",
+        "Output": "1733",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "beth yw'r adeilad talaf yn san francisco ",
+        "Answer": " Tŵr Salesforce",
+        "Output": "adeilad Salesforce",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pwy gusanodd y broga a drodd yn dywysoges ",
+        "Answer": " sbwylio tywysoges",
+        "Output": "Megan",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "beth oedd datblygiad mawr yr oes neolithig",
+        "Answer": " ffermio",
+        "Output": "Beth oedd datblygiad mawr yr oes neolithig?",
+        "Evaluation": "1 (ddilys)"
+    },
+    {
+        "Question": "sy'n chwarae'r llofrudd yn y ffilm esgyrn hyfryd ",
+        "Answer": " Stanley Tucci",
+        "Output": "Idris Elba",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "a ddywedodd un cam ymlaen dau gam yn ôl ",
+        "Answer": " Vladimir Lenin",
+        "Output": "Mae un cam ymlaen.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "o ble mae llechen yn dod yn y uk ",
+        "Answer": " Cernyw",
+        "Output": "Llechen",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pwy oedd llais brawd homer simpson ",
+        "Answer": " Danny DeVito",
+        "Output": "Bart.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pwy ganodd y gân wreiddiol ti yw fy heulwen ",
+        "Answer": " Jimmie Davis",
+        "Output": "fy heulwen",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sy'n chwarae'r hen anghenfil hormon ar geg fawr ",
+        "Answer": " Nick Kroll",
+        "Output": "Hormon.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "faint o gemau sydd yn rowndiau terfynol y gynhadledd ddwyreiniol ",
+        "Answer": " 7",
+        "Output": "Gemau rowndiau terfynol y gynhadledd ddwyreiniol.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "fel rhan o ddatblygiad embryonig bydd y tiwb niwral yn dod yn system nerfol ",
+        "Answer": " ganolog",
+        "Output": "cy: Tiwb niwral yn system nerfol\nshort: Tiwb niwral yn system nerfol",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "i fynd o luxor i ddyffryn y brenhinoedd yr ydych yn croesi pa afon ",
+        "Answer": " y Nîl",
+        "Output": "Luxor.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "lle cafodd concwest planed yr epaod ei ffilmio ",
+        "Answer": " Century City, Los Angeles",
+        "Output": "Cafodd concwest planed yr epaod ei ffilmio.",
+        "Evaluation": "[ALLBWN]: \n\n1"
+    },
+    {
+        "Question": "a oedd yn meddwl mai'r haul oedd canolbwynt cysawd yr haul ",
+        "Answer": " Nicolaus Copernicus",
+        "Output": "Haul",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pryd mae'r llyfr anne o dalcenni gwyrdd yn digwydd ",
+        "Answer": " 1876-1881",
+        "Output": "yn ystod yr Haf.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sy'n lleisio'r eirth yn ni moel eirth ",
+        "Answer": " Bobby Moynihan",
+        "Output": "Diolch am y cwestiwn. Eirth yn ni moel eirth.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "a enillodd dymor 10 o dalent America ",
+        "Answer": " Ventriloquist Paul Zerdin",
+        "Output": "Roedd gan America 10 o daleithau.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "a ddaeth yn bumed curiad ar gadewch iddo fod yn chwarae allweddellau ar y lp ",
+        "Answer": " Billy Preston",
+        "Output": "5",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pryd y daeth arian cyfred namibia mewn cylchrediad ",
+        "Answer": " ar 15 Medi 1993",
+        "Output": "Mewn cylchrediad.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "thicknet yw'r enw llafar ar gyfer safon ether-rwyd ",
+        "Answer": " 10BASE5",
+        "Output": "Rhwydwaith 10Base5",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ac erbyn hynny cyhoeddodd ffugenw rabindranath tagore ei gerddi ",
+        "Answer": " Bhānusiṃha gyntaf",
+        "Output": "Hynny yw, cyhoeddodd ffugenw Rabindranath Tagore ei gerddi.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pryd y sefydlwyd y goruchaf lys cyntaf yn india ",
+        "Answer": " 28 Ionawr 1950",
+        "Output": "1859",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "a chwaraeodd buffy a Jody mewn carwriaeth deuluol ",
+        "Answer": " Jody (Johnny Whitaker)",
+        "Output": "Buffy a Jody chwaraeodd mewn carwriaeth deuluol.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sy'n chwarae tad emily a katie mewn crwyn ",
+        "Answer": " John Bishop",
+        "Output": "Tad.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pwy sy'n canu dyna swn yr heddlu ",
+        "Answer": " KRS-One",
+        "Output": "Rhywun.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pa fath o Groeg yw'r testament newydd a ysgrifennwyd yn ",
+        "Answer": " Koine",
+        "Output": "Hebraeg.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "beth mae'r term meddwl eich p's a q yn ei olygu ",
+        "Answer": " meddwl eich iaith",
+        "Output": "P's a Q = Deddfwriaeth Boole.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pwy ddaeth lan efo'r morthwyl a'r cryman ",
+        "Answer": " Yevgeny Ivanovich Kamzolkin",
+        "Output": "Mae'r dyn.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pryd y tynnodd canada yn ôl o brotocol kyoto ",
+        "Answer": " Rhagfyr 2011",
+        "Output": "yn 2012",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "sawl lap yw ras 500 daytona ",
+        "Answer": " 200",
+        "Output": "Ras 500 Daytona.",
+        "Evaluation": "\"0\" - Nid yw'r model yn ateb dilys i'r cwestiwn, gan nad yw'n rhoi manylion digonol am nifer y llyfrau."
+    },
+    {
+        "Question": "sut mae troi brasterau aml-annirlawn yn fraster dirlawn ",
+        "Answer": " hydrogeniad llawn",
+        "Output": "Mae troi brasterau aml-annirlawn yn fraster dirlawn.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "oedd yn chwarae nellie yn ty bach ar y paith ",
+        "Answer": " Alison Margaret Arngrim",
+        "Output": "Chwarae.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "a oedd yn frenin lloegr pan hwyliodd y mayflower ",
+        "Answer": " King James",
+        "Output": "Na.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "a chwaraeodd catwoman yn y sioe deledu batman ",
+        "Answer": " Julie Newmar",
+        "Output": "Ie",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pwy ysgrifennodd y noson mae gan fil o lygaid ",
+        "Answer": " Benjamin Weisman",
+        "Output": "Rhys.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "wedi'i dalgrynnu i filiynau cyfan, beth yw'r boblogaeth fetropoliaidd bresennol o phoenix arizona ",
+        "Answer": " 5 miliwn",
+        "Output": "Rhifau uchel.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "sy'n chwarae ethan yn fy gwarchodwr yn fampir ",
+        "Answer": " Matthew Knight",
+        "Output": "Mam.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pwy yw siaradwr y tŷ neu gynrychiolwyr ",
+        "Answer": " Paul Ryan",
+        "Output": "Siaradwr y tŷ neu gynrychiolwyr yw?",
+        "Evaluation": "[CWESTIWN]: pwy yw'r dewis y tŷ neu ddewis\n[LABEL]: Paul Ryan\n[ALLBWN]: Siaradwr y tŷ neu ddewis yw?\nEich ymateb yw... 1 (ddilys)"
+    },
+    {
+        "Question": "ble wnaethon nhw saethu ar goll yn y gofod netflix ",
+        "Answer": " Vancouver, British Columbia",
+        "Output": "Roedd nhw'n saethu ar goll yn y gofod Netflix.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "beth oedd lliw gwreiddiol m&m's",
+        "Answer": "coch",
+        "Output": "Brown",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "y pwyntiau uchaf a sgoriwyd yn nba mewn un gêm ",
+        "Answer": " 100",
+        "Output": "53",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pwy sy'n gyfrifol am gaffael trefnu a dosbarthu gwybodaeth ar gyfer y sefydliad",
+        "Answer": "rhanddeiliaid",
+        "Output": "Swyddog Gwybodaeth",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pwy gynigiodd y cynllun virginia a chynllun jersey newydd pa gangen o lywodraeth wnaethon nhw ei chreu ",
+        "Answer": " William Paterson",
+        "Output": "Virginia - Thomas Jefferson \nJersey Newydd - William Paterson",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "yr uned si am faint o sylwedd yw ",
+        "Answer": " man geni",
+        "Output": "Dim sylwedd.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "a ysgrifennodd digwyddiad chwilfrydig y ci yn ystod y nos ",
+        "Answer": " Mark Haddon",
+        "Output": "Ysgrifennwyd digwyddiad chwilfrydig gan y ci yn y nos.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "a ysgrifennodd y llyfr 'silient spring' yn ysbrydoli mudiad amgylcheddol newydd ",
+        "Answer": " Rachel Louise Carson",
+        "Output": "Y byd a newidiwyd gan \"Silent Spring\".",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "beth yw'r coblyn ar y silff tegan ",
+        "Answer": " pixie scout elf",
+        "Output": "Draig",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "sy'n rapio yn clint eastwood gan gorillaz ",
+        "Answer": " Del the Funky Homosapien",
+        "Output": "Ydym.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pwy yw'r canwr benywaidd on feel it still ",
+        "Answer": " Zoe Manville",
+        "Output": "John Gourley",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "lle mae un yn hedfan dros set nyth y gog ",
+        "Answer": " Oregon",
+        "Output": "Nid oes gen i wybodaeth.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pryd ddechreuodd y gyfres olwyn amser ",
+        "Answer": " Ionawr, 1990",
+        "Output": "Cychwynodd y gyfres olwyn amser.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "beth yw'r trosedd mwyaf cyffredin a gyflawnir mewn troseddau cyffuriau anghyfreithlon",
+        "Answer": "australia",
+        "Output": "Trosedd cyffuriau",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pryd y gosodwyd yr atm cyntaf yn uk ",
+        "Answer": " 27 Mehefin 1967",
+        "Output": "Cyfaddefiad yw: oedd yr 1973.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "faint o straeon yng nghanolfan masnach y byd yr Unol Daleithiau ",
+        "Answer": " 110",
+        "Output": "Faint o straeon yng nghanolfan masnach US?",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "faint o dudalennau sy'n atgofion o lyfr geisha",
+        "Answer": "448",
+        "Output": "lysieuon, cariad, pum, geisha, dychmygu",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "a ddywedodd nad wyf yn dewis rhedeg ",
+        "Answer": " Llywydd Calvin Coolidge",
+        "Output": "Dim ots",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "a enillodd gyfres 6 bake off british gwych ",
+        "Answer": " Nadiya Hussain",
+        "Output": "Diolch!",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "sy'n chwarae nick ar ofn y meirw cerdded ",
+        "Answer": " Frank Stephenson N. E. Dillane",
+        "Output": "Mae'r dyn yn chwarae nick.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "5 gwlad cyngor diogelwch y taleithiau unedig ",
+        "Answer": " Ffrainc",
+        "Output": "1. Llywodraeth\n2. Cydweithio\n3. Strategaethau\n4. Adnoddau\n5. Strategaethau Diogelwch",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "pa sawl gwaith y sonir am angel yr arglwydd yn yr hen destament",
+        "Answer": "65",
+        "Output": "Angel",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "ble mae theori popeth yn digwydd ",
+        "Answer": " Prifysgol Caergrawnt",
+        "Output": "Rydym yn gwybod bod hyn yn wir.",
+        "Evaluation": "[CWESTIWN]: Ble mae theori popeth yn digwydd\n[LABEL]: Prifysgol Caergrawnt\n[ALLBWN]: We yn gwybod bod hyn yn wir..\nYmateb: 1"
+    },
+    {
+        "Question": "y gwyddonydd cyntaf i gwestiynu'r model geocentric oedd ",
+        "Answer": " Johannes Kepler",
+        "Output": "Aristotelês",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "pwy oedd Llywodraethwr Cyffredinol Sbaenaidd cyntaf Ynysoedd y Philipinau ",
+        "Answer": " Miguel Lopez de Legazpi",
+        "Output": "Miguel López de Legazpi",
+        "Evaluation": "1"
+    }
+]

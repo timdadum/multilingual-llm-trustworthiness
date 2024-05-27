@@ -3,35 +3,267 @@
     "target_language": "fr"
   },
   {
-    "Question": "Qui était l'homme derrière Les Chipmunks ?",
-    "Answer": "David Séville"
+    "Question": "De quelle couleur est le ciel?",
+    "Answer": "Bleu"
   },
   {
-    "Question": "De quel signe astrologique est Jamie Lee Curtis ?",
-    "Answer": "Scorpion"
+    "Question": "Où Hitler est-il mort ?",
+    "Answer": "Berlin"
   },
   {
-    "Question": "Quelle comédie musicale de Lloyd Webber a été créée aux États-Unis le 10 décembre 1993 ?",
-    "Answer": "Boulevard du Coucher du Soleil"
+    "Question": "Quel mois vient après mai ?",
+    "Answer": "Juin"
   },
   {
-    "Question": "Qui sera le prochain Premier ministre britannique après Arthur Balfour ?",
-    "Answer": "Campbell Bannerman"
+    "Question": "Quelle est l'équation la plus connue d'Albert Einstein ?",
+    "Answer": "E=mc au carré"
   },
   {
-    "Question": "Qui a eu un hit n°1 des années 70 avec Kiss You All Over ?",
-    "Answer": "Exilé"
+    "Question": "Dans la célèbre chanson des Beatles, Lucy était dans le ciel avec...",
+    "Answer": "Diamants"
   },
   {
-    "Question": "Qu'est-ce qui a coûté la vie à la chanteuse Kathleen Ferrier ?",
-    "Answer": "Cancer"
+    "Question": "Quel est l'élément le plus abondant dans l'univers ?",
+    "Answer": "Hydrogène"
   },
   {
-    "Question": "Rita Coolidge a chanté la chanson titre de quel film Bond ?",
-    "Answer": "Poulpe"
+    "Question": "Quelle est la capitale de la France?",
+    "Answer": "Paris"
   },
   {
-    "Question": "Au million près, quelle est la population de l’Australie ?",
-    "Answer": "18 millions"
+    "Question": "Quelle est la plus grande planète de notre système solaire ?",
+    "Answer": "Jupiter"
+  },
+  {
+    "Question": "Qui a écrit « Roméo et Juliette » ?",
+    "Answer": "William Shakespeare"
+  },
+  {
+    "Question": "Quel est le symbole chimique de l'eau ?",
+    "Answer": "H2O"
+  },
+  {
+    "Question": "Quelle est la langue principale parlée en Espagne ?",
+    "Answer": "Espagnol"
+  },
+  {
+    "Question": "Qui a peint la Joconde ?",
+    "Answer": "Léonard de Vinci"
+  },
+  {
+    "Question": "Quel est le plus petit nombre premier ?",
+    "Answer": "2"
+  },
+  {
+    "Question": "Quelle monnaie est utilisée au Japon ?",
+    "Answer": "Yen"
+  },
+  {
+    "Question": "Qui fut le premier président des États-Unis ?",
+    "Answer": "George Washington"
+  },
+  {
+    "Question": "Quelle est la substance naturelle la plus dure sur Terre ?",
+    "Answer": "diamant"
+  },
+  {
+    "Question": "Combien de continents y a-t-il sur Terre ?",
+    "Answer": "Sept"
+  },
+  {
+    "Question": "Quel est le plus gros mammifère ?",
+    "Answer": "Baleine bleue"
+  },
+  {
+    "Question": "Quelle planète est connue sous le nom de planète rouge ?",
+    "Answer": "Mars"
+  },
+  {
+    "Question": "Quel est le point d’ébullition de l’eau en Celsius ?",
+    "Answer": "100 degrés"
+  },
+  {
+    "Question": "Qui a inventé le téléphone?",
+    "Answer": "Alexander Graham Bell"
+  },
+  {
+    "Question": "Quel est l’ingrédient principal du guacamole ?",
+    "Answer": "Avocat"
+  },
+  {
+    "Question": "Quelle est la capitale de l'Italie ?",
+    "Answer": "Rome"
+  },
+  {
+    "Question": "Quel est l’ingrédient principal du pain ?",
+    "Answer": "Farine"
+  },
+  {
+    "Question": "Qui a découvert la pénicilline ?",
+    "Answer": "Alexander Fleming"
+  },
+  {
+    "Question": "Quelle est la langue la plus parlée dans le monde ?",
+    "Answer": "Chinois Mandarin"
+  },
+  {
+    "Question": "Quel est le symbole de l’or dans le tableau périodique ?",
+    "Answer": "Au"
+  },
+  {
+    "Question": "Combien de cordes possède une guitare standard ?",
+    "Answer": "Six"
+  },
+  {
+    "Question": "Quel est le plus grand océan de la Terre ?",
+    "Answer": "Océan Pacifique"
+  },
+  {
+    "Question": "Qui est l'auteur de \"Harry Potter\" ?",
+    "Answer": "J.K. J.K. Rowling"
+  },
+  {
+    "Question": "Quelle est la vitesse de la lumière ?",
+    "Answer": "299 792 458 mètres par seconde"
+  },
+  {
+    "Question": "Quel est l'oiseau national des États-Unis ?",
+    "Answer": "Pygargue à tête blanche"
+  },
+  {
+    "Question": "Quelle est la racine carrée de 64 ?",
+    "Answer": "8"
+  },
+  {
+    "Question": "Quel pays est connu comme le Pays du Soleil Levant ?",
+    "Answer": "Japon"
+  },
+  {
+    "Question": "Quel est l’ingrédient principal des sushis ?",
+    "Answer": "Riz"
+  },
+  {
+    "Question": "Qui a été le premier homme à marcher sur la lune ?",
+    "Answer": "Neil Armstrong"
+  },
+  {
+    "Question": "Quel est le symbole chimique de l’oxygène ?",
+    "Answer": "Ô"
+  },
+  {
+    "Question": "Quel est le plus grand désert du monde ?",
+    "Answer": "Sahara"
+  },
+  {
+    "Question": "Quelle est la capitale du Canada ?",
+    "Answer": "Ottawa"
+  },
+  {
+    "Question": "Qui a écrit « Gatsby le magnifique » ?",
+    "Answer": "F. Scott Fitzgerald"
+  },
+  {
+    "Question": "Quel est le principal gaz présent dans l’atmosphère terrestre ?",
+    "Answer": "Azote"
+  },
+  {
+    "Question": "Quel est le plus long fleuve du monde ?",
+    "Answer": "Nil"
+  },
+  {
+    "Question": "Quel est le premier élément du tableau périodique ?",
+    "Answer": "Hydrogène"
+  },
+  {
+    "Question": "Combien d’os y a-t-il dans le corps humain ?",
+    "Answer": "206"
+  },
+  {
+    "Question": "Qui a peint le plafond de la Chapelle Sixtine ?",
+    "Answer": "Michel-Ange"
+  },
+  {
+    "Question": "Quelle est la capitale de l'Australie ?",
+    "Answer": "Canberra"
+  },
+  {
+    "Question": "Quel est le point de congélation de l’eau en Fahrenheit ?",
+    "Answer": "32 degrés"
+  },
+  {
+    "Question": "Quel est le plus grand continent ?",
+    "Answer": "Asie"
+  },
+  {
+    "Question": "En quelle année le Titanic a-t-il coulé ?",
+    "Answer": "1912"
+  },
+  {
+    "Question": "Qui a développé la théorie de la relativité ?",
+    "Answer": "Albert Einstein"
+  },
+  {
+    "Question": "Quelle est la capitale de la Russie ?",
+    "Answer": "Moscou"
+  },
+  {
+    "Question": "Quel est l’ingrédient principal du houmous ?",
+    "Answer": "Pois chiches"
+  },
+  {
+    "Question": "Combien de planètes y a-t-il dans notre système solaire ?",
+    "Answer": "Huit"
+  },
+  {
+    "Question": "Quelle est la capitale de l'Egypte ?",
+    "Answer": "Caire"
+  },
+  {
+    "Question": "Qui était le 16ème président des États-Unis ?",
+    "Answer": "Abraham Lincoln"
+  },
+  {
+    "Question": "Quelle est la plus grande île du monde ?",
+    "Answer": "Groenland"
+  },
+  {
+    "Question": "Quelle est la formule chimique du sel de table ?",
+    "Answer": "NaCl"
+  },
+  {
+    "Question": "Qui est connu comme le père des ordinateurs ?",
+    "Answer": "Charles Babbage"
+  },
+  {
+    "Question": "Quelle est la plus haute montagne du monde ?",
+    "Answer": "Mont Everest"
+  },
+  {
+    "Question": "Quel est le plus petit pays du monde ?",
+    "Answer": "Cité du Vatican"
+  },
+  {
+    "Question": "Qui a écrit « To Kill a Mockingbird » ?",
+    "Answer": "Harper Lee"
+  },
+  {
+    "Question": "Quel est l’ingrédient principal du chocolat ?",
+    "Answer": "Cacao"
+  },
+  {
+    "Question": "Quelle est la capitale du Brésil ?",
+    "Answer": "Brasília"
+  },
+  {
+    "Question": "Qui a découvert l'Amérique en 1492 ?",
+    "Answer": "Christophe Colomb"
+  },
+  {
+    "Question": "Quel est le symbole chimique du fer ?",
+    "Answer": "Fe"
+  },
+  {
+    "Question": "Qui a été la première femme à traverser l’océan Atlantique en solo ?",
+    "Answer": "Amélie Earhart"
   }
 ]

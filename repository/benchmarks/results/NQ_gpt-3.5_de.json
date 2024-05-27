@@ -1,0 +1,348 @@
+[
+    {
+        "target_language": "de",
+        "Evaluation": null
+    },
+    {
+        "Question": "Der Gründer und erste der zehn Gurus des Sikhismus ist ",
+        "Answer": " Nanak",
+        "Output": "Guru Nanak.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "der als erster die Kunst des Druckens polyphoner Musik beherrschte ",
+        "Answer": " Ottaviano Petrucci",
+        "Output": "Johannes Gutenberg.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wer spielt Jennifer Lawrence bei den Hunger Games ",
+        "Answer": " Katniss Everdeen?",
+        "Output": "Jennifer Lawrence spielt Katniss Everdeen.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Fox Sports auf dem Teller, welcher Kanal ist das ",
+        "Answer": " Kanal 150?",
+        "Output": "Fox Sports ist ein Sportsender.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Ist ein T-Rex ein Fleischfresser oder ein Pflanzenfresser ",
+        "Answer": " Fleischfresser?",
+        "Output": "Fleischfresser",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Eine Gruppe von Objekten, die zwischen Mars und Jupiter kreisen, ist ",
+        "Answer": " Der Asteroidengürtel",
+        "Output": "der Asteroidengürtel.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "der die meisten Tore in der englischen Premier League schoss ",
+        "Answer": " Alan Shearer",
+        "Output": "Alan Shearer",
+        "Evaluation": "1 (gültige Antwort)"
+    },
+    {
+        "Question": "wer spielt Leif bei „Mann mit Plan“ ",
+        "Answer": " Geoff Stults",
+        "Output": "Tom Hanks",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Welches Album ist „Wir gehören zusammen“ von Mariah Carey auf ",
+        "Answer": " The Emancipation of Mimi",
+        "Output": "\"Wir gehören zusammen\" ist auf dem Album \"Duets\" von Mariah Carey.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wer spielt Dave Coaches in Gavin und Stacey ",
+        "Answer": " Steffan Rhodri",
+        "Output": "Steffan Rhodri.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Woher kommt Nike Just Do It? ",
+        "Answer": " Gary Gilmore",
+        "Output": "USA",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Welches Mitglied der Beatles hat die Sitar in Indien studiert? ",
+        "Answer": " Harrison",
+        "Output": "George Harrison.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Wann spielt der erste Pokémon-Film der Serie ",
+        "Answer": "71?",
+        "Output": "Der erste Pokémon-Film der Serie spielt im Jahr 1998.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wer spielt Stiflers Mutter in American Pie ",
+        "Answer": " Jennifer Audrey Coolidge",
+        "Output": "Jennifer Coolidge",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Wer singt das Lied „All my Secrets Away“ ",
+        "Answer": " OneRepublic?",
+        "Output": "One Republic",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "welcher Indianerstamm lebte in San Juan Capistrano ",
+        "Answer": " Die Juaneño oder Acjachemen",
+        "Output": "Acjachemen.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Was ist das höchste Gebäude in San Francisco ",
+        "Answer": " Salesforce Tower?",
+        "Output": "Salesforce Tower.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "wer küsste den Frosch, der sich in einen Prinzen verwandelte ",
+        "Answer": " verwöhnte Prinzessin",
+        "Output": "Die Prinzessin.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Was war die wichtigste Entwicklung der Jungsteinzeit ",
+        "Answer": " Landwirtschaft",
+        "Output": "Die Entwicklung der Landwirtschaft.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Wer spielt den Mörder im schönen Bones-Film ",
+        "Answer": " Stanley Tucci",
+        "Output": "Zachary Quinto.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wer sagte: „Einen Schritt vorwärts, zwei Schritte zurück“ ",
+        "Answer": " Wladimir Lenin",
+        "Output": "Lenin",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Wer war die Stimme von Homer Simpsons Bruder ",
+        "Answer": " Danny DeVito?",
+        "Output": "Dan Castellaneta",
+        "Evaluation": "0."
+    },
+    {
+        "Question": "Wer hat das Originallied You are my sunshine ",
+        "Answer": " Jimmie Davis gesungen?",
+        "Output": "Die Carter Family.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "der das alte Hormonmonster auf Big Mouth spielt ",
+        "Answer": " Nick Kroll",
+        "Output": "Das Hormonmonster.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "der dachte, die Sonne sei das Zentrum des Sonnensystems ",
+        "Answer": " Nicolaus Copernicus",
+        "Output": "Irrtum, die Erde liegt im Mittelpunkt.",
+        "Evaluation": "1 (teilweise gültig)"
+    },
+    {
+        "Question": "Wer spricht die Bären in „Wir nackten Bären“ ",
+        "Answer": " Bobby Moynihan",
+        "Output": "Dee Bradley Baker.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "der die 10. Staffel von „America's Got Talent ",
+        "Answer": " Bauchredner Paul Zerdin“ gewann",
+        "Output": "ist die aktuelle Staffel.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wer wurde der fünfte Beatle bei „Let It Be Playing Keyboards“ auf der LP ",
+        "Answer": " Billy Preston?",
+        "Output": "Billy Preston.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Thicknet ist die umgangssprachliche Bezeichnung für den Ethernet-Standard ",
+        "Answer": " 10BASE5",
+        "Output": "Thicknet = Ethernet-Standard",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Unter diesem Pseudonym veröffentlichte Rabindranath Tagore erstmals seine Gedichte ",
+        "Answer": " Bhānusiṃha",
+        "Output": "Anonym.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Wer spielte Buffy und Jody in Family Affairs ",
+        "Answer": " Jody (Johnny Whitaker)",
+        "Output": "Anissa Jones und Johnny Whitaker.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Wer spielt Emilys und Katies Vater in Skins ",
+        "Answer": " John Bishop",
+        "Output": "Jack O'Connell",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wer singt, das ist der Sound der Polizei ",
+        "Answer": " KRS-One",
+        "Output": "Das ist ein Lied von Jan Delay.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "in welcher Art von Griechisch ist das Neue Testament geschrieben ",
+        "Answer": " Koine",
+        "Output": "Koine.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Was bedeutet der Begriff „Achten Sie auf Ihre Ps und Qs“ ",
+        "Answer": " Achten Sie auf Ihre Sprache",
+        "Output": "Achten auf Details.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "der sich Hammer und Sichel ausgedacht hat ",
+        "Answer": " Jewgeni Iwanowitsch Kamzolkin",
+        "Output": "Karl Marx.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "die Nellie in Little House on the Prairie spielte ",
+        "Answer": " Alison Margaret Arngrim",
+        "Output": "Alison Arngrim.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "die Catwoman in der TV-Show Batman spielte ",
+        "Answer": " Julie Newmar",
+        "Output": "Julie Newmar.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Wer hat die Nacht geschrieben, hat tausend Augen ",
+        "Answer": " Benjamin Weisman",
+        "Output": "The author of \"Die Nacht\" has a thousand eyes.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wer spielt Ethan in „Mein Babysitter ist ein Vampir“ ",
+        "Answer": " Matthew Knight",
+        "Output": "Matthew Knight.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Wer ist der Sprecher des Repräsentantenhauses oder der Vertreter ",
+        "Answer": " Paul Ryan?",
+        "Output": "Der Sprecher des Repräsentantenhauses ist Nancy Pelosi.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wo haben sie Lost in Space Netflix gedreht? ",
+        "Answer": " Vancouver, British Columbia",
+        "Output": "In Kanada.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Was war die ursprüngliche Farbe von M&M's ",
+        "Answer": " Rot?",
+        "Output": "braun",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wer ist für die Beschaffung, Organisation und Verteilung von Informationen für die Organisation ",
+        "Answer": " Stakeholder verantwortlich?",
+        "Output": "Zuständigkeiten sind je nach Unternehmen unterschiedlich verteilt.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Wer hat den Virginia-Plan und den New-Jersey-Plan vorgeschlagen? Welchen Regierungszweig haben sie geschaffen? ",
+        "Answer": " William Paterson",
+        "Output": "James Madison hat den Virginia-Plan vorgeschlagen und William Paterson hat den New-Jersey-Plan vorgeschlagen. Sie haben den Regierungszweig der Legislative geschaffen.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Die SI-Einheit für die Stoffmenge ist ",
+        "Answer": " Mol",
+        "Output": "Mol",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "der den merkwürdigen Vorfall mit dem Hund in der Nacht schrieb ",
+        "Answer": " Mark Haddon",
+        "Output": "Ein Mann.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "die das Buch „Stiller Frühling“ schrieb und eine neue Umweltbewegung inspirierte ",
+        "Answer": " Rachel Louise Carson",
+        "Output": "Rachel Carson.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "Was ist der Elf im Regal? Spielzeug ",
+        "Answer": " ein Pixie-Scout-Elf",
+        "Output": "Ja, der Elf im Regal ist Spielzeug.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "der in Clint Eastwood von Gorillaz ",
+        "Answer": " Del the Funky Homosapien rappt",
+        "Output": "ist ein fiktiver Charakter.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Wer ist die Sängerin bei Feel It Still ",
+        "Answer": " Zoe Manville?",
+        "Output": "Die Sängerin bei Feel It Still ist Zoe Manville.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Wie viele Stockwerke gibt es im US World Trade Center ",
+        "Answer": " 110?",
+        "Output": "Das US World Trade Center hat 104 Stockwerke.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "Wie viele Seiten hat das Buch „Die Geisha“ ",
+        "Answer": " 448",
+        "Output": "Das Buch \"Die Geisha\" hat 496 Seiten.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "wo befindet sich das Ritz Hotel in Paris ",
+        "Answer": " 15 Place Vendôme",
+        "Output": "In der Place Vendome.",
+        "Evaluation": "1 (gültig)"
+    },
+    {
+        "Question": "wer hat die 6. Staffel von Great British Bake Off gewonnen ",
+        "Answer": " Nadiya Hussain",
+        "Output": "Peter.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "der den Nick über die Angst vor den wandelnden Toten spielt ",
+        "Answer": " Frank Stephenson N. E. Dillane",
+        "Output": "Nick spielt die Angst vor den wandelnden Toten.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "5 Länder des Sicherheitsrats der Vereinigten Staaten ",
+        "Answer": " Frankreich",
+        "Output": "China, Frankreich, Russland, das Vereinigte Königreich, die Vereinigten Staaten.",
+        "Evaluation": "1"
+    }
+]

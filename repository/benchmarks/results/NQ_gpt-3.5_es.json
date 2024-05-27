@@ -1,0 +1,498 @@
+[
+    {
+        "target_language": "es",
+        "Evaluation": null
+    },
+    {
+        "Question": "¿Cuál es la tasa de encarcelamiento en los Estados Unidos ",
+        "Answer": " 0,71% de la población?",
+        "Output": "La tasa de encarcelamiento en los Estados Unidos es alta.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "qué parque de diversiones tiene el récord de más atracciones a nivel mundial ",
+        "Answer": " Six Flags Magic Mountain",
+        "Output": "Disneyland.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "el fundador y el primero de los diez gurús del sijismo es ",
+        "Answer": " Nanak",
+        "Output": "Guru Nanak.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quién fue la primera persona en dominar el arte de imprimir música polifónica ",
+        "Answer": " Ottaviano Petrucci",
+        "Output": "Gutenberg",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Dónde se unen el ilion, el isquion y el pubis? ",
+        "Answer": " acetábulo",
+        "Output": "En la cadera.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "¿Cuándo salió Party Like It 1999 ",
+        "Answer": " 1982?",
+        "Output": "2019",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Quién interpreta a Jennifer Lawrence en los juegos del hambre? ",
+        "Answer": " Katniss Everdeen",
+        "Output": "Jennifer Lawrence interpreta a Katniss Everdeen.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "para quién jugó kirk primos en 2017 ",
+        "Answer": " Washington Redskins",
+        "Output": "Para el equipo de fútbol americano de los Washington Commanders.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Cómo murió Beverly en el condado de August Osage ",
+        "Answer": " ahogada?",
+        "Output": "Suicidio.",
+        "Evaluation": "0 (no es válida)"
+    },
+    {
+        "Question": "fox sports en plato que canal es ",
+        "Answer": " Canal 150",
+        "Output": "Fox Sports es el canal 603 en DirecTV.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "es un t rex un carnívoro o herbívoro",
+        "Answer": "carnívoro",
+        "Output": "carnívoro",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "un grupo de objetos que orbitan entre marte y júpiter es ",
+        "Answer": " El cinturón de asteroides",
+        "Output": "el cinturón de asteroides.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "dirigió el trabajo de la oficina de libertos ",
+        "Answer": " Presidente Abraham Lincoln",
+        "Output": "Supervisó la oficina de libertos.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien marcó más goles en la primera división inglesa ",
+        "Answer": " Alan Shearer",
+        "Output": "Alan Shearer.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien juega leif sobre el hombre con un plan ",
+        "Answer": " Geoff Stults",
+        "Output": "Leif.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Qué álbum es We Pertenecemos juntos de Mariah Carey en ",
+        "Answer": " The Emancipation of Mimi?",
+        "Output": "Daydream.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Cuándo comenzó la conquista española de los aztecas ",
+        "Answer": " 1519?",
+        "Output": "1519",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien interpreta a dave coaches en gavin y stacey ",
+        "Answer": " Steffan Rhodri",
+        "Output": "Steffan Rhodri.",
+        "Evaluation": "1 (Válido)"
+    },
+    {
+        "Question": "país que junto con inglaterra declaró la guerra a alemania después de la invasión alemana de polonia ",
+        "Answer": " Francia",
+        "Output": "Francia.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "¿De dónde viene Nike? ",
+        "Answer": " Gary Gilmore",
+        "Output": "Estados Unidos.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Cuándo salió la película Amor y baloncesto ",
+        "Answer": " 21 de abril de 2000?",
+        "Output": "2000.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien canta como steve smith en american dad ",
+        "Answer": " Scott Grimes",
+        "Output": "Roger.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Qué miembro de los Beatles estudió el sitar en la India? ",
+        "Answer": " Harrison",
+        "Output": "George Harrison.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "cuando tiene lugar la primera película de pokemon de la serie ",
+        "Answer": "71",
+        "Output": "En 1998.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien interpreta a la mamá de Stifler en American Pie ",
+        "Answer": " Jennifer Audrey Coolidge",
+        "Output": "Jennifer Coolidge.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien canta la canción todos mis secretos ",
+        "Answer": " OneRepublic",
+        "Output": "No sé.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "que tribu nativa americana vivia en san juan capistrano ",
+        "Answer": " El Juaneño o Acjachemen",
+        "Output": "Los acjachemenes.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "Total de carreras anotadas por Rohit Sharma en la Premier League india ",
+        "Answer": " más de 4000 carreras.",
+        "Output": "214",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "cuál es el edificio más alto de san francisco ",
+        "Answer": " Salesforce Tower",
+        "Output": "La Transamerica Pyramid.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "quien besó a la rana que se convirtió en principe",
+        "Answer": " princesa consentida",
+        "Output": "La princesa.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quién interpreta al asesino en la película Lovely Bones ",
+        "Answer": " Stanley Tucci",
+        "Output": "Stanley Tucci.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien dijo un paso adelante dos pasos atrás ",
+        "Answer": " Vladimir Lenin",
+        "Output": "Retroceso",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien era la voz del hermano de homer simpson ",
+        "Answer": "Danny DeVito",
+        "Output": "Harry Shearer.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "quien cantó la canción original eres mi sol ",
+        "Answer": " Jimmie Davis",
+        "Output": "Manu Chao.",
+        "Evaluation": "0."
+    },
+    {
+        "Question": "que interpreta al viejo monstruo hormonal bocazas ",
+        "Answer": " Nick Kroll",
+        "Output": "Billy Crystal.",
+        "Evaluation": "0."
+    },
+    {
+        "Question": "cuantos juegos hay en las finales de la conferencia este ",
+        "Answer": " 7",
+        "Output": "Hay siete juegos.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "para ir de luxor al valle de los reyes se cruza qué río ",
+        "Answer": " el Nilo",
+        "Output": "nilo",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "donde se filmó la conquista del planeta de los simios ",
+        "Answer": " Century City, Los Ángeles",
+        "Output": "EE.UU.",
+        "Evaluation": "1 (válido)"
+    },
+    {
+        "Question": "quien pensaba que el sol era el centro del sistema solar ",
+        "Answer": " Nicolaus Copernicus",
+        "Output": "Ptolomeo.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Cuándo tiene lugar el libro Ana de las tejas verdes ",
+        "Answer": " 1876-1881?",
+        "Output": "siglo XIX",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quién da voz a los osos en We Bare Bears ",
+        "Answer": " Bobby Moynihan",
+        "Output": "Demián Bichir.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "quien ganó la temporada 10 de America's Got Talent ",
+        "Answer": " Ventrílocuo Paul Zerdin",
+        "Output": "Shin Lim.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Cuándo tiene lugar La bruja león y el guardarropa ",
+        "Answer": " 1940?",
+        "Output": "En octubre.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "quien se convirtió en el quinto beatle en let it be tocando teclados en el lp ",
+        "Answer": " Billy Preston",
+        "Output": "Billy Preston.",
+        "Evaluation": "1 (Válido)"
+    },
+    {
+        "Question": "Thicknet es el nombre coloquial del estándar ethernet ",
+        "Answer": " 10BASE5",
+        "Output": "Cable grueso.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "con el cual seudónimo rabindranath tagore publicó por primera vez sus poemas ",
+        "Answer": " Bhānusiṃha",
+        "Output": "Tagore.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien interpretó a Buffy y Jody en un asunto familiar ",
+        "Answer": " Jody (Johnny Whitaker)",
+        "Output": "Anissa Jones y Johnny Whitaker.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "quien interpreta al padre de emily y katie en skins ",
+        "Answer": " John Bishop",
+        "Output": "Tony Jay",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "quien canta ese es el sonido de la policía ",
+        "Answer": " KRS-One",
+        "Output": "The Police.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Qué tipo de griego es el nuevo testamento escrito en ",
+        "Answer": "koine?",
+        "Output": "Koine.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "¿Qué significa el término \"cuida tus p y q\" ",
+        "Answer": " cuida tu idioma?",
+        "Output": "Significa \"cuida tus palabras y tu actitud\".",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "a quién se le ocurrió la hoz y el martillo ",
+        "Answer": " Yevgeny Ivanovich Kamzolkin",
+        "Output": "A Karl Marx.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Cuántas vueltas es la carrera de las 500 Millas de Daytona ",
+        "Answer": " 200?",
+        "Output": "200 vueltas.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "¿Cómo se convierten las grasas poliinsaturadas en grasas saturadas? ",
+        "Answer": " Hidrogenación completa",
+        "Output": "Por hidrogenación.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien interpretó a Nellie en La pequeña casa de la pradera ",
+        "Answer": " Alison Margaret Arngrim",
+        "Output": "Alison Arngrim.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quién era rey de inglaterra cuando zarpó el mayflower ",
+        "Answer": " King James",
+        "Output": "Jacob I.",
+        "Evaluation": "1 (válido)"
+    },
+    {
+        "Question": "quien interpretó a Catwoman en el programa de televisión Batman ",
+        "Answer": " Julie Newmar",
+        "Output": "Julie Newmar.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien escribió la noche tiene mil ojos ",
+        "Answer": " Benjamin Weisman",
+        "Output": "John Dickson Carr",
+        "Evaluation": "0."
+    },
+    {
+        "Question": "quien interpreta a ethan en mi niñera es un vampiro ",
+        "Answer": " Matthew Knight",
+        "Output": "Matthew Knight",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "¿Quién es el presidente de la cámara o representantes ",
+        "Answer": " Paul Ryan?",
+        "Output": "Nancy Pelosi.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "donde filmaron perdidos en el espacio netflix ",
+        "Answer": " Vancouver, Columbia Británica",
+        "Output": "Australia.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Cuál era el color original de m&m's ",
+        "Answer": "red?",
+        "Output": "Rojo, amarillo y verde.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "puntos más altos anotados en la NBA en un juego ",
+        "Answer": " 100",
+        "Output": "Kobe Bryant - 81 puntos",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quién es responsable de adquirir, organizar y distribuir información para la organización ",
+        "Answer": " partes interesadas",
+        "Output": "El encargado de la información.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quién propuso el plan de virginia y el plan de nueva jersey qué rama del gobierno crearon ",
+        "Answer": " William Paterson",
+        "Output": "Virginia - Randolph\nNueva Jersey - Paterson\nLegislativa",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "la unidad si para la cantidad de sustancia es ",
+        "Answer": " mol",
+        "Output": "mol.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien escribió curioso incidente del perro en la noche ",
+        "Answer": " Mark Haddon",
+        "Output": "Mark Haddon.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien escribio el libro 'primavera silenciosa ' inspirando un nuevo movimiento ambiental ",
+        "Answer": " Rachel Louise Carson",
+        "Output": "Rachel Carson.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "¿Qué es el juguete elfo en el estante ",
+        "Answer": " un elfo explorador duendecillo?",
+        "Output": "Un juguete.",
+        "Evaluation": "1."
+    },
+    {
+        "Question": "quien esta rapeando en clint eastwood de gorillaz ",
+        "Answer": " Del the Funky Homosapien",
+        "Output": "Damon Albarn.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "¿Quién es la vocalista femenina de Feel It Still ",
+        "Answer": " Zoe Manville?",
+        "Output": "Zoe Manville.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "¿Cuántas historias hay en el World Trade Center de EE. UU. ",
+        "Answer": " 110?",
+        "Output": "Hay siete historias en el World Trade Center de EE. UU.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "cuantas paginas tiene el libro memorias de una geisha ",
+        "Answer": "448",
+        "Output": "El libro \"Memorias de una geisha\" tiene 496 páginas.",
+        "Evaluation": "0."
+    },
+    {
+        "Question": "¿Quién dijo que no elijo postularme ",
+        "Answer": " Presidente Calvin Coolidge?",
+        "Output": "No lo sé.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "que ganó el gran horneado británico de la serie 6 ",
+        "Answer": " Nadiya Hussain",
+        "Output": "Peter.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "que hace de nick sobre el miedo a los muertos vivientes ",
+        "Answer": " Frank Stephenson N. E. Dillane",
+        "Output": "Nick trata de ignorar el miedo a los muertos vivientes.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "5 países del consejo de seguridad de estados unidos ",
+        "Answer": " Francia",
+        "Output": "Rusia, China, Reino Unido, Francia, Estados Unidos.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "cuantas veces se menciona al angel del señor en el antiguo testamento ",
+        "Answer": "65",
+        "Output": "Numerosas veces.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "¿Dónde se lleva a cabo la teoría del todo? ",
+        "Answer": " Universidad de Cambridge",
+        "Output": "En el campo de la física teórica.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "el primer científico en cuestionar el modelo geocéntrico fue ",
+        "Answer": "Johannes Kepler",
+        "Output": "Copérnico.",
+        "Evaluation": "0"
+    },
+    {
+        "Question": "se celebra el día de la fuerza aérea india en cuya fecha ",
+        "Answer": " 8 de octubre",
+        "Output": "8 de octubre.",
+        "Evaluation": "1"
+    },
+    {
+        "Question": "quien fue el primer Gobernador General español de Filipinas ",
+        "Answer": "Miguel López de Legazpi",
+        "Output": "Miguel López de Legazpi.",
+        "Evaluation": "1"
+    }
+]

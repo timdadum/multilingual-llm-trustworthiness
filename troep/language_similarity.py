@@ -32,12 +32,25 @@ languages = [
     'wol', 'xho', 'ydd', 'yor', 'yue', 'zho', 'zho', 'zsm', 'zul'
 ]
 
+language_subset = [
+    'arb', 'fra', 'spa', 'hin',
+    'zho', 'eng', 'cym', 'fin',
+    'hun', 'zul', 'nld', 'ita',
+    'vie', 'swh', 'jpn', 'deu',
+    'ind', 'urd', 'rus', 'por',
+    'ben'
+]
+
+for language in language_subset:
+    if language not in languages:
+        print(f'Language {language} not in ISO languages')
+
 # Load syntactic features
 features = l2v.get_features(languages + ['en'], 'syntax_knn')
 
 # Calculate cosine similarity relative to English
 cosine_similarities = {}
-for language in languages:
+for language in language_subset:
     # 1 - cosine distance to make it cosine similarity
     cosine_similarities[language] = 1 - cosine(features['en'], features[language])
 

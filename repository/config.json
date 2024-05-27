@@ -1,18 +1,20 @@
 {
     "benchmark": {
-        "path": "repository/benchmarks/clean/debug_qa.json"
+        "path": "repository/benchmarks/clean/NQ_clean.json"
     },
     "target": {
-        "language": "sw"
+        "language": "fi"
     },
-    "metrics": {
-        "metric": "accuracy"
+    "evaluation": {
+        "metric": "accuracy",
+        "cos_sim_thresh": 0.90
     },
     "paths": {
         "BLOOMZ_TOKENIZER_PATH": "repository/models/bloomz_tokenizer",
         "BLOOMZ_MODEL_PATH": "repository/models/bloomz_model" 
     },
     "models": {
-        "bloomz": "3b"
+        "bloomz": "560m"
     }
 }
+
