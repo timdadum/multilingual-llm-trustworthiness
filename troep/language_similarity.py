@@ -41,16 +41,51 @@ language_subset = [
     'ben'
 ]
 
-for language in language_subset:
-    if language not in languages:
+languages_large = [
+    'ace', 'acm', 'acq', 'aeb', 'afr', 'ajp', 'aka', 'amh', 'apc', 'arb', 'ars', 'ary', 'arz', 'asm', 
+    'ast', 'awa', 'ayr', 'azb', 'azj', 'bak', 'bam', 'ban', 'bel', 'bem', 'ben', 'bho', 'bjn', 'bod', 
+    'bos', 'bug', 'bul', 'cat', 'ceb', 'ces', 'cjk', 'ckb', 'crh', 'cym', 'dan', 'deu', 'dik', 'dyu', 
+    'dzo', 'ell', 'eng', 'epo', 'est', 'eus', 'ewe', 'fao', 'fij', 'fin', 'fon', 'fra', 'fur', 'fuv', 
+    'gla', 'gle', 'glg', 'grn', 'guj', 'hat', 'hau', 'heb', 'hin', 'hne', 'hrv', 'hun', 'hye', 'ibo', 
+    'ilo', 'ind', 'isl', 'ita', 'jav', 'jpn', 'kab', 'kac', 'kam', 'kan', 'kas', 'kat', 'knc', 'kaz', 
+    'kbp', 'kea', 'khm', 'kik', 'kin', 'kir', 'kmb', 'kmr', 'kon', 'kor', 'lao', 'lij', 'lim', 'lin', 
+    'lit', 'lmo', 'ltg', 'ltz', 'lua', 'lug', 'luo', 'lus', 'lvs', 'mag', 'mai', 'mal', 'mar', 'min', 
+    'mkd', 'mlt', 'mni', 'mos', 'mri', 'mya', 'nld', 'nno', 'nob', 'npi', 'nso', 'nus', 'nya', 'oci', 
+    'ory', 'pag', 'pan', 'pap', 'pes', 'pol', 'por', 'prs', 'pbt', 'quy', 'ron', 'run', 'rus', 'sag', 
+    'san', 'sat', 'scn', 'shn', 'sin', 'slk', 'slv', 'smo', 'sna', 'snd', 'som', 'sot', 'spa', 'als', 
+    'srd', 'srp', 'ssw', 'sun', 'swe', 'swh', 'szl', 'tam', 'tat', 'tel', 'tgk', 'tgl', 'tha', 'tir', 
+    'taq', 'tpi', 'tsn', 'tso', 'tuk', 'tum', 'tur', 'twi', 'tzm', 'uig', 'ukr', 'umb', 'urd', 'uzn', 
+    'vec', 'vie', 'war', 'wol', 'xho', 'ydd', 'yor', 'yue', 'zho', 'zsm', 'zul', 'en']
+
+languages_large_filtered = [
+    'afr', 'als', 'amh', 'arb', 'asm', 'ayr', 'azj', 'bam', 'eus', 'bel', 'ben', 
+    'bho', 'bos', 'bul', 'cat', 'ceb', 'nya', 'zho', 'cos', 'hrv', 'ces', 'dan', 
+    'doi', 'nld', 'eng', 'epo', 'est', 'ewe', 'fin', 'fra', 'glg', 'kat', 'deu', 
+    'ell', 'grn', 'guj', 'hat', 'hau', 'heb', 'hin', 'ilo', 'ind', 'gle', 'ita', 
+    'jpn', 'jav', 'kan', 'kaz', 'khm', 'kin', 'kor', 'kur', 'ckb', 'kir', 'lao', 
+    'lat', 'lav', 'lin', 'lit', 'ltz', 'mkd', 'mai', 'mlg', 'msa', 'mal', 'mlt', 
+    'mri', 'mar', 'mon', 'mya', 'nep', 'nob', 'ory', 'orm', 'pus', 'pes', 'pol', 
+    'por', 'pan', 'quy', 'ron', 'rus', 'smo', 'san', 'gla', 'nso', 'srp', 'sot', 
+    'sna', 'snd', 'sin', 'slk', 'slv', 'som', 'spa', 'sun', 'swe', 'swh', 'tgk', 
+    'tam', 'tat', 'tel', 'tgl', 'tha', 'tir', 'tsn', 'tso', 'tuk', 'ukr', 'urd', 
+    'uzn', 'vie', 'cym', 'xho', 'yor', 'zul'
+]
+
+print(len(languages_large_filtered))
+
+
+for language in languages_large:
+    if language not in languages_large:
         print(f'Language {language} not in ISO languages')
 
 # Load syntactic features
-features = l2v.get_features(languages + ['en'], 'syntax_knn')
+features = l2v.get_features(languages, 'syntax_knn')
+
+print(features.keys())
 
 # Calculate cosine similarity relative to English
 cosine_similarities = {}
-for language in language_subset:
+for language in languages_large:
     # 1 - cosine distance to make it cosine similarity
     cosine_similarities[language] = 1 - cosine(features['en'], features[language])
 

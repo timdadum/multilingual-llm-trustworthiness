@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import random
 
 def read(path, json_lines=False):
@@ -48,7 +49,7 @@ def clear_model():
     else:
         print("Operation cancelled.")
 
-def save_results(results, benchmark_name, language, model):
+def save_results(results, benchmark_name, model):
     """
     Saves the results to a JSON file.
     
@@ -58,7 +59,7 @@ def save_results(results, benchmark_name, language, model):
         language (str): The target language.
         model (str): The model name.
     """
-    path = f'repository/benchmarks/results/{benchmark_name}_{model}_{language}.json'
+    path = f'repository/benchmarks/results/{benchmark_name}_{model}.json'
     
     try:
         with open(path, 'w', encoding='utf-8') as goal:
@@ -90,3 +91,39 @@ def get_subset(benchmark_path, n=1000):
         subset = read(subset_path)
     
     return subset
+
+def filter_data_by_language(data, language):
+    """
+    Filters the data to include only entries that end with the specified language suffix.
+
+    Args:
+        data (list): List of dictionaries containing the data samples.
+        language (str): Language suffix to filter by.
+
+    Returns:
+        list: A subset of the data filtered by the specified language.
+    """
+    subset = [
+        {key: value for key, value in sample.items() if key.endswith(f'_{language}')}
+        for sample in data
+    ]
+    return subset
+
+
+def _threadpool(samples, func, **kwargs):
+    # Initialize empty results
+    results = [None] * len(samples)
+    
+    # Thread pool querying
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        futures = []
+        for index, question in enumerate(samples):
+            futures.append(executor.submit(func, index, question, results, **kwargs))
+
+        for future in as_completed(futures):
+            future.result()
+
+    return results
+
+# _single_query
+# index, question, results, translator

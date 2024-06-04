@@ -1,6 +1,6 @@
 {
     "benchmark": {
-        "path": "repository/benchmarks/clean/NQ_clean.json"
+        "path": "repository/benchmarks/clean/trivia_qa_clean.json"
     },
     "target": {
         "language": "fi"
