@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 # Load data from CSV
-data = pd.read_csv('commoncrawl_language_stats.csv')
+print(os.getcwd())
+data = pd.read_csv('multilingual-llm-trustworthiness\miscelleneous\language_features.csv')
 
 # Normalize data function to scale from 1 to 100
 def normalize_data(data):

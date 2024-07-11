@@ -1,6 +1,6 @@
 {
     "benchmark": {
-        "path": "repository/benchmarks/clean/trivia_qa_clean.json"
+        "path": "repository/benchmarks/clean/truthfulqa.json"
     },
     "target": {
         "language": "fi"
@@ -15,6 +15,11 @@
     },
     "models": {
         "bloomz": "560m"
+    },
+    "misc": {
+        "delimiter": "|",
+        "translation_batch_size": 128,
+        "gpt_batch_size": 8
     }
 }
 

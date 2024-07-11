@@ -6,7 +6,7 @@ import matplotlib.dates as mdates
 from sklearn.linear_model import LinearRegression
 
 # Load the dataset
-filename = "../Thesis/llms.csv"
+filename = "multilingual-llm-trustworthiness\miscelleneous\llms.csv"
 df = pd.read_csv(filename, delimiter=';')
 
 # Keep only rows where 'Corpus size (billion tokens)' is not empty or 'Unknown'
@@ -19,9 +19,9 @@ df['Number of parameters (million)'] = df['Number of parameters (million)'].asty
 df['Corpus size (billion tokens)'] = df['Corpus size (billion tokens)'].astype(float)
 
 # Plotting
-plt.scatter(df['Release date'], df['Corpus size (billion tokens)'], color='orange')
+plt.scatter(df['Release date'], df['Number of parameters (million)'], color='orange')
 plt.xlabel('Release Date')
-plt.ylabel('Corpus size (billion tokens)')
+plt.ylabel('Model size (million parameters) of landmark models over time')
 plt.yscale('log')
 plt.title('Corpus size (billion tokens) of landmark models over time')
 plt.xticks(rotation=45) # Rotate date labels for better readability
@@ -30,12 +30,12 @@ plt.tight_layout() # Adjust layout to make room for the rotated date labels
 plt.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
 
 # Set y range
-plt.ylim([0.8, 1e4])   
+plt.ylim([80, 5e6])   
 
 # Plot point names
 for i in range(len(df)):
     plt.text(x=df['Release date'].iloc[i],
-             y=df['Corpus size (billion tokens)'].iloc[i],
+             y=df['Number of parameters (million)'].iloc[i],
              s=df['Name'].iloc[i],
              fontsize='xx-small', # Increase the font size
              rotation=15, # Rotate the text
@@ -46,7 +46,7 @@ for i in range(len(df)):
 # Regression
 df['date_counter'] = (df['Release date'] - pd.to_datetime('2018-01-01')).dt.days
 X = np.log1p(df[['date_counter']])
-y = np.log(df['Corpus size (billion tokens)'])
+y = np.log(df['Number of parameters (million)'])
 model = LinearRegression()
 model.fit(X, y)
 

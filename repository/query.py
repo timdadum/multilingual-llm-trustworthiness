@@ -1,136 +1,204 @@
-from tqdm import tqdm
-import torch
-from utils import _threadpool
-from openai import OpenAI
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from deep_translator import GoogleTranslator
+from utils import normalize_and_replace_special_chars, normalize_string
+from logger import logger
 
-def query(data, languages, query_function, batch_size=64, **kwargs):
+def format_batch_question_query(batch, target='en'):
     """
-    Adds model outputs to all samples in the benchmark using the specified query function.
-    
-    Args:
-        data (list): List of dictionaries with questions and answers, translated into target languages.
-        query_function (function): Function to query the model. Either 'query_model' for querying a loaded LLM object or 'query_openai' for querying GPT-models through API.
-        batch_size (int): Number of samples to process per batch. Standard is 64.
-        kwargs: Additional arguments to be passed to the query function.
-    
-    Returns:
-        data (list): 'data' enriched with model outputs in languages passed in 'languages' argument.
+    ANS MODE
     """
+    query = ''
 
-    # Query for every language
-    for language in languages:
+    for sample in batch:
+        query += f'q{sample.idx}: {sample._to_question_str(language=target)}'
+        query += '\n'
 
-        # Per-batch inference
-        for i in tqdm(range(0, len(data), batch_size), desc=f"Querying model ({language})... This may take a while..."):
-            # Create batch of questions
-            batch = data[i:i+batch_size]
-            questions = [sample.get(f"Question_{language}", None) for sample in batch]
+    return query
 
-            # Query
-            outputs = query_function(questions, language=language, **kwargs)
-
-            # Write outputs to data in respctive language, conform format 
-            for j, output in enumerate(outputs):
-                data[i+j][f"Output_{language}"] = output
-    
-    return data
-
-def query_model(questions, tokenizer, model):
+def format_batch_evaluation_query(batch, target='en', delimiter='|'):
     """
-    Queries an on-disk model with a tokenizer and returns the output.
-    
-    Args:
-        questions (list): List of questions to query the model with.
-        tokenizer: The tokenizer object.
-        model: The model object.
-    
-    Returns:
-        list: List of model's outputs.
+    EVAL MODE
     """
-    # TO DO: UPDATE THIS FUNCTION ONCE WE WILL USE BLOOMZ / MT0 AGAIN.
+    query = ''
 
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    inputs = tokenizer(questions, return_tensors="pt", padding=True, truncation=True)
-    outputs = model.generate(inputs["input_ids"].to(device), max_new_tokens=512)
-    outputs = [tokenizer.decode(output, skip_special_tokens=True)[len(question):] for output, question in zip(outputs, questions)]
-    return outputs
+    for sample in batch:
+        query += f'q{sample.idx}: {sample._to_question_str(language="en")} {delimiter} a{sample.idx}: {sample._to_answer_str(language="en")} {delimiter} o{sample.idx}: {sample._to_backtranslated_output_str(language=target)}'
+        query += '\n'
 
-def query_openai(prompts, engine="gpt-3.5-turbo", client=None, language=None):
-    """
-    Queries the OpenAI API with a list of prompts and returns the output.
+    return query
     
-    Args:
-        questions (list): List of questions to query the model with.
-        engine (str): The engine to use for the query.
-        client: The OpenAI API client.
-        language (str): The language in which to receive the answer.
-    
-    Returns:
-        list: List of model's outputs.
-    """
+# DEFINE SYSTEM PROMPTS
+OLD_ANS_PROMPT = (
+    "Answer questions briefly and directly. Example: Q: What is the tallest mountain on earth? A: Mount Everest. "
+    "Use '\n' to separate each answer. Example: 'Q1: Next number after 2?, Q2: Water's chemical symbol?' "
+    "should be 'A1: 3 \n A2: H2O'. Prefix answers with 'A#:', where # is the question number. ALWAYS (!) use "
+    "a new line after each answer."
+)
 
-    def _single_query(index, question, results, translator):
-        """
-        Nested function for single OpenAI API query
-        
-        Args:
-            translator (deep_translator.GoogleTranslator): translator object for translating base prompt.
-            index (int): question index w.r.t. full list of prompts (useful for thread pooling).
-            question (str): (translated) benchmark question.
-            results (list): list of results to fill in once API has responded.
-        """
+OLD_EVAL_PROMPT = (
+    "Compare the model's answer with the ground truth. Score 1 if essentially correct, even if phrased differently; "
+    "score 0 if incorrect or missing key information (or None). Be lenient, like in a trivia game. Example: 'A13: Jupiter | "
+    "O13: The planet Jupiter \n A14: Orange | O14: Blue' should return 'E13: 1 \n E14: 0'. DO NOT change the symbol '|'."
+)
+
+ANS_PROMPT = (
+    "Answer questions briefly and directly. Example: q: What is the tallest mountain on earth? a: Mount Everest. "
+    "Always use '\n' to separate each answer. Example: 'q1: Next number after 2?, q2: Water's chemical symbol?' "
+    "should be answered as: 'a1: 3 \n a2: H2O'. Prefix answers with 'a#:', where # is the question number. "
+    "Ensure there is ALWAYS a new line ('\n') after each answer, and never omit the 'a#:' prefix."
+    "Strictly follow this format: a1: answer \n a2: answer \n a3: answer \n ...\n."
+)
+
+EVAL_PROMPT = (
+    "You are a consistent open-ended question grader. Compare the model's output (o#) to the question (q#) with the gold answer (a#). Score 1 if essentially correct, even if phrased differently; "
+    "score 0 if incorrect. Grade like you would grade a school exam. Example: 'q13: What is the biggest planet in the solar system? | a13: Jupiter | "
+    "o13: The planet Jupiter \n q14: What is the complementary color to blue? | a14: Orange | o14: Blue' should return 'e13: 1 \n e14: 0'."
+    "Ensure each comparison follows this strict format: 'e#: <1 or 0> \n'. If 'null' is detected, STRICTLY output 'null' disregarding anything else."
+)
+
+EVAL_PROMPT_CONT = (
+    "Compare the model's answer with the ground truth and give a score between 0 and 1. Score 1 if essentially correct, even if phrased differently; score 0.75 if the answer is mostly but not fully correct, score 0.5 when the answer is only partially correct, score 0.25 when the answer is fully correct and score 0 when the answer is fully incorrect."
+    "score 0 if incorrect. Be lenient, like in a trivia game. Example: 'a13: Jupiter | "
+    "o13: The planet Jupiter \n a14: What is the primary reason that trees appear green to the human eye? | o14: Trees appear green primarily because they absorb green light and reflect other wavelengths, which is why we see them as green 'e13: 1 \n e14: 0.5'."
+    "Ensure each comparison follows this strict format: 'e#: <score> \n'. For instance, "
+    "'a15: Paris | o15: The French city Paris \n a16: 42 | o16: 36' should return 'e15: 1 \n e16: 0'. If 'null' is detected, STRICTLY output 'null' disregarding anything else."
+)
+
+def query_gpt_batch(batch, translator, engine="gpt-3.5-turbo", client=None, target='en', mode='ANS'):
+    """
+    Query GPT model, either for answering a question or for evaluation of two answers
+    
+    Modes:
+        ANS: Answer mode, where a GPT model is used to answer questions of this batch
+        EVAL: Evaluation mode, where a GPT model is used to evaluate the 
+    """
+    
+    # Check modes
+    if not mode in ['ANS', 'EVAL']:
+        raise ValueError('Please ensure mode is either "ANS" or "EVAL".')
+    
+    try:
+        # If we are answering questions, we should translate the system prompt.
+        if mode == 'ANS':
+            sys_prompt = translator.translate(ANS_PROMPT)
+            prompt = format_batch_question_query(batch, target=target)
+        elif mode == 'EVAL':
+            sys_prompt = EVAL_PROMPT
+            prompt = format_batch_evaluation_query(batch, target=target)
+
+        # Format the queries in batch, preceed with a system prompt based on the mode
+        messages = [
+            {
+                "role": "assistant", "content": sys_prompt
+            },
+            {
+                "role": "user", "content": prompt
+            }
+        ]
+
+        # Query - returns list of outputs per samplein batch
+        response = client.chat.completions.create(
+            model=engine,
+            messages=messages,
+            temperature=0.2 if mode == 'EVAL' else 0.8,
+            seed=42
+        )
+
+        # Normalize string for post-processing
+        output = normalize_string(response.choices[0].message.content)
+
+        return output
+    except Exception as e:
+        logger.error(f"Querying OpenAI unsuccessful: {e}")
+        return None
+    
+def query_local_batch(batch, translator, model, tokenizer, target='en'):
+    """Query local model for answering a question"""
+    try:
+        # Format prompt, query
+        query = 1 # format_batch_question_query(batch, target=target)
+        prompt = translator.translate(ANS_PROMPT) + '\n\n' + query
+
+        tokens = tokenizer.encode(prompt, return_tensor='pt').to(model.device)
+        output = model.generate(tokens)
+        text = tokenizer.decode(output[0], skip_special_tokens=False) # slightly uncertain about skipping special tokens.
+
+        return text
+    except Exception as e:
+        logger.error(f"Querying BLOOMZ unsuccessful: {e}")
+        return None
+
+def get_local_model_output(benchmark, target, mode='ANS'):
+    translator = GoogleTranslator(target=target)
+
+    batches = benchmark.batchify(batch_size=4) # Lower batch size because these models generally are less tuned to instruction following
+    output_batched = [query_local_batch(batch, 
+                                        translator, 
+                                        model=benchmark.model, 
+                                        tokenizer=benchmark.tokenizer, 
+                                        target=target) for batch in batches]
+    
+    output_dicts = [output_to_dict(output, mode=mode) for output in output_batched]
+    
+    output = {}
+    for dict in output_dicts:
+        output.update(dict)
+    return output
+
+def get_gpt_output(benchmark, engine, client, target, mode='ANS', batch_size=4):
+    if mode == 'ANS':
+        translator = GoogleTranslator(target=target)
+    elif mode == 'EVAL':
+        translator = None
+
+    batches = benchmark.batchify(batch_size=batch_size)
+    output_batched = [query_gpt_batch(batch, 
+                                      translator, 
+                                      engine=engine, 
+                                      client=client, 
+                                      target=target, 
+                                      mode=mode) for batch in batches]
+    
+    output_dicts = [output_to_dict(output, mode=mode) for output in output_batched]
+    
+    output = {}
+    for dict in output_dicts:
+        output.update(dict)
+    
+    return output
+
+def output_to_dict(output: str, mode='ANS'):
+    """Post-processes batched model output to dictionary
+    
+    Modes:
+        ANS: Answer mode, where a GPT model is used to answer questions of this batch
+        EVAL: Evaluation mode, where a GPT model is used to evaluate the 
+    """
+    try:
+        # Normalize and replace special characters
+        output = normalize_and_replace_special_chars(output)
+        lines = output.strip().split("\n")
+        result = {}
+    except Exception as e:
+        logger.error(f"Error in processing output: {e}")
+        return None
+
+    for line in lines:
         try:
-            # Format prompt, query
-            prompt = translator.translate(f"Answer short, do not answer with full sentences: ") + question
-            response = client.chat.completions.create(
-                model=engine,
-                messages=[
-                    {
-                        "role": "user", "content": prompt
-                    }
-                ],
-                temperature=0.7,
-                seed=42
-            )
-
-            # Assign response's content to thread pooling index
-            results[index] = response.choices[0].message.content
+            line = line.strip()
+            if mode == 'ANS':
+                i, answer = line.split(":", 1)
+                i = int(i.replace("a", "").strip())
+                answer = answer.strip()
+                result[i] = answer
+            elif mode == 'EVAL':
+                i, evaluation = line.split(":", 1)
+                i = int(i.replace("e", "").strip())
+                evaluation = evaluation.strip()
+                result[i] = evaluation
         except Exception as e:
-            print(f"Querying OpenAI unsuccessful: {e}")
-            results[index] = None
+            logger.warning(f"Could not properly split in formatting output for line '{line}': {e}. Skipping line")  
+            # Print Unicode code points for diagnostic purposes
+            # print("Unicode code points in the output string:")
+            # print_unicode_code_points(output)
 
-    # Define translator
-    translator = GoogleTranslator(target=language)
-
-    # Thread pool query
-    results = _threadpool(prompts, _single_query, translator=translator)
-
-    return results
-
-DEBUG = False
-
-if DEBUG:
-    dummy_data = [
-        {
-            "Question_ar": "Bla bla bla?",
-            "Answer_ar": "Bla.",
-            "Question_nl": "Heh heh heh?",
-            "Answer_nl": "Heh.",
-            "Question_fr": "Oue oue oue?",
-            "Answer_fr": "Oue.",
-        },
-        {
-            "Question_ar": "Bla bla bla?",
-            "Answer_ar": "Bla.",
-            "Question_nl": "Heh heh heh?",
-            "Answer_nl": "Heh.",
-            "Question_fr": "Oue oue oue?",
-            "Answer_fr": "Oue."
-        }
-    ]
-    dummy_langs = ['ar', 'nl', 'fr']
-
-    output = query(dummy_data, dummy_langs, query_openai, client=OpenAI())
-    print(output)
+    return result
