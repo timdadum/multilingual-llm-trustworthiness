@@ -101,20 +101,24 @@ languages_large_transformed_filtered = [
 iso_to_transformed = {iso: trans for iso, trans in zip(language_subset_iso, language_subset_transformed)}
 transformed_to_iso = {value: key for key, value in iso_to_transformed.items()}
 
-benchmark = MultilingualBenchmark(model_name='gpt-3.5-turbo', run_name='debug', languages=known_subset, config=config)
+benchmark = MultilingualBenchmark(model_name='gpt-4o-mini', run_name='debug', languages=language_subset_transformed, config=config)
 
-# global debug parameter. Set to True if running main with an already existing .json results file.
+# global debug parameter. Set to False if running main with an already existing .json results file.
 RUN_EXPERIMENTS = False
 
 if RUN_EXPERIMENTS:
     logger.info("Now running experiments.")
     benchmark_path = config.get('benchmark', {}).get('path', {})
-    subset = get_subset(benchmark_path, n=256)
+    subset = get_subset(benchmark_path, n="Inf")
     benchmark.load_benchmark(subset)
     benchmark.run(print_results=True, plot_results=False)
     benchmark.to_json(f'repository/benchmarks/results/{benchmark.run_name}_{benchmark.model_name}.json')
 else:
-    benchmark = benchmark.from_json(r'repository\benchmarks\results\debug_gpt-3.5.json', model_name='gpt-3.5-turbo', run_name='debug', languages=known_subset)
+    benchmark = benchmark.from_json(r'repository\benchmarks\results\debug_gpt-4o-mini.json', 
+                                    model_name='gpt-4o-mini', 
+                                    run_name='debug', 
+                                    languages=language_subset_transformed, 
+                                    config=config)
 
     benchmark.print_results()
     benchmark.plot_results(iso_to_transformed, transformed_to_iso)

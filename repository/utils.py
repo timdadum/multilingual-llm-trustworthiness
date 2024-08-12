@@ -4,6 +4,7 @@ import shutil
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import random
 import unicodedata
+import re
 from logger import logger
 
 def split_text(text, delimiter="|"):
@@ -86,6 +87,11 @@ def write(path, data):
     with open(path, 'w', encoding='utf-8') as file:
         json.dump(data, file, indent=4, ensure_ascii=False)
 
+def clean_str(string):
+    string = string.lower().strip()
+    string = ''.join(re.findall('[abcdef]', string))
+    return string
+
 def clear_model():
     """
     Clears the current model folder after user confirmation.
@@ -162,28 +168,34 @@ def get_subset(benchmark_path, n=1000):
     
     Args:
         benchmark_path (str): The path to the benchmark file.
-        n (int): The number of samples to select for the subset.
+        n (int): The number of samples to select for the subset. If n == "Inf", returns entire benchmark
     
     Returns:
         list: The subset of the benchmark.
     """
+    # Read subset or return if it exists
     subset_path = f'{benchmark_path.replace(".json", "")}_subset_{n}.json'
-    
     if not os.path.exists(subset_path):
         benchmark = read(benchmark_path)
-        subset = random.sample(benchmark, min(n, len(benchmark)))
-
-        # Add _en behind every key except idx, which we manually add
-        for i, sample in enumerate(subset):
-            subset[i] = {f"{key}_en": value for key, value in sample.items() if key != i}
-            subset[i]['idx'] = i
-
-        write(subset_path, subset)
-        logger.info(f'Subset {subset_path} created.')
     else:
         logger.info(f"{subset_path} already exists. Reading subset...")
         subset = read(subset_path)
-    
+        return subset
+
+    # If argument is "inf", return entire subset. Else, sample n samples randomly.
+    if n == "Inf":
+        subset = benchmark
+    else:
+        subset = random.sample(benchmark, min(n, len(benchmark)))
+
+    # Add indices 
+    for i, sample in enumerate(subset):
+        subset[i]['idx'] = i
+
+    # Write subset
+    write(subset_path, subset)
+    logger.info(f'Subset {subset_path} created.')
+
     return subset
 
 def filter_data_by_language(data, language):

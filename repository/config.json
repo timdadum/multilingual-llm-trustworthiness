@@ -1,6 +1,6 @@
 {
     "benchmark": {
-        "path": "repository/benchmarks/clean/truthfulqa.json"
+        "path": "repository/benchmarks/clean/truthfulqa_mc.json"
     },
     "target": {
         "language": "fi"
@@ -18,8 +18,11 @@
     },
     "misc": {
         "delimiter": "|",
-        "translation_batch_size": 128,
-        "gpt_batch_size": 8
+        "translation_batch_size": 64,
+        "gpt_batch_size": 16
+    },
+    "experiments": {
+        "add_i_dont_know_option": "true"
     }
 }
 

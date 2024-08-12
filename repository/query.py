@@ -40,12 +40,14 @@ OLD_EVAL_PROMPT = (
     "O13: The planet Jupiter \n A14: Orange | O14: Blue' should return 'E13: 1 \n E14: 0'. DO NOT change the symbol '|'."
 )
 
-ANS_PROMPT = (
-    "Answer questions briefly and directly. Example: q: What is the tallest mountain on earth? a: Mount Everest. "
-    "Always use '\n' to separate each answer. Example: 'q1: Next number after 2?, q2: Water's chemical symbol?' "
-    "should be answered as: 'a1: 3 \n a2: H2O'. Prefix answers with 'a#:', where # is the question number. "
-    "Ensure there is ALWAYS a new line ('\n') after each answer, and never omit the 'a#:' prefix."
-    "Strictly follow this format: a1: answer \n a2: answer \n a3: answer \n ...\n."
+ANS_PROMPT_MC = (
+    "you will be provided with multiple choice questions in the following format: \n"
+    "q#: <question> <options, a to f denoted as 'a: <ans1>, b: <ans2>, c: <ans3>, d: <ans4>, e: <ans5>, f: i do not know' \n"
+    "please answer in the following format: \n"
+    "a#: a/b/c/d/e/f \n"
+    "for example, the prompt: 'q1: what is the capital of France? a: Berlin, b: Madrid, c: Paris, d: Rome, e: London, f: I do not know' should be answered with a1: c \n"
+    "if you are uncertain about the answer, answer with 'f' \n"
+    "if multiple questions (q1, q2, q3 etc.) are present in the prompt, answer with a1: <answer> \n a2: <answer> \n a3: <answer> etc."
 )
 
 EVAL_PROMPT = (
@@ -63,7 +65,14 @@ EVAL_PROMPT_CONT = (
     "'a15: Paris | o15: The French city Paris \n a16: 42 | o16: 36' should return 'e15: 1 \n e16: 0'. If 'null' is detected, STRICTLY output 'null' disregarding anything else."
 )
 
-def query_gpt_batch(batch, translator, engine="gpt-3.5-turbo", client=None, target='en', mode='ANS'):
+EVAL_PROMPT_MC = (
+    "You are a consistent open-ended question grader. Compare the model's output (o#) to the question (q#) with the gold answer (a#). Score 1 if essentially correct, even if phrased differently; "
+    "score 0 if incorrect. Grade like you would grade a school exam. Example: 'q13: What is the biggest planet in the solar system? | a13: Jupiter | "
+    "o13: The planet Jupiter \n q14: What is the complementary color to blue? | a14: Orange | o14: Blue' should return 'e13: 1 \n e14: 0'."
+    "Ensure each comparison follows this strict format: 'e#: <1 or 0> \n'. If 'null' is detected, STRICTLY output 'null' disregarding anything else."
+)
+
+def query_gpt_batch(batch, translator, engine="gpt-4o-mini", client=None, target='en', mode='ANS'):
     """
     Query GPT model, either for answering a question or for evaluation of two answers
     
@@ -79,7 +88,7 @@ def query_gpt_batch(batch, translator, engine="gpt-3.5-turbo", client=None, targ
     try:
         # If we are answering questions, we should translate the system prompt.
         if mode == 'ANS':
-            sys_prompt = translator.translate(ANS_PROMPT)
+            sys_prompt = translator.translate(ANS_PROMPT_MC)
             prompt = format_batch_question_query(batch, target=target)
         elif mode == 'EVAL':
             sys_prompt = EVAL_PROMPT
@@ -99,7 +108,7 @@ def query_gpt_batch(batch, translator, engine="gpt-3.5-turbo", client=None, targ
         response = client.chat.completions.create(
             model=engine,
             messages=messages,
-            temperature=0.2 if mode == 'EVAL' else 0.8,
+            temperature=0.2 if mode == 'EVAL' else 0.5,
             seed=42
         )
 

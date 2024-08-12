@@ -4,9 +4,11 @@ from query import get_gpt_output, get_local_model_output
 from deep_translator import GoogleTranslator
 from model import load_bloomz
 from openai import OpenAI
-from eval import plot_accuracy_vs_sim, plot_accuracy_vs_percentage, plot_surface_accuracy_vs_sim_and_percentage
+from utils import clean_str
+from eval import plot_accuracy_per_language
 import pandas as pd
 import json
+import re
 import os 
 from logger import logger
 
@@ -26,7 +28,6 @@ class Sample:
         self.questions = {'en': question}
         self.answers = {'en': answer}
         self.output = {}
-        self.backtranslated_output = {}
         self.evaluations = {}
 
         # idx to keep track of sample position
@@ -41,9 +42,6 @@ class Sample:
         # Include output (if not None)
         output_str += f" {separator} o{self.idx}: {self.output.get(language, None)}"
 
-        # Include output (if not None)
-        output_str += f" {separator} bo{self.idx}: {self.backtranslated_output.get(language, None)}"
-
         # Include score (if not None)
         output_str += f" {separator} e{self.idx}: {self.evaluations.get(language, None)}"
 
@@ -53,8 +51,7 @@ class Sample:
         
         if (self.questions[language] is None or self.questions[language] == 'null' or
             self.answers['en'] is None or self.answers['en'] == 'null' or
-            self.output[language] is None or self.output[language] == 'null' or
-            self.backtranslated_output[language] is None or self.backtranslated_output[language] == 'null'):
+            self.output[language] is None or self.output[language] == 'null'):
                 return True
         else:
             return False
@@ -68,9 +65,6 @@ class Sample:
     
     def _to_output_str(self, language='en'):
         return self.output.get(language, None)
-     
-    def _to_backtranslated_output_str(self, language='en'):
-        return self.backtranslated_output.get(language, None)
        
     def _to_dict(self):
         """Returns this object as a dictionary (useful for writing to .json)"""
@@ -79,7 +73,6 @@ class Sample:
             result[f"answer_en"] = self.answers['en']
             result[f"question_{lang}"] = self.questions.get(lang, None)
             result[f"output_{lang}"] = self.output.get(lang, None)
-            result[f"backtranslated_output_{lang}"] = self.backtranslated_output.get(lang, None)
             result[f"score_{lang}"] = self.evaluations.get(lang, None) 
         return result
 
@@ -120,6 +113,29 @@ class Sample:
 
         return sample
 
+    def _evaluate(self):
+        """Evaluates using multiple-choice matching."""
+        for language, output in self.output.items():
+            try:
+                out = clean_str(output)
+            except (AttributeError, TypeError) as e:
+                # Score should be null - invalid sample for this language
+                self.score(language, 'null')
+                continue
+            
+            ans = self.answers.get('en', '').lower().strip()
+
+            # Checking if the cleaned output matches the answer or indicates "I do not know" (which is always F.)
+            if out == ans:
+                self.score(language, 1)
+            elif out == "f":
+                self.score(language, -1)
+            elif out in ['a', 'b', 'c', 'd', 'e']:
+                self.score(language, 0)
+            else:
+                self.score(language, 'null')
+
+
     def _add_to_language(self, language, mode='q', to_add=None, **kwargs):
         """
         Add to this sample's contents new content based on type.
@@ -128,7 +144,7 @@ class Sample:
             language (str): Language to add to sample conform deep_translator.GoogleTranslator docs, e.g. 'cy' for Welsh, 'hi' for Hindi
             mode (str): 
             - 'q' for translation of questions, 
-            - 'qo' for translation of questions to target and the output given in the target language (backtranslation)
+            - 'qo' for translation of questions to target and the output given in the target language
             to_add (Any): Content to add
         Returns:
             A sample object with arguments as contents
@@ -136,15 +152,14 @@ class Sample:
         if mode == 'q':
             self.questions[language] = to_add
         elif mode == 'qo':
-            self.backtranslated_output[language] = to_add
+            self.output['en'] = to_add
 
-    def _assign(self, lang, idx, question, answer, output, backtranslated_output, score):
+    def _assign(self, lang, idx, question, answer, output, score):
         """Assign contents to Sample"""
         self.idx = idx
         self.questions[lang] = question
         self.answers[lang] = answer
         self.output[lang] = output
-        self.backtranslated_output[lang] = backtranslated_output
         self.evaluations[lang] = score
         
     def add_output(self, language, output):
@@ -166,9 +181,8 @@ class Sample:
             question = data.get(f"question_{language}", None)
             answer = data.get(f"answer_{language}", None)
             output = data.get(f"output_{language}", None)
-            backtranslated_output = data.get(f"backtranslated_output_{language}", None)
             score = data.get(f"score_{language}", None)
-            sample._assign(language, idx, question, answer, output, backtranslated_output, score)
+            sample._assign(language, idx, question, answer, output, score)
         
         return sample
 
@@ -243,7 +257,11 @@ class MultilingualBenchmark:
         if not os.path.exists(translated_path):
             self.translate_all(mode='q', save=True)
         else:
-            new_instance = self.from_json(translated_path, model=self.model_name, name=self.run_name, languages=self.languages, config=self.config)
+            new_instance = self.from_json(translated_path, 
+                                          model_name=self.model_name, 
+                                          run_name=self.run_name, 
+                                          languages=self.languages, 
+                                          config=self.config)
             self.model_name = new_instance.model_name
             self.run_name = new_instance.run_name
             self.languages = new_instance.languages
@@ -255,11 +273,8 @@ class MultilingualBenchmark:
             self.tokenizer, self.model = load_bloomz(config=self.config)
             self.query_bloomz()
         
-        # Backtranslate outputs to English
-        self.translate_all(mode='qo', save=False)
-
         # Evaluate targets and then filter for null values (TODO: Skip evaluating for any None-values)
-        self.evaluate()
+        self.evaluate_all()
         self.has_results = True
 
         if print_results:
@@ -283,7 +298,7 @@ class MultilingualBenchmark:
         with open(path, 'w', encoding='utf-8') as file:
             json.dump(self._json_format(), file, indent=4, ensure_ascii=False)
         
-        logger.info(f"Benchmark {f'{self.run_name}_{self.model_name}'} uccesfully written to {path}")
+        logger.info(f"Benchmark {f'{self.run_name}_{self.model_name}'} succesfully written to {path}")
 
     def __next__(self):
         self.current_idx += 1
@@ -448,6 +463,8 @@ class MultilingualBenchmark:
 
     def evaluate(self):
         """
+        UNUSED
+
         Evaluates benchmark using all languages using GPT models
         """
         client = OpenAI()
@@ -459,14 +476,57 @@ class MultilingualBenchmark:
             except Exception as e:
                 logger.error(f"Error encountered evaluating {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
 
+    def evaluate_all(self):
+        """Evaluate for all languages their answers using direct answer matching"""
+        logger.info("Evaluating")
+        for sample in self.samples:
+            sample._evaluate()
+
     def _get_valid_evals(self, language):
         evals = [sample.evaluations[language] for sample in self.samples]
-        return [float(eval) for eval in evals if eval is not None]
+        return [float(eval) for eval in evals if eval != 'null']
     
     def _valid_evals_to_accuracy(self, valid_evals):
-        return sum(valid_evals) / len(valid_evals)
+        # Calculate accuracy by excluding -1 responses
+        valid_scores = [score for score in valid_evals if score != -1]
+        return sum(valid_scores) / len(valid_scores) if valid_scores else 0
 
-    def _extract_accuracies(self, thresh=8):
+    def _valid_evals_to_dont_know_fraction(self, valid_evals):
+        # Calculate fraction of "I do not know" responses
+        dont_know_count = valid_evals.count(-1)
+        return dont_know_count / len(valid_evals) if valid_evals else 0
+
+    def print_results(self, return_scores=False):
+        scores = self._extract_accuracies()
+
+        # Formatting the output
+        output = "\nExperiment Results:\n"
+        output += "=" * 20 + "\n"
+        
+        for language, accuracy in scores.items():
+            # Calculate valid samples
+            valid_evals = self._get_valid_evals(language)
+            valid_count = len(valid_evals)
+            total_count = len(self.samples)
+            dont_know_fraction = self._valid_evals_to_dont_know_fraction(valid_evals)
+
+            if accuracy is not None:
+                output += f"Target Language: {language}\n"
+                output += f"Accuracy: {accuracy * 100:.2f}%\n"
+                output += f"Fraction 'I do not know': {dont_know_fraction * 100:.2f}%\n"
+                output += f"Valid: {valid_count}/{total_count}\n"
+            else:
+                output += f"Target Language: {language}\n"
+                output += "Accuracy: None\n"
+                output += f"Valid: {valid_count}/{total_count}\n"
+            output += "-" * 20 + "\n"
+
+        print(output)
+
+        if return_scores:
+            return scores
+
+    def _extract_accuracies(self, thresh=4):
         """
         Converts experiment results to a dictionary of accuracies.
 
@@ -494,26 +554,6 @@ class MultilingualBenchmark:
         logger.info(f"Now saving translated benchmark to {save_path}")
         self.to_json(save_path)
         logger.info("Saved succesfully!")
-
-    def print_results(self, return_scores=False):
-        scores = self._extract_accuracies()
-
-        # Formatting the output
-        output = "\nExperiment Results:\n"
-        output += "=" * 20 + "\n"
-        for language, accuracy in scores.items():
-            if accuracy is not None:
-                output += f"Target Language: {language}\n"
-                output += f"Accuracy: {accuracy * 100:.2f}%\n"
-            else:
-                output += f"Target Language: {language}\n"
-                output += "Accuracy: None\n"
-            output += "-" * 20 + "\n"
-
-        print(output)
-
-        if return_scores:
-            return scores
         
     def plot_results(self, lang_iso=None, lang_trans=None, features_path='repository/features/language_features.csv'):
         if self.has_results:
@@ -530,12 +570,16 @@ class MultilingualBenchmark:
             lang_trans = [
                 'ar', 'fr', 'es', 'hi',
                 'zh-CN', 'en', 'cy', 'fi',
-                'hu', 'nl', 'it', 'bn',
+                'hu', 'zu', 'nl', 'it',
                 'vi', 'sw', 'ja', 'de',
                 'id', 'ur', 'ru', 'pt',
+                'bn'
             ]
            
             scores = self._extract_accuracies()
+            # valid = {language : self._get_valid_evals(self, language) for language in lang_trans}
+            # dontknows = {language : self._valid_evals_to_dont_know_fraction(valids) for language, valids in valid}
+
             iso_to_transformed = {iso: trans for iso, trans in zip(lang_iso, lang_trans)}
             transformed_to_iso = {value: key for key, value in iso_to_transformed.items()}
             iso_scores = {transformed_to_iso[lan]: score for lan, score in scores.items()}
@@ -543,23 +587,23 @@ class MultilingualBenchmark:
             # Merge our results with predefined language features in a Pandas dataframe
             features = pd.read_csv(features_path)
             results = features.merge(pd.DataFrame(list(iso_scores.items()), columns=['language', 'accuracy']), on='language', how='left')
-            results = results[results['language'] != 'eng']
             results = results.dropna()
 
             # Plot results
-            plot_accuracy_vs_sim(results)
-            plot_accuracy_vs_percentage(results)
-            plot_surface_accuracy_vs_sim_and_percentage(results)
+            plot_accuracy_per_language(results)
+            # plot_accuracy_vs_sim(results)
+            # plot_accuracy_vs_percentage(results)
+            # plot_surface_accuracy_vs_sim_and_percentage(results)
         else:
             logger.info('No results recorded yet for plotting. Please run cls.run() first.')
 
 
     @classmethod
-    def from_json(cls, path, model, name, languages, config):
-        logger.info(f'Loading {path} for {name}_{model} from json...')
+    def from_json(cls, path, model_name, run_name, languages, config):
+        logger.info(f'Loading {path} for {run_name}_{model_name} from json...')
 
         # Load Benchmark object
-        benchmark = cls(model, name, languages, config)
+        benchmark = cls(model_name, run_name, languages, config)
         with open(path, 'r', encoding='utf-8') as file:
             data = json.load(file)
         
@@ -575,4 +619,4 @@ class MultilingualBenchmark:
         
 
 def create_samples(json_object: dict) -> list:
-    return [Sample(pair['question_en'], pair['answer_en'], pair['idx']) for pair in json_object]   
+    return [Sample(pair['question_en'], pair['answer_en'], pair['idx']) for pair in json_object]

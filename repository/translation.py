@@ -57,8 +57,6 @@ def _prepare_query(sample, target, mode='q', delimiter='|'):
     try:
         if mode == 'q':
             q = sample._to_question_str(language='en')
-            if not q.endswith('?'):
-                q += '?'
             parts.append(q)
         elif mode == 'qo':
             parts.append(sample._to_question_str(language=target))
@@ -67,39 +65,3 @@ def _prepare_query(sample, target, mode='q', delimiter='|'):
         return delimiter.join(parts)
     except Exception as e:
         logger.error(f"Error preparing query: {e}")
-
-# TO REMOVE SOON
-def _process_translation(sample, translation, target, mode='q'):
-    """
-    Post-processes a sample after translation.
-    
-    Args:
-        sample (Sample): Sample object
-        translation (str): This sample's translation in the target language
-        target (str): Target language conform deep_translator.GoogleTranslator docs, e.g. 'cy' for Welsh, 'hi' for Hindi
-        mode (str): 
-            - 'q' for translation of questions, 
-            - 'qo' for translation of questions to target and the output given in the target language (backtranslation)
-        batch (list, str): Contains list of formatted queries to be translated
-    Returns:
-        A sample object with target translation
-    """
-    # Split translation by separator
-    split_translation = re.split(r'\s*<<<\|+\|\|+\s*>>>\s*', translation)
-    
-    # Assemble a range of keys to append to in sample object
-    keys = []
-    if mode == 'q':
-        keys.append(f"Question_{target}")
-    elif mode == 'qo':
-        keys.append(f"Output_{target}")
-
-    # If this is not conistent, raise Error
-    if len(split_translation) != len(keys):
-        raise ValueError("Translation split error. Resulting translation: ", split_translation)
-
-    # Otherwise, assign to sample all translated information
-    for key, translated_part in zip(keys, split_translation):
-        sample[key] = translated_part.strip()
-
-    return sample
