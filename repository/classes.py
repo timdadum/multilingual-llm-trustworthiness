@@ -1,16 +1,62 @@
 from translation import translate_batch
 from utils import split_text
-from query import get_gpt_output, get_local_model_output
+from query import get_api_output, get_local_model_output
 from deep_translator import GoogleTranslator
 from model import load_bloomz
 from openai import OpenAI
 from utils import clean_str
 from eval import plot_accuracy_per_language
+import google.generativeai as genai
 import pandas as pd
 import json
 import re
 import os 
 from logger import logger
+
+### SYSTEM PROMPTS AND MISC. ### #TODO: REFORMAT
+
+ANS_PROMPT = (
+    "You are a highly accurate multiple-choice question answerer. Your responses must strictly adhere to the following format: \n"
+    "a#: a/b/c/d/e/f \n\n"
+    "Where '#' is the question number (e.g., a1 for the first question, a2 for the second). \n\n"
+    "**Incorrect example:** q1: a \n"
+    "**Correct example:** a1: a \n\n"
+    "If you are uncertain about the answer, respond with 'f'. \n\n"
+    "For multiple questions, provide answers in the format: \n"
+    "a1: <answer> \n"
+    "a2: <answer> \n"
+    "a3: <answer> \n"
+    "... \n\n"
+    "## EXAMPLE \n"
+    "q1: What is the capital of France? a: Berlin, b: Madrid, c: Paris, d: Rome, e: London, f: I do not know' \n"
+    "Your answer should be: a1: c \n\n"
+)
+
+# Used for Google API safety blockage
+safe = [
+    {
+        "category": "HARM_CATEGORY_DANGEROUS",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_HARASSMENT",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_HATE_SPEECH",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "threshold": "BLOCK_NONE",
+    }
+]
+
+######################
 
 class Sample:
     """
@@ -28,7 +74,7 @@ class Sample:
         self.questions = {'en': question}
         self.answers = {'en': answer}
         self.output = {}
-        self.evaluations = {}
+        self.evaluation = {}
 
         # idx to keep track of sample position
         self.idx = idx
@@ -43,7 +89,7 @@ class Sample:
         output_str += f" {separator} o{self.idx}: {self.output.get(language, None)}"
 
         # Include score (if not None)
-        output_str += f" {separator} e{self.idx}: {self.evaluations.get(language, None)}"
+        output_str += f" {separator} e{self.idx}: {self.evaluation.get(language, None)}"
 
         return output_str
     
@@ -73,7 +119,7 @@ class Sample:
             result[f"answer_en"] = self.answers['en']
             result[f"question_{lang}"] = self.questions.get(lang, None)
             result[f"output_{lang}"] = self.output.get(lang, None)
-            result[f"score_{lang}"] = self.evaluations.get(lang, None) 
+            result[f"score_{lang}"] = self.evaluation.get(lang, None) 
         return result
 
     @classmethod
@@ -160,13 +206,13 @@ class Sample:
         self.questions[lang] = question
         self.answers[lang] = answer
         self.output[lang] = output
-        self.evaluations[lang] = score
+        self.evaluation[lang] = score
         
     def add_output(self, language, output):
         self.output[language] = output
 
     def score(self, language, score):
-        self.evaluations[language] = score
+        self.evaluation[language] = score
 
     @classmethod
     def from_dict(cls, data: dict, idx, languages):
@@ -187,7 +233,6 @@ class Sample:
         return sample
 
 
-
 class MultilingualBenchmark:
     """
     Represents a benchmark consisting of multiple samples.
@@ -197,9 +242,12 @@ class MultilingualBenchmark:
     samples: list, a list of Sample objects
     current_idx: int,  
     """
-    def __init__(self, model_name: str, run_name: str, languages: list, config: dict):
+    def __init__(self, benchmark_name: str, model_name: str, run_name: str, languages: list, config: dict):
         self.samples = []
         self.current_idx = -1
+
+        # Names
+        self.benchmark_name = benchmark_name
         self.model_name = model_name
         self.run_name = run_name
 
@@ -245,19 +293,20 @@ class MultilingualBenchmark:
         for language in self.languages:
             self.translate(target=language, mode=mode)
         if save:
-            self.to_json(f'repository/benchmarks/translated/{self.run_name}_GoogleTranslated.json')
+            self._save_translated_benchmark()
 
     def run(self, print_results=True, plot_results=False):
         """Main experiment function"""
         if not self.languages or not self.samples:
             raise ValueError("Please ensure this MultilingualBenchmark contains samples and target languages!")
         
-        # Load translated benchmark already if it exists
-        translated_path = f'repository/benchmarks/translated/{self.run_name}_GoogleTranslated.json'
+        # Load translated benchmark already if it exists 
+        translated_path = f'repository/benchmarks/translated/{self.benchmark_name}_{len(self.samples)}.json'
         if not os.path.exists(translated_path):
             self.translate_all(mode='q', save=True)
         else:
-            new_instance = self.from_json(translated_path, 
+            new_instance = self.from_json(translated_path,
+                                          benchmark_name=self.benchmark_name, 
                                           model_name=self.model_name, 
                                           run_name=self.run_name, 
                                           languages=self.languages, 
@@ -269,6 +318,8 @@ class MultilingualBenchmark:
 
         if 'gpt' in self.model_name.lower():
             self.query_gpt()
+        elif 'gemini' in self.model_name.lower():
+            self.query_gemini()
         elif 'bloomz' in self.model_name.lower():
             self.tokenizer, self.model = load_bloomz(config=self.config)
             self.query_bloomz()
@@ -284,6 +335,7 @@ class MultilingualBenchmark:
             self.plot_results()
 
         logger.info('Done running!')
+        self.write_to_json(f'repository/benchmarks/results/{self.benchmark_name}_{self.model_name}.json')
     
     def __iter__(self):
         self.current_idx = -1
@@ -292,7 +344,7 @@ class MultilingualBenchmark:
     def _json_format(self):
         return [sample._to_dict() for sample in self.samples]
 
-    def to_json(self, path):
+    def write_to_json(self, path):
         logger.info("Writing benchmark to json...")
         
         with open(path, 'w', encoding='utf-8') as file:
@@ -433,10 +485,9 @@ class MultilingualBenchmark:
         """
         for sample in self.samples:
             contains_nan = sample._contains_nan(target)
-            sample.evaluations[target] = None if contains_nan else evals.get(sample.idx, None)
-
+            sample.evaluation[target] = None if contains_nan else evals.get(sample.idx, None)
     
-    def query_gpt(self, mode='ANS'):
+    def query_gpt(self):
         """
         Queries benchmark using all languages using GPT models
         """
@@ -444,7 +495,28 @@ class MultilingualBenchmark:
         for language in self.languages:
             logger.info(f'Now querying {self.model_name} for language {language}')
             try:
-                output = get_gpt_output(self, self.model_name, client, language, mode=mode, batch_size=self.gpt_batch_size)
+                output = get_api_output(self, language, api_type='openai', batch_size=self.gpt_batch_size, client=client)
+                self._assign_output(language, output)
+            except Exception as e:
+                logger.critical(f"Error encountered querying {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
+
+    def query_gemini(self, engine='gemini-1.5-flash'):
+        """
+        Queries benchmark using all languages using Gemini models
+        """
+        for language in self.languages:
+            # Translate system prompt
+            sys_prompt = GoogleTranslator(target=language).translate(ANS_PROMPT)
+            
+            model = genai.GenerativeModel(
+                model_name=engine,
+                system_instruction=sys_prompt,
+                safety_settings=safe
+            )
+
+            logger.info(f'Now querying {self.model_name} for language {language}')
+            try:
+                output = get_api_output(self, language, api_type='google', batch_size=self.gpt_batch_size, model=model)
                 self._assign_output(language, output)
             except Exception as e:
                 logger.critical(f"Error encountered querying {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
@@ -483,7 +555,7 @@ class MultilingualBenchmark:
             sample._evaluate()
 
     def _get_valid_evals(self, language):
-        evals = [sample.evaluations[language] for sample in self.samples]
+        evals = [sample.evaluation[language] for sample in self.samples]
         return [float(eval) for eval in evals if eval != 'null']
     
     def _valid_evals_to_accuracy(self, valid_evals):
@@ -548,11 +620,11 @@ class MultilingualBenchmark:
                 scores[language] = None
         return scores
     
-    def _save_translated_benchmark(self, translated_by='GTranslator', path='repository/benchmarks/translated/'):
+    def _save_translated_benchmark(self, path='repository/benchmarks/translated/'):
         """Save translated QA pairs as .json - saves a lot of time during the experiment"""
-        save_path = path + translated_by
+        save_path = f'{path}{self.benchmark_name}_{len(self.samples)}.json' 
         logger.info(f"Now saving translated benchmark to {save_path}")
-        self.to_json(save_path)
+        self.write_to_json(save_path)
         logger.info("Saved succesfully!")
         
     def plot_results(self, lang_iso=None, lang_trans=None, features_path='repository/features/language_features.csv'):
@@ -599,11 +671,11 @@ class MultilingualBenchmark:
 
 
     @classmethod
-    def from_json(cls, path, model_name, run_name, languages, config):
+    def from_json(cls, path, benchmark_name, model_name, run_name, languages, config):
         logger.info(f'Loading {path} for {run_name}_{model_name} from json...')
 
         # Load Benchmark object
-        benchmark = cls(model_name, run_name, languages, config)
+        benchmark = cls(benchmark_name, model_name, run_name, languages, config)
         with open(path, 'r', encoding='utf-8') as file:
             data = json.load(file)
         

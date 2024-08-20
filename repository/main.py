@@ -54,17 +54,17 @@ known_subset_metrics = {
 }
 
 language_subset_iso = [
-    'arb', 'fra', 'spa', 'hin',
-    'zho', 'eng', 'cym', 'fin',
+    'eng', 'fra', 'spa', 'hin',
+    'zho', 'arb', 'cym', 'fin',
     'hun', 'zul', 'nld', 'ita',
     'vie', 'swh', 'jpn', 'deu',
     'ind', 'urd', 'rus', 'por',
-    'ben'
+    'ben', ''
 ]
 
 language_subset_transformed = [
-    'ar', 'fr', 'es', 'hi',
-    'zh-CN', 'en', 'cy', 'fi',
+    'en', 'fr', 'es', 'hi',
+    'zh-CN', 'ar', 'cy', 'fi',
     'hu', 'nl', 'it', 'bn',
     'vi', 'sw', 'ja', 'de',
     'id', 'ur', 'ru', 'pt',
@@ -101,22 +101,27 @@ languages_large_transformed_filtered = [
 iso_to_transformed = {iso: trans for iso, trans in zip(language_subset_iso, language_subset_transformed)}
 transformed_to_iso = {value: key for key, value in iso_to_transformed.items()}
 
-benchmark = MultilingualBenchmark(model_name='gpt-4o-mini', run_name='debug', languages=language_subset_transformed, config=config)
+benchmark = MultilingualBenchmark(benchmark_name='truthfulqa', 
+                                  model_name='gemini-1.5-flash', 
+                                  run_name='gemini-1.5-flash', 
+                                  languages=language_subset_transformed, 
+                                  config=config)
 
 # global debug parameter. Set to False if running main with an already existing .json results file.
-RUN_EXPERIMENTS = False
+RUN_EXPERIMENTS = True
 
 if RUN_EXPERIMENTS:
     logger.info("Now running experiments.")
     benchmark_path = config.get('benchmark', {}).get('path', {})
-    subset = get_subset(benchmark_path, n="Inf")
+    subset = get_subset(benchmark_path, n=256)
     benchmark.load_benchmark(subset)
-    benchmark.run(print_results=True, plot_results=False)
-    benchmark.to_json(f'repository/benchmarks/results/{benchmark.run_name}_{benchmark.model_name}.json')
+    benchmark.run(print_results=True, plot_results=True)
+    benchmark.write_to_json(f'repository/benchmarks/results/{benchmark.benchmark_name}_{benchmark.model_name}.json')
 else:
-    benchmark = benchmark.from_json(r'repository\benchmarks\results\debug_gpt-4o-mini.json', 
-                                    model_name='gpt-4o-mini', 
-                                    run_name='debug', 
+    benchmark = benchmark.from_json(r'repository\benchmarks\results\debug_gpt-4o-mini.json',
+                                    benchmark_name='truthfulqa', 
+                                    model_name='gemini-1.5-flash', 
+                                    run_name='gemini-1.5-flash', 
                                     languages=language_subset_transformed, 
                                     config=config)
 
