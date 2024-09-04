@@ -43,3 +43,10 @@ Eagle 7B;January 2024;RWKV;7520;1100;Unknown;Apache 2.0;"An ""attention-free"" l
 Gemini 1.5;February 2024;Google DeepMind;Unknown;Unknown;Unknown;Proprietary;Multimodal model, based on a Mixture-of-Experts (MoE) architecture. Context window increased to 1 million tokens, though only 128k will be available for developers.[193]
 Gemma;February 2024;Google DeepMind;7000;6000;Unknown;Apache 2.0[194];
 Claude 3;March 2024;Anthropic;Unknown;Unknown;Unknown;Proprietary;Includes three models, Haiku, Sonnet, and Opus.[195]
+DBRX;March 2024;Databricks and Mosaic ML;136000;12000;;Databricks Open Model License;Training cost 10 million USD.
+Fugaku-LLM;May 2024;Fujitsu, Tokyo Institute of Technology, etc.;13000;380;;The largest model ever trained on CPU-only, on the Fugaku.
+Phi-3;April 2024;Microsoft;14000;4800;;MIT;Microsoft markets them as "small language model".
+Granite Code Models;May 2024;IBM;Unknown;Unknown;Unknown;Apache 2.0;
+Qwen2;June 2024;Alibaba Cloud;72000;3000;;Multiple sizes, the smallest being 0.5B.
+Nemotron-4;June 2024;Nvidia;340000;9000;200,000;NVIDIA Open Model License;Trained for 1 epoch. Trained on 6144 H100 GPUs between December 2023 and May 2024.
+Llama 3.1;July 2024;Meta AI;405000;15600;440,000;Llama 3 license;405B version took 31 million hours on H100-80GB, at 3.8E25 FLOPs.

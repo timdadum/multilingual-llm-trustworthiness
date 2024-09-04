@@ -13,7 +13,7 @@ def convert_csv_to_json(csv_file):
             incorrect_answers = row['Incorrect Answers'].split('; ')
             
             # Ensure that there are at least four incorrect answers
-            if len(incorrect_answers) < 4:
+            if len(incorrect_answers) < 3:
                 continue
             
             # Ensure that the best answer is in the correct answers
@@ -21,16 +21,13 @@ def convert_csv_to_json(csv_file):
                 correct_answers.append(best_answer)
             
             # Select four incorrect answers
-            selected_incorrect_answers = random.sample(incorrect_answers, 4)
+            selected_incorrect_answers = random.sample(incorrect_answers, 3)
             
             # Combine the best answer with the selected incorrect answers
             all_answers = [best_answer] + selected_incorrect_answers
             
             # Shuffle the answers
             random.shuffle(all_answers)
-
-            # Add the "I do not know" option, which always represents option F.
-            all_answers.append("I do not know")
             
             # Map answers to letters
             answer_mapping = {chr(65 + i): ans for i, ans in enumerate(all_answers)}

@@ -43,58 +43,62 @@ known_subset = [
     'ha'      # Hausa
 ]
 
-# (ChrF, BLEU EN --> target, ChrF, BLEU target --> EN)
-known_subset_metrics = {
-    'de': (60.2, 31.8, 56.8, 30.9),
-    'zh-CN': (34.6, 38.3, 56.0, 25.0),
-    'ru': (54, 27.5, 64.6, 38.5),
-    'fr': (58.9, 35.6, 65.7, 42.5),
-    'cs': (),
-    'is': (),
-}
-
+# ISO 639-3 codes for languages (three-letter codes)
 language_subset_iso = [
-    'eng', 'fra', 'spa', 'hin',
-    'zho', 'arb', 'cym', 'fin',
-    'hun', 'zul', 'nld', 'ita',
-    'vie', 'swh', 'jpn', 'deu',
-    'ind', 'urd', 'rus', 'por',
-    'ben', ''
+    'eng',  # English
+    'rus',  # Russian
+    'deu',  # German
+    'jpn',  # Japanese
+    'spa',  # Spanish
+    'fra',  # French
+    'zho',  # Chinese (Mandarin)
+    'ita',  # Italian
+    'por',  # Portuguese
+    'nld',  # Dutch
+    'vie',  # Vietnamese
+    'ind',  # Indonesian
+    'arb',  # Arabic
+    'swe',  # Swedish
+    'hun',  # Hungarian
+    'fin',  # Finnish
+    'hin',  # Hindi
+    'ben',  # Bengali
+    'lav',  # Latvian
+    'urd',  # Urdu
+    'cym',  # Welsh
+    'swh',  # Swahili
+    'amh',  # Amharic
+    'zul',  # Zulu
+    'mri',  # Maori
 ]
 
+# ISO 639-1 codes for languages (two-letter codes, with some variations like zh-CN for Chinese)
 language_subset_transformed = [
-    'en', 'fr', 'es', 'hi',
-    'zh-CN', 'ar', 'cy', 'fi',
-    'hu', 'nl', 'it', 'bn',
-    'vi', 'sw', 'ja', 'de',
-    'id', 'ur', 'ru', 'pt',
-]
-
-languages_large_transformed = [
-    'af', 'sq', 'am', 'ar', 'hy', 'as', 'ay', 'az', 'bm', 'eu', 'be', 'bn', 'bho', 
-    'bs', 'bg', 'ca', 'ceb', 'ny', 'zh-CN', 'zh-TW', 'co', 'hr', 'cs', 'da', 'dv', 
-    'doi', 'nl', 'en', 'eo', 'et', 'ee', 'tl', 'fi', 'fr', 'fy', 'gl', 'ka', 'de', 
-    'el', 'gn', 'gu', 'ht', 'ha', 'haw', 'iw', 'hi', 'hmn', 'hu', 'is', 'ig', 'ilo', 
-    'id', 'ga', 'it', 'ja', 'jw', 'kn', 'kk', 'km', 'rw', 'gom', 'ko', 'kri', 'ku', 
-    'ckb', 'ky', 'lo', 'la', 'lv', 'ln', 'lt', 'lg', 'lb', 'mk', 'mai', 'mg', 'ms', 
-    'ml', 'mt', 'mi', 'mr', 'mni-Mtei', 'lus', 'mn', 'my', 'ne', 'no', 'or', 'om', 
-    'ps', 'fa', 'pl', 'pt', 'pa', 'qu', 'ro', 'ru', 'sm', 'sa', 'gd', 'nso', 'sr', 
-    'st', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv', 'tg', 'ta', 
-    'tt', 'te', 'th', 'ti', 'ts', 'tr', 'tk', 'ak', 'uk', 'ur', 'ug', 'uz', 'vi', 
-    'cy', 'xh', 'yi', 'yo', 'zu'
-]
-
-languages_large_transformed_filtered = [
-    'af', 'sq', 'am', 'ar', 'as', 'ay', 'az', 'bm', 'eu', 'be', 'bn', 'bho', 
-    'bs', 'bg', 'ca', 'ceb', 'ny', 'zh-CN', 'co', 'hr', 'cs', 'da', 'doi', 
-    'nl', 'en', 'eo', 'et', 'ee', 'tl', 'fi', 'fr', 'gl', 'ka', 'de', 'el', 
-    'gn', 'gu', 'ht', 'ha', 'iw', 'hi', 'ilo', 'id', 'ga', 'it', 'ja', 'jw', 
-    'kn', 'kk', 'km', 'rw', 'ko', 'ku', 'ckb', 'ky', 'lo', 'la', 'lv', 'ln', 
-    'lt', 'lb', 'mk', 'mai', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mn', 'my', 
-    'ne', 'no', 'or', 'om', 'ps', 'fa', 'pl', 'pt', 'pa', 'qu', 'ro', 'ru', 
-    'sm', 'sa', 'gd', 'nso', 'sr', 'st', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 
-    'es', 'su', 'sw', 'sv', 'tg', 'ta', 'tt', 'te', 'th', 'ti', 'ts', 'tr', 
-    'tk', 'uk', 'ur', 'uz', 'vi', 'cy', 'xh', 'yo', 'zu'
+    'en',     # English
+    'ru',     # Russian
+    'de',     # German
+    'ja',     # Japanese
+    'es',     # Spanish
+    'fr',     # French
+    'zh-CN',  # Chinese (Mandarin)
+    'it',     # Italian
+    'pt',     # Portuguese
+    'nl',     # Dutch
+    'vi',     # Vietnamese
+    'id',     # Indonesian
+    'ar',     # Arabic
+    'sv',     # Swedish
+    'hu',     # Hungarian
+    'fi',     # Finnish
+    'hi',     # Hindi
+    'bn',     # Bengali
+    'lv',     # Latvian
+    'ur',     # Urdu
+    'cy',     # Welsh
+    'sw',     # Swahili
+    'am',     # Amharic
+    'zu',     # Zulu
+    'mi',     # Maori
 ]
 
 # Create convenient mappings
@@ -102,8 +106,8 @@ iso_to_transformed = {iso: trans for iso, trans in zip(language_subset_iso, lang
 transformed_to_iso = {value: key for key, value in iso_to_transformed.items()}
 
 benchmark = MultilingualBenchmark(benchmark_name='truthfulqa', 
-                                  model_name='gemini-1.5-flash', 
-                                  run_name='gemini-1.5-flash', 
+                                  model_name='gpt-4o-mini', 
+                                  run_name='gpt-4o-mini', 
                                   languages=language_subset_transformed, 
                                   config=config)
 
@@ -113,18 +117,18 @@ RUN_EXPERIMENTS = True
 if RUN_EXPERIMENTS:
     logger.info("Now running experiments.")
     benchmark_path = config.get('benchmark', {}).get('path', {})
-    subset = get_subset(benchmark_path, n=256)
+    subset = get_subset(benchmark_path, n=64)
     benchmark.load_benchmark(subset)
     benchmark.run(print_results=True, plot_results=True)
     benchmark.write_to_json(f'repository/benchmarks/results/{benchmark.benchmark_name}_{benchmark.model_name}.json')
 else:
-    benchmark = benchmark.from_json(r'repository\benchmarks\results\debug_gpt-4o-mini.json',
+    benchmark = benchmark.from_json(r'repository\benchmarks\results\truthfulqa_gpt-4o-mini.json',
                                     benchmark_name='truthfulqa', 
-                                    model_name='gemini-1.5-flash', 
-                                    run_name='gemini-1.5-flash', 
+                                    model_name='gpt-4o-mini', 
+                                    run_name='gpt-4o-mini', 
                                     languages=language_subset_transformed, 
                                     config=config)
 
+    benchmark._get_metrics()
     benchmark.print_results()
-    benchmark.plot_results(iso_to_transformed, transformed_to_iso)
-    
+    benchmark.plot_results()

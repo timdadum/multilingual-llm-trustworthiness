@@ -12,16 +12,16 @@ def normalize_data(data):
     return ((data - data.min()) / (data.max() - data.min()) * 99) + 1
 
 # Apply logarithmic transformation (base 10) to the normalized data
-data['log_percentage'] = np.log10(data['percentage'])
-data['log_population'] = np.log10(data['population(100m)'])
+data['log_cc'] = np.log10(data['cc'])
+data['log_l2'] = np.log10(data['l2'] / 100) # per 100M
 
 # Sort data by log_normalized_population for radial ordering
-data = data.sort_values(by='log_population', ascending=False)
+data = data.sort_values(by='log_l2', ascending=False)
 
 # Extracting sorted data for plotting
 languages = data['language'].tolist()
-log_percentages = data['log_percentage'].tolist()
-log_populations = data['log_population'].tolist()
+log_percentages = data['log_cc'].tolist()
+log_populations = data['log_l2'].tolist()
 
 # Number of variables
 num_vars = len(languages)

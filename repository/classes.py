@@ -4,32 +4,58 @@ from query import get_api_output, get_local_model_output
 from deep_translator import GoogleTranslator
 from model import load_bloomz
 from openai import OpenAI
-from utils import clean_str
-from eval import plot_accuracy_per_language
+from utils import clean_str, calculate_uncertainty_rate, calculate_uncertainty_accuracy, calculate_uncertainty_f1
+from eval import plot_separate_metrics_per_language
 import google.generativeai as genai
 import pandas as pd
 import json
-import re
+import csv
 import os 
 from logger import logger
 
 ### SYSTEM PROMPTS AND MISC. ### #TODO: REFORMAT
 
+ANS_PROMPT_2 = (
+    "## Objective:\n"
+    "You are a highly accurate multiple-choice question answerer. Your task is to provide answers strictly following the designated format.\n\n"
+    "## Response Format:\n"
+    "- Answer Key:\n"
+    "  Each answer must be formatted as follows:\n"
+    "  a#: a/b/c/d\n\n"
+    "  - '#' represents the question number (e.g., a0 for the first question, a1 for the second, etc.).\n"
+    "## Example Input and Output:\n"
+    "- Input:\n"
+    "  - q0: What is the capital of France? a: Berlin, b: Madrid, c: Paris, d: Rome\n"
+    "  - q1: What is the atomic symbol for carbon? a: CB, b: C, c: Gb, d: Cr\n\n"
+    "- Output:\n"
+    "  - a0: c\n"
+    "  - a1: b@\n\n"
+    "## Instructions:\n"
+    "1. For each question, provide your answer in the following format:\n"
+    "   - a#: <answer>\n"
+    "2. List multiple answers sequentially:\n"
+    "   - a0: <answer>\n"
+    "   - a1: <answer>\n"
+    "   - a2: <answer>\n"
+    "   - …\n"
+    "3. Ensure all responses are in the exact format specified above."
+)
+
 ANS_PROMPT = (
-    "You are a highly accurate multiple-choice question answerer. Your responses must strictly adhere to the following format: \n"
-    "a#: a/b/c/d/e/f \n\n"
-    "Where '#' is the question number (e.g., a1 for the first question, a2 for the second). \n\n"
-    "**Incorrect example:** q1: a \n"
-    "**Correct example:** a1: a \n\n"
-    "If you are uncertain about the answer, respond with 'f'. \n\n"
-    "For multiple questions, provide answers in the format: \n"
-    "a1: <answer> \n"
-    "a2: <answer> \n"
-    "a3: <answer> \n"
-    "... \n\n"
-    "## EXAMPLE \n"
-    "q1: What is the capital of France? a: Berlin, b: Madrid, c: Paris, d: Rome, e: London, f: I do not know' \n"
-    "Your answer should be: a1: c \n\n"
+    "You are a highly accurate multiple-choice question answerer. Your responses must strictly adhere to the following format:\n"
+    "a#: a/b/c/d/a \n\n"
+    "Where # is the question number (e.g., a0 for the first question, a1 for the second).\n\n"
+    "For multiple questions, provide answers in the format:\n"
+    "a0: <answer>\n"
+    "a1: <answer>\n"
+    "a2: <answer>\n"
+    "...\n\n"
+    "## EXAMPLE\n"
+    "q0: What is the capital of France? a: Berlin, b: Madrid, c: Paris, d: Rome\n"
+    "q1: What is the atomic symbol for carbon? a: CB, b: C, c: Gb, d: Cr\n\n"
+    "## OUTPUT\n"
+    "a0: c\n"
+    "a1: b"
 )
 
 # Used for Google API safety blockage
@@ -74,7 +100,8 @@ class Sample:
         self.questions = {'en': question}
         self.answers = {'en': answer}
         self.output = {}
-        self.evaluation = {}
+        self.evaluations = {}
+        self.uncertainties = {}
 
         # idx to keep track of sample position
         self.idx = idx
@@ -89,7 +116,7 @@ class Sample:
         output_str += f" {separator} o{self.idx}: {self.output.get(language, None)}"
 
         # Include score (if not None)
-        output_str += f" {separator} e{self.idx}: {self.evaluation.get(language, None)}"
+        output_str += f" {separator} e{self.idx}: {self.evaluations.get(language, None)}"
 
         return output_str
     
@@ -97,7 +124,8 @@ class Sample:
         
         if (self.questions[language] is None or self.questions[language] == 'null' or
             self.answers['en'] is None or self.answers['en'] == 'null' or
-            self.output[language] is None or self.output[language] == 'null'):
+            self.output[language] is None or self.output[language] == 'null' or
+            self.uncertainties[language] is None or self.uncertainties[language] == 'null'):
                 return True
         else:
             return False
@@ -119,7 +147,8 @@ class Sample:
             result[f"answer_en"] = self.answers['en']
             result[f"question_{lang}"] = self.questions.get(lang, None)
             result[f"output_{lang}"] = self.output.get(lang, None)
-            result[f"score_{lang}"] = self.evaluation.get(lang, None) 
+            result[f"uncertainty_{lang}"] = self.uncertainties.get(lang, None)
+            result[f"score_{lang}"] = self.evaluations.get(lang, None)
         return result
 
     @classmethod
@@ -174,13 +203,13 @@ class Sample:
             # Checking if the cleaned output matches the answer or indicates "I do not know" (which is always F.)
             if out == ans:
                 self.score(language, 1)
-            elif out == "f":
-                self.score(language, -1)
-            elif out in ['a', 'b', 'c', 'd', 'e']:
+            elif out in ['a', 'b', 'c', 'd']:
                 self.score(language, 0)
             else:
                 self.score(language, 'null')
 
+    def _get_question_uncertainty(self):
+        return round(sum(self.uncertainties) / len(self.uncertainties), 2)
 
     def _add_to_language(self, language, mode='q', to_add=None, **kwargs):
         """
@@ -200,19 +229,20 @@ class Sample:
         elif mode == 'qo':
             self.output['en'] = to_add
 
-    def _assign(self, lang, idx, question, answer, output, score):
+    def _assign(self, lang, idx, question, answer, output, uncertain, score):
         """Assign contents to Sample"""
         self.idx = idx
         self.questions[lang] = question
         self.answers[lang] = answer
         self.output[lang] = output
-        self.evaluation[lang] = score
+        self.uncertainties[lang] = uncertain
+        self.evaluations[lang] = score
         
     def add_output(self, language, output):
         self.output[language] = output
 
     def score(self, language, score):
-        self.evaluation[language] = score
+        self.evaluations[language] = score
 
     @classmethod
     def from_dict(cls, data: dict, idx, languages):
@@ -227,8 +257,9 @@ class Sample:
             question = data.get(f"question_{language}", None)
             answer = data.get(f"answer_{language}", None)
             output = data.get(f"output_{language}", None)
+            uncertain = data.get(f"uncertainty_{language}", None)
             score = data.get(f"score_{language}", None)
-            sample._assign(language, idx, question, answer, output, score)
+            sample._assign(language, idx, question, answer, output, uncertain, score)
         
         return sample
 
@@ -260,6 +291,9 @@ class MultilingualBenchmark:
         # OPTIONAL: languages to experiment with. ensures this doesn't have to be 
         # a method argument all the time.
         self.languages = languages
+
+        # Results
+        self.metrics = {language: {} for language in languages}
 
         self.has_results = False
 
@@ -326,6 +360,7 @@ class MultilingualBenchmark:
         
         # Evaluate targets and then filter for null values (TODO: Skip evaluating for any None-values)
         self.evaluate_all()
+        self._get_metrics()
         self.has_results = True
 
         if print_results:
@@ -463,16 +498,16 @@ class MultilingualBenchmark:
         
         return batches
     
-    def _assign_output(self, target, output: dict):
+    def _assign_output(self, language, output: dict):
         """
         Takes dict: {0: Mars, 1: five, 2: etc.}, where 0 represents sample with idx 0 and Mars represents the output
         """
         # Sort benchmark such that we can
-        for sample in self.samples:
+        for sample in self.samples: # TODO Substitute this with a non-looping solution
             if sample.idx in output:
-                sample.output[target] = output[sample.idx]
-            else:
-                sample.output[target] = None
+                answer, uncertain = output[sample.idx]
+                sample.output[language] = answer
+                sample.uncertainties[language] = uncertain
 
     def _assign_evaluation(self, target: str, evals: dict):
         """
@@ -485,7 +520,7 @@ class MultilingualBenchmark:
         """
         for sample in self.samples:
             contains_nan = sample._contains_nan(target)
-            sample.evaluation[target] = None if contains_nan else evals.get(sample.idx, None)
+            sample.evaluations[target] = None if contains_nan else evals.get(sample.idx, None)
     
     def query_gpt(self):
         """
@@ -495,7 +530,7 @@ class MultilingualBenchmark:
         for language in self.languages:
             logger.info(f'Now querying {self.model_name} for language {language}')
             try:
-                output = get_api_output(self, language, api_type='openai', batch_size=self.gpt_batch_size, client=client)
+                output = get_api_output(self, language, api_type='openai', batch_size=self.gpt_batch_size, client=client, engine=self.model_name, sys_prompt=ANS_PROMPT)
                 self._assign_output(language, output)
             except Exception as e:
                 logger.critical(f"Error encountered querying {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
@@ -555,7 +590,7 @@ class MultilingualBenchmark:
             sample._evaluate()
 
     def _get_valid_evals(self, language):
-        evals = [sample.evaluation[language] for sample in self.samples]
+        evals = [sample.evaluations[language] for sample in self.samples]
         return [float(eval) for eval in evals if eval != 'null']
     
     def _valid_evals_to_accuracy(self, valid_evals):
@@ -563,42 +598,54 @@ class MultilingualBenchmark:
         valid_scores = [score for score in valid_evals if score != -1]
         return sum(valid_scores) / len(valid_scores) if valid_scores else 0
 
-    def _valid_evals_to_dont_know_fraction(self, valid_evals):
-        # Calculate fraction of "I do not know" responses
-        dont_know_count = valid_evals.count(-1)
-        return dont_know_count / len(valid_evals) if valid_evals else 0
+    def _get_uncertainty_metrics(self, lang):
+        # Create list of uncertainties and evaluations
+        uncertainties = [u for sample in self.samples if (u := sample.uncertainties.get(lang)) is not None]
+        evaluations = [e for sample in self.samples if (e := sample.evaluations.get(lang)) is not None]
 
-    def print_results(self, return_scores=False):
-        scores = self._extract_accuracies()
+        # Calculate true positives (TP), false positives (FP), and false negatives (FN)
+        TP = sum(1 for u, e in zip(uncertainties, evaluations) if u and e == 0)
+        FP = sum(1 for u, e in zip(uncertainties, evaluations) if u and e == 1)
+        FN = sum(1 for u, e in zip(uncertainties, evaluations) if not u and e == 0)
 
+        # Calculate metrics
+        b = calculate_uncertainty_rate(uncertainties)
+        y = calculate_uncertainty_accuracy(uncertainties, evaluations)
+        k = calculate_uncertainty_f1(TP, FP, FN)
+
+        return b, y, k
+
+    def print_results(self):
+        """Prints all results in an overview"""
+        
         # Formatting the output
         output = "\nExperiment Results:\n"
         output += "=" * 20 + "\n"
         
-        for language, accuracy in scores.items():
+        for language in self.metrics.keys():
             # Calculate valid samples
             valid_evals = self._get_valid_evals(language)
             valid_count = len(valid_evals)
             total_count = len(self.samples)
-            dont_know_fraction = self._valid_evals_to_dont_know_fraction(valid_evals)
+            
+            a, b, y, k = (self.metrics[language].get(key) for key in ('a', 'b', 'y', 'k'))
 
-            if accuracy is not None:
+            if all(metric is not None for metric in (a, b, y, k)):
                 output += f"Target Language: {language}\n"
-                output += f"Accuracy: {accuracy * 100:.2f}%\n"
-                output += f"Fraction 'I do not know': {dont_know_fraction * 100:.2f}%\n"
+                output += f"a: {a * 100:.2f}%\n"
+                output += f"b: {b * 100:.2f}%\n"
+                output += f"y: {y * 100:.2f}%\n"
+                output += f"k: {k * 100:.2f}%\n"
                 output += f"Valid: {valid_count}/{total_count}\n"
             else:
                 output += f"Target Language: {language}\n"
-                output += "Accuracy: None\n"
+                output += "a: None\n"
                 output += f"Valid: {valid_count}/{total_count}\n"
             output += "-" * 20 + "\n"
 
         print(output)
 
-        if return_scores:
-            return scores
-
-    def _extract_accuracies(self, thresh=4):
+    def _get_metrics(self, save=True):
         """
         Converts experiment results to a dictionary of accuracies.
 
@@ -608,18 +655,33 @@ class MultilingualBenchmark:
         Returns:
             scores (dict): A dictionary with per-language accuracy
         """
-        scores = {}
         for language in self.languages:
-            # Filter out null values and count the correct evaluations
             valid = self._get_valid_evals(language)
-            if len(valid) > thresh:
-                acc = self._valid_evals_to_accuracy(valid)
-                scores[language] = acc
-            else:
-                logger.warning(f"Too few valid evaluations found ({len(valid)}, should be at least {thresh}) for language {language}. Outputting None.")
-                scores[language] = None
-        return scores
-    
+            acc = self._valid_evals_to_accuracy(valid)
+            b, y, k = self._get_uncertainty_metrics(language)
+
+            self.metrics[language].update({'a': acc,
+                                           'b': b,
+                                           'y': y,
+                                           'k': k})
+
+        if save:
+            self._save_metrics()
+
+    def _save_metrics(self):
+        path = f'research/{self.benchmark_name}_metric.csv'
+        if os.path.exists(path):
+            logger.info(f"{path} exists. Not saving metrics.")
+        else:
+            with open(path, mode='w', newline='') as f:
+                columns = ['lang', 'a', 'b', 'y', 'k']
+                writer = csv.DictWriter(f, fieldnames=columns)
+                writer.writeheader()
+                for lang, values in self.metrics.items():
+                    row = {'lang': lang, **values}
+                    writer.writerow(row)
+            logger.info("Succesfully saved metrics.")
+
     def _save_translated_benchmark(self, path='repository/benchmarks/translated/'):
         """Save translated QA pairs as .json - saves a lot of time during the experiment"""
         save_path = f'{path}{self.benchmark_name}_{len(self.samples)}.json' 
@@ -627,45 +689,13 @@ class MultilingualBenchmark:
         self.write_to_json(save_path)
         logger.info("Saved succesfully!")
         
-    def plot_results(self, lang_iso=None, lang_trans=None, features_path='repository/features/language_features.csv'):
+    def plot_results(self):
         if self.has_results:
-            # Get langauge scores, transform keys to iso language codes to match feature language codes
-            lang_iso = [
-                'arb', 'fra', 'spa', 'hin',
-                'zho', 'eng', 'cym', 'fin',
-                'hun', 'zul', 'nld', 'ita',
-                'vie', 'swh', 'jpn', 'deu',
-                'ind', 'urd', 'rus', 'por',
-                'ben'
-            ]
-
-            lang_trans = [
-                'ar', 'fr', 'es', 'hi',
-                'zh-CN', 'en', 'cy', 'fi',
-                'hu', 'zu', 'nl', 'it',
-                'vi', 'sw', 'ja', 'de',
-                'id', 'ur', 'ru', 'pt',
-                'bn'
-            ]
-           
-            scores = self._extract_accuracies()
-            # valid = {language : self._get_valid_evals(self, language) for language in lang_trans}
-            # dontknows = {language : self._valid_evals_to_dont_know_fraction(valids) for language, valids in valid}
-
-            iso_to_transformed = {iso: trans for iso, trans in zip(lang_iso, lang_trans)}
-            transformed_to_iso = {value: key for key, value in iso_to_transformed.items()}
-            iso_scores = {transformed_to_iso[lan]: score for lan, score in scores.items()}
-            
-            # Merge our results with predefined language features in a Pandas dataframe
-            features = pd.read_csv(features_path)
-            results = features.merge(pd.DataFrame(list(iso_scores.items()), columns=['language', 'accuracy']), on='language', how='left')
-            results = results.dropna()
+            # Read CSV with metrics
+            metrics = pd.read_csv(f'research/{self.benchmark_name}_metric.csv').dropna()
 
             # Plot results
-            plot_accuracy_per_language(results)
-            # plot_accuracy_vs_sim(results)
-            # plot_accuracy_vs_percentage(results)
-            # plot_surface_accuracy_vs_sim_and_percentage(results)
+            plot_separate_metrics_per_language(metrics)
         else:
             logger.info('No results recorded yet for plotting. Please run cls.run() first.')
 

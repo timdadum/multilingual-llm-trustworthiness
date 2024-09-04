@@ -100,15 +100,17 @@ safe = [
     }
 ]
 
-def query_gpt_batch(batch, translator, client, target='en', engine="gpt-4o-mini"):
+def query_gpt_batch(batch, translator, backtranslator, client, target='en', engine="gpt-4o-mini", sys_prompt=None):
     """
     Query GPT model, either for answering a question or for evaluation of two answers
     """
 
     try:
         # Translate system prompt
-        sys_prompt = translator.translate(ANS_PROMPT)
+        sys_prompt = translator.translate(sys_prompt)
         prompt = format_batch_question_query(batch, target=target)
+
+        logger.info(f'SYSTEM PROMPT\n===================\n{sys_prompt}')
 
         # Format the queries in batch, preceed with a system prompt based on the mode
         messages = [
@@ -131,6 +133,13 @@ def query_gpt_batch(batch, translator, client, target='en', engine="gpt-4o-mini"
         # Normalize string for post-processing
         output = normalize_string(response.choices[0].message.content)
 
+        logger.info(f'OUTPUT\n===================\n{output}')
+
+        # Backtranslate output
+        output = backtranslator.translate(output)
+
+        logger.info(f'TRANSLATED OUTPUT\n===================\n{output}')
+
         return output
     except Exception as e:
         logger.error(f"Querying OpenAI unsuccessful: {e}")
@@ -147,7 +156,6 @@ def query_gemini_batch(batch, backtranslator, model, target):
     try:
         # Translate system prompt, format batched prompt
         prompt = format_batch_question_query(batch, target=target)
-        print(prompt)
 
         # Query - returns list of outputs per sample in batch
         response = model.generate_content(prompt)
@@ -204,17 +212,17 @@ def get_api_output(benchmark, target, api_type, batch_size=4, **kwargs):
     
     if api_type == 'openai':
         output_batched = [query_gpt_batch(batch, 
-                                          translator, 
+                                          translator,
+                                          backtranslator, 
                                           client=kwargs.get('client'),
                                           target=target,
-                                          engine=kwargs.get('engine')) for batch in batches]
+                                          engine=kwargs.get('engine'),
+                                          sys_prompt=kwargs.get('sys_prompt')) for batch in batches]
     elif api_type == 'google':
         output_batched = [query_gemini_batch(batch,
                                              backtranslator, 
                                              model=kwargs.get('model'), 
                                              target=target) for batch in batches]
-    
-
 
     output_dicts = [output_to_dict(output, mode='ANS') for output in output_batched]
     
@@ -252,9 +260,11 @@ def output_to_dict(output: str, mode='ANS'):
             match = re.match(r"^(a|e|q)(\d+):(.*)$", line)
             if match:
                 prefix, index, value = match.groups()
-                if prefix in ('a', 'q', 'e'):  # Allow 'q' as a prefix
+                uncertain = '@' in value
+                if prefix in ('a', 'q', 'e'):  # Allow 'q' or 'e' as a prefix
                     index = int(index)
-                    result[index] = value.strip()
+                    answer = value.replace('@', '').strip().lower()
+                    result[index] = (answer, uncertain)
                 else:
                     logger.warning(f"Unexpected prefix '{prefix}' in line '{line}'. Skipping line")
             else:

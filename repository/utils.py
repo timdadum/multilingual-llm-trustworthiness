@@ -231,5 +231,16 @@ def _threadpool(samples, func, **kwargs):
 
     return results
 
-# _single_query
-# index, question, results, translator
+def calculate_uncertainty_rate(uncertainties):
+    """bools: list of booleans indicating uncertain or not"""
+    b = sum(uncertainties) / len(uncertainties)
+    return b
+
+def calculate_uncertainty_accuracy(uncertainties, evaluations):
+    y = sum(u and (e == 1) for u, e in zip(uncertainties, evaluations)) / sum(uncertainties)
+    return y
+
+def calculate_uncertainty_f1(tp, fp, fn):
+    """tp, tn, fp, fn = true positives, true negatives, false positives, false negatives"""
+    print(f'tp: {tp}, fp: {fp}, fn: {fn}')
+    return 2 * tp / (2 * tp + fp + fn)
