@@ -1,11 +1,12 @@
-from deep_translator import GoogleTranslator
-from utils import normalize_and_replace_special_chars, normalize_string
+from deep_translator import GoogleTranslator, MyMemoryTranslator
+from utils import normalize_string
+from unicodedata import normalize
 from logger import logger
 import os
 import google.generativeai as genai
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
-def format_batch_question_query(batch, target='en'):
+def format_batch_question_query(batch, target='en-GB'):
     """
     ANS MODE
     """
@@ -17,7 +18,7 @@ def format_batch_question_query(batch, target='en'):
 
     return query
 
-def format_batch_evaluation_query(batch, target='en', delimiter='|'):
+def format_batch_evaluation_query(batch, target='en-GB', delimiter='|'):
     """
     EVAL MODE
     """
@@ -110,7 +111,7 @@ def query_gpt_batch(batch, translator, backtranslator, client, target='en', engi
         sys_prompt = translator.translate(sys_prompt)
         prompt = format_batch_question_query(batch, target=target)
 
-        logger.info(f'SYSTEM PROMPT\n===================\n{sys_prompt}')
+        # logger.info(f'SYSTEM PROMPT\n===================\n{sys_prompt}')
 
         # Format the queries in batch, preceed with a system prompt based on the mode
         messages = [
@@ -126,19 +127,19 @@ def query_gpt_batch(batch, translator, backtranslator, client, target='en', engi
         response = client.chat.completions.create(
             model=engine,
             messages=messages,
-            temperature=0.5,
+            temperature=0.2,
             seed=42
         )
 
-        # Normalize string for post-processing
-        output = normalize_string(response.choices[0].message.content)
+        # Normalize string for post-processing using unicode NFKC
+        output = normalize('NFKC', response.choices[0].message.content)
 
-        logger.info(f'OUTPUT\n===================\n{output}')
+        # logger.info(f'OUTPUT\n===================\n{output}')
 
         # Backtranslate output
         output = backtranslator.translate(output)
 
-        logger.info(f'TRANSLATED OUTPUT\n===================\n{output}')
+        # logger.info(f'TRANSLATED OUTPUT\n===================\n{output}')
 
         return output
     except Exception as e:
@@ -157,14 +158,12 @@ def query_gemini_batch(batch, backtranslator, model, target):
         # Translate system prompt, format batched prompt
         prompt = format_batch_question_query(batch, target=target)
 
-        # Query - returns list of outputs per sample in batch
+        # Query - returns list of outputs per sample in batch. Normalize text with NFKC unicode protocol
         response = model.generate_content(prompt)
-        text = backtranslator.translate(response.text)
+        output = normalize('NFKC', response.text)
+        text = backtranslator.translate(output)
 
-        # Normalize string for post-processing
-        output = normalize_string(text)
-
-        return output
+        return text
     except Exception as e:
         logger.error(f"Querying Google unsuccessful: {e}")
         return None
@@ -179,7 +178,7 @@ def query_local_batch(batch, translator, model, tokenizer, target='en'):
 
         tokens = tokenizer.encode(prompt, return_tensor='pt').to(model.device)
         output = model.generate(tokens)
-        text = tokenizer.decode(output[0], skip_special_tokens=False) # slightly uncertain about skipping special tokens.
+        text = tokenizer.decode(output[0], skip_special_tokens=False)
 
         return text
     except Exception as e:
@@ -187,7 +186,7 @@ def query_local_batch(batch, translator, model, tokenizer, target='en'):
         return None
 
 def get_local_model_output(benchmark, target, mode='ANS'):
-    translator = GoogleTranslator(target=target)
+    translator = MyMemoryTranslator(target=target)
 
     batches = benchmark.batchify(batch_size=4) # Lower batch size because these models generally are less tuned to instruction following
     output_batched = [query_local_batch(batch, 
@@ -250,21 +249,19 @@ def output_to_dict(output: str, mode='ANS'):
     """
 
     try:
-        # Normalize and replace special characters
-        output = normalize_and_replace_special_chars(output)
         lines = output.strip().split("\n")
         result = {}
 
         for line in lines:
-            line = line.strip()
+            # Remove any spacebars
+            line = line.replace(' ', '').lower()
             match = re.match(r"^(a|e|q)(\d+):(.*)$", line)
             if match:
                 prefix, index, value = match.groups()
-                uncertain = '@' in value
                 if prefix in ('a', 'q', 'e'):  # Allow 'q' or 'e' as a prefix
                     index = int(index)
-                    answer = value.replace('@', '').strip().lower()
-                    result[index] = (answer, uncertain)
+                    answer = value
+                    result[index] = answer
                 else:
                     logger.warning(f"Unexpected prefix '{prefix}' in line '{line}'. Skipping line")
             else:

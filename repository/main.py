@@ -117,7 +117,7 @@ RUN_EXPERIMENTS = True
 if RUN_EXPERIMENTS:
     logger.info("Now running experiments.")
     benchmark_path = config.get('benchmark', {}).get('path', {})
-    subset = get_subset(benchmark_path, n=64)
+    subset = get_subset(benchmark_path, n="Inf")
     benchmark.load_benchmark(subset)
     benchmark.run(print_results=True, plot_results=True)
     benchmark.write_to_json(f'repository/benchmarks/results/{benchmark.benchmark_name}_{benchmark.model_name}.json')
@@ -131,4 +131,4 @@ else:
 
     benchmark._get_metrics()
     benchmark.print_results()
-    benchmark.plot_results()
+    benchmark._plot_results()

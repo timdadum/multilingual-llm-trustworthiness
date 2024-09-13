@@ -53,26 +53,76 @@ def plot_single_metric(data, metric, colormap, subplot_index):
     # Grid for clarity
     plt.grid(axis='y', linestyle='--', alpha=0.6)
 
-def plot_separate_metrics_per_language(df):
+def plot(df):
     """
-    Plots separate bar charts for metrics 'a', 'b', 'y', and 'k' per language.
-    Each chart is labeled directly with the language for clarity and colored based on the value.
+    Plots a bar chart for the metric 'a' per language.
+    The chart is labeled with the corresponding language for clarity, and the bars are colored
+    based on the value of the metric using a colormap.
 
     Parameters:
-        df (pd.DataFrame): DataFrame containing 'language', 'a', 'b', 'y', and 'k' columns.
+        df (pd.DataFrame): DataFrame containing 'language' and 'a' columns. 
+                           The DataFrame is sorted by the 'a' metric before plotting.
     """
-    # Sort the DataFrame for each metric
-    sorted_metrics = sort_metrics(df)
+    # Sort the DataFrame by accuracy column
+    df = df.sort_values(by='a')
 
     # Create a colormap
-    colormap = cm.get_cmap('viridis')  # You can choose any colormap you prefer
+    colormap = cm.get_cmap('viridis')
 
     # Set up the figure
-    plt.figure(figsize=(14, 16))  # Adjust the size to fit all plots nicely
+    plt.figure(figsize=(10, 6))
 
-    # Plot each metric
-    for i, (metric, data) in enumerate(sorted_metrics.items(), 1):
-        plot_single_metric(data, metric, colormap, i)
+    # Plot the 'a' metric versus language
+    bars = plt.bar(df['lang'], df['a'], color=colormap(df['a'] / df['a'].max()))
+    plt.title('Metric "a" per Language')
+    plt.xlabel('Language')
+    plt.ylabel('Metric "a"')
+
+    # Label each bar with the corresponding value
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, round(yval, 2), ha='center', va='bottom')
+
+    # Adjust layout
+    plt.tight_layout()
+
+    # Show the plot
+    plt.show()
+
+
+def plot_de(df, english_lang='en'):
+    """
+    Plots the difference in the 'a' metric between each language and English.
+
+    Parameters:
+        df (pd.DataFrame): DataFrame containing 'language' and 'a' columns.
+        english_lang (str): The language code for English in the DataFrame (default is 'en').
+    """
+    # Find the accuracy for English
+    english_accuracy = df[df['lang'] == english_lang]['a'].values[0]
+
+    # Calculate the difference with English accuracy
+    df['a_diff'] = df['a'] - english_accuracy
+
+    # Sort the DataFrame by the difference
+    df = df.sort_values(by='a_diff')
+
+    # Create a colormap
+    colormap = cm.get_cmap('coolwarm')
+
+    # Set up the figure
+    plt.figure(figsize=(10, 6))
+
+    # Plot the difference in 'a' metric versus language
+    bars = plt.bar(df['lang'], df['a_diff'], color=colormap(df['a_diff'] / df['a_diff'].abs().max()))
+    plt.title('Difference in Metric "a" Compared to English')
+    plt.xlabel('Language')
+    plt.ylabel('Difference in Metric "a"')
+
+    # Label each bar with the corresponding value
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, round(yval, 2), ha='center', va='bottom')
 
     # Adjust layout
     plt.tight_layout()

@@ -18,7 +18,7 @@
     },
     "misc": {
         "delimiter": "|",
-        "translation_batch_size": 64,
+        "translation_batch_size": null,
         "gpt_batch_size": 8
     },
     "experiments": {

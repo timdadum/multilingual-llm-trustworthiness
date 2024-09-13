@@ -1,17 +1,18 @@
-from translation import translate_batch
+from translation import translate_language_async
 from utils import split_text
 from query import get_api_output, get_local_model_output
 from deep_translator import GoogleTranslator
 from model import load_bloomz
 from openai import OpenAI
-from utils import clean_str, calculate_uncertainty_rate, calculate_uncertainty_accuracy, calculate_uncertainty_f1
-from eval import plot_separate_metrics_per_language
+from utils import clean_str
+from eval import plot, plot_de
 import google.generativeai as genai
 import pandas as pd
 import json
 import csv
 import os 
 from logger import logger
+import asyncio
 
 ### SYSTEM PROMPTS AND MISC. ### #TODO: REFORMAT
 
@@ -43,7 +44,7 @@ ANS_PROMPT_2 = (
 
 ANS_PROMPT = (
     "You are a highly accurate multiple-choice question answerer. Your responses must strictly adhere to the following format:\n"
-    "a#: a/b/c/d/a \n\n"
+    "a#: a/b/c/d \n\n"
     "Where # is the question number (e.g., a0 for the first question, a1 for the second).\n\n"
     "For multiple questions, provide answers in the format:\n"
     "a0: <answer>\n"
@@ -101,7 +102,6 @@ class Sample:
         self.answers = {'en': answer}
         self.output = {}
         self.evaluations = {}
-        self.uncertainties = {}
 
         # idx to keep track of sample position
         self.idx = idx
@@ -124,8 +124,7 @@ class Sample:
         
         if (self.questions[language] is None or self.questions[language] == 'null' or
             self.answers['en'] is None or self.answers['en'] == 'null' or
-            self.output[language] is None or self.output[language] == 'null' or
-            self.uncertainties[language] is None or self.uncertainties[language] == 'null'):
+            self.output[language] is None or self.output[language] == 'null'):
                 return True
         else:
             return False
@@ -147,7 +146,6 @@ class Sample:
             result[f"answer_en"] = self.answers['en']
             result[f"question_{lang}"] = self.questions.get(lang, None)
             result[f"output_{lang}"] = self.output.get(lang, None)
-            result[f"uncertainty_{lang}"] = self.uncertainties.get(lang, None)
             result[f"score_{lang}"] = self.evaluations.get(lang, None)
         return result
 
@@ -208,9 +206,6 @@ class Sample:
             else:
                 self.score(language, 'null')
 
-    def _get_question_uncertainty(self):
-        return round(sum(self.uncertainties) / len(self.uncertainties), 2)
-
     def _add_to_language(self, language, mode='q', to_add=None, **kwargs):
         """
         Add to this sample's contents new content based on type.
@@ -229,13 +224,12 @@ class Sample:
         elif mode == 'qo':
             self.output['en'] = to_add
 
-    def _assign(self, lang, idx, question, answer, output, uncertain, score):
+    def _assign(self, lang, idx, question, answer, output, score):
         """Assign contents to Sample"""
         self.idx = idx
         self.questions[lang] = question
         self.answers[lang] = answer
         self.output[lang] = output
-        self.uncertainties[lang] = uncertain
         self.evaluations[lang] = score
         
     def add_output(self, language, output):
@@ -257,9 +251,8 @@ class Sample:
             question = data.get(f"question_{language}", None)
             answer = data.get(f"answer_{language}", None)
             output = data.get(f"output_{language}", None)
-            uncertain = data.get(f"uncertainty_{language}", None)
             score = data.get(f"score_{language}", None)
-            sample._assign(language, idx, question, answer, output, uncertain, score)
+            sample._assign(language, idx, question, answer, output, score)
         
         return sample
 
@@ -325,7 +318,8 @@ class MultilingualBenchmark:
 
     def translate_all(self, mode='q', save=True):
         for language in self.languages:
-            self.translate(target=language, mode=mode)
+            asyncio.run(self.translate_async(target=language, mode=mode))
+            # self.translate(target=language, mode=mode)
         if save:
             self._save_translated_benchmark()
 
@@ -367,7 +361,7 @@ class MultilingualBenchmark:
             self.print_results()
 
         if plot_results:
-            self.plot_results()
+            self._plot_results()
 
         logger.info('Done running!')
         self.write_to_json(f'repository/benchmarks/results/{self.benchmark_name}_{self.model_name}.json')
@@ -442,6 +436,45 @@ class MultilingualBenchmark:
         except:
             logger.error('Translating batch failed, leaving translations in batch as None instead.')
 
+    async def translate_async(self, target, mode='q'):
+        """
+        Main function to translate question (mode = 'q') or question-output (mode = 'qa') asynchronously
+        """
+        logger.info(f"Translating {'questions' if mode=='q' else 'output'} from {'en' if mode=='q' else target} to {target if mode == 'q' else 'en'}...")
+        
+        if mode == 'q':
+            translator = GoogleTranslator(target=target)
+        elif mode == 'qo':
+            translator = GoogleTranslator(target='en')
+
+        # Translate all samples at once for the target language asynchronously
+        translated_samples = await translate_language_async(translator, target, self.samples, delay=5, mode=mode)
+
+        # Assign translations to sample attributes
+        try:
+            for i, text in enumerate(translated_samples):
+                try:
+                    if mode == 'q':
+                        translated_question = text
+                        self.samples[i]._add_to_language(target, 
+                                                        mode=mode, 
+                                                        to_add=translated_question)
+                    elif mode == 'qo':
+                        splits = split_text(text, delimiter=self.delimiter)
+                        translated_output = splits[1]
+                        self.samples[i]._add_to_language(target, 
+                                                        mode=mode, 
+                                                        to_add=translated_output)
+                except:
+                    logger.warning(f"Splitting failed for text {text}.. Adding None")
+                    self.samples[i]._add_to_language(target, type=mode, to_add=None)
+
+            logger.info("Translation successful!")
+        except:
+            logger.error('Translating samples failed, leaving translations as None instead.')
+
+
+
     def get_average_score(self, language):
         """
         Calculates the average score for a given language across all samples.
@@ -505,9 +538,8 @@ class MultilingualBenchmark:
         # Sort benchmark such that we can
         for sample in self.samples: # TODO Substitute this with a non-looping solution
             if sample.idx in output:
-                answer, uncertain = output[sample.idx]
+                answer = output[sample.idx]
                 sample.output[language] = answer
-                sample.uncertainties[language] = uncertain
 
     def _assign_evaluation(self, target: str, evals: dict):
         """
@@ -568,21 +600,6 @@ class MultilingualBenchmark:
             except Exception as e:
                 logger.critical(f"Error encountered querying {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
 
-    def evaluate(self):
-        """
-        UNUSED
-
-        Evaluates benchmark using all languages using GPT models
-        """
-        client = OpenAI()
-        for language in self.languages:
-            logger.info(f'Now evaluating {self.model_name} for language {language}')
-            try:
-                evals = get_gpt_output(self, self.model_name, client, language, mode='EVAL')
-                self._assign_evaluation(language, evals)
-            except Exception as e:
-                logger.error(f"Error encountered evaluating {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
-
     def evaluate_all(self):
         """Evaluate for all languages their answers using direct answer matching"""
         logger.info("Evaluating")
@@ -590,30 +607,13 @@ class MultilingualBenchmark:
             sample._evaluate()
 
     def _get_valid_evals(self, language):
-        evals = [sample.evaluations[language] for sample in self.samples]
-        return [float(eval) for eval in evals if eval != 'null']
+        evals = [sample.evaluations.get(language, None) for sample in self.samples]
+        return [float(eval) for eval in evals if (eval != 'null') and (eval is not None)]
     
     def _valid_evals_to_accuracy(self, valid_evals):
         # Calculate accuracy by excluding -1 responses
         valid_scores = [score for score in valid_evals if score != -1]
         return sum(valid_scores) / len(valid_scores) if valid_scores else 0
-
-    def _get_uncertainty_metrics(self, lang):
-        # Create list of uncertainties and evaluations
-        uncertainties = [u for sample in self.samples if (u := sample.uncertainties.get(lang)) is not None]
-        evaluations = [e for sample in self.samples if (e := sample.evaluations.get(lang)) is not None]
-
-        # Calculate true positives (TP), false positives (FP), and false negatives (FN)
-        TP = sum(1 for u, e in zip(uncertainties, evaluations) if u and e == 0)
-        FP = sum(1 for u, e in zip(uncertainties, evaluations) if u and e == 1)
-        FN = sum(1 for u, e in zip(uncertainties, evaluations) if not u and e == 0)
-
-        # Calculate metrics
-        b = calculate_uncertainty_rate(uncertainties)
-        y = calculate_uncertainty_accuracy(uncertainties, evaluations)
-        k = calculate_uncertainty_f1(TP, FP, FN)
-
-        return b, y, k
 
     def print_results(self):
         """Prints all results in an overview"""
@@ -627,20 +627,10 @@ class MultilingualBenchmark:
             valid_evals = self._get_valid_evals(language)
             valid_count = len(valid_evals)
             total_count = len(self.samples)
-            
-            a, b, y, k = (self.metrics[language].get(key) for key in ('a', 'b', 'y', 'k'))
 
-            if all(metric is not None for metric in (a, b, y, k)):
-                output += f"Target Language: {language}\n"
-                output += f"a: {a * 100:.2f}%\n"
-                output += f"b: {b * 100:.2f}%\n"
-                output += f"y: {y * 100:.2f}%\n"
-                output += f"k: {k * 100:.2f}%\n"
-                output += f"Valid: {valid_count}/{total_count}\n"
-            else:
-                output += f"Target Language: {language}\n"
-                output += "a: None\n"
-                output += f"Valid: {valid_count}/{total_count}\n"
+            output += f"Target Language: {language}\n"
+            output += f"a: {self.metrics[language]['a']}\n"
+            output += f"Valid: {valid_count}/{total_count}\n"
             output += "-" * 20 + "\n"
 
         print(output)
@@ -658,29 +648,52 @@ class MultilingualBenchmark:
         for language in self.languages:
             valid = self._get_valid_evals(language)
             acc = self._valid_evals_to_accuracy(valid)
-            b, y, k = self._get_uncertainty_metrics(language)
 
-            self.metrics[language].update({'a': acc,
-                                           'b': b,
-                                           'y': y,
-                                           'k': k})
+            self.metrics[language].update({'a': acc})
 
         if save:
             self._save_metrics()
 
     def _save_metrics(self):
-        path = f'research/{self.benchmark_name}_metric.csv'
-        if os.path.exists(path):
-            logger.info(f"{path} exists. Not saving metrics.")
+        # Define the path to the CSV file
+        path = 'research/metrics.csv'
+        existing = []
+
+        # Check if the file already exists
+        file_exists = os.path.exists(path)
+
+        # If the file exists, load the existing metrics
+        if file_exists:
+            with open(path, mode='r', newline='') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    existing.append(row)
+            logger.info(f"{path} exists. Loaded existing metrics.")
         else:
-            with open(path, mode='w', newline='') as f:
-                columns = ['lang', 'a', 'b', 'y', 'k']
-                writer = csv.DictWriter(f, fieldnames=columns)
+            logger.info(f"{path} does not exist. Will create a new metrics file.")
+
+        # Open the file in append mode to add new rows without overwriting existing data
+        with open(path, mode='a', newline='') as f:
+            columns = ['model', 'benchmark', 'lang', 'a']  # Ensure all columns are included
+            writer = csv.DictWriter(f, fieldnames=columns)
+
+            # If the file is being created, write the header
+            if not file_exists:
                 writer.writeheader()
-                for lang, values in self.metrics.items():
-                    row = {'lang': lang, **values}
+
+            # Write new rows if they do not yet exist
+            for lang, values in self.metrics.items():
+                row = {'model': self.model_name,
+                    'benchmark': self.benchmark_name,
+                    'lang': lang,
+                    **values}
+                if row not in existing:
                     writer.writerow(row)
-            logger.info("Succesfully saved metrics.")
+                    logger.info(f"Added new row for lang {lang}.")
+                else:
+                    logger.warning(f"Duplicate row found for lang {lang}: skipping.")
+
+        logger.info("Successfully saved metrics.")
 
     def _save_translated_benchmark(self, path='repository/benchmarks/translated/'):
         """Save translated QA pairs as .json - saves a lot of time during the experiment"""
@@ -688,14 +701,15 @@ class MultilingualBenchmark:
         logger.info(f"Now saving translated benchmark to {save_path}")
         self.write_to_json(save_path)
         logger.info("Saved succesfully!")
-        
-    def plot_results(self):
+            
+    def _plot_results(self):
         if self.has_results:
             # Read CSV with metrics
-            metrics = pd.read_csv(f'research/{self.benchmark_name}_metric.csv').dropna()
+            metrics = pd.read_csv(f'research/metrics.csv').dropna()
 
             # Plot results
-            plot_separate_metrics_per_language(metrics)
+            plot(metrics)
+            plot_de(metrics)
         else:
             logger.info('No results recorded yet for plotting. Please run cls.run() first.')
 
