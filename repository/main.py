@@ -106,8 +106,8 @@ iso_to_transformed = {iso: trans for iso, trans in zip(language_subset_iso, lang
 transformed_to_iso = {value: key for key, value in iso_to_transformed.items()}
 
 benchmark = MultilingualBenchmark(benchmark_name='truthfulqa', 
-                                  model_name='gpt-4o-mini', 
-                                  run_name='gpt-4o-mini', 
+                                  model_name='bloomz-7b1', 
+                                  run_name='bloomz-7b1', 
                                   languages=language_subset_transformed, 
                                   config=config)
 
