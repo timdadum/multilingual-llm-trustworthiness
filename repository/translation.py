@@ -1,134 +1,75 @@
-from deep_translator import GoogleTranslator
-from utils import write, _threadpool, filter_data_by_language
-from tqdm import tqdm
 import re
+from logger import logger
+import httpx
+import asyncio
 
-PLACEHOLDER = "<UN1QU3_D3L1M1T3R_PL4C3H0LD3R>"
-
-def translate_data(data, source_language, target_languages, mode='qa', batch_size=64, save=True, benchmark_name=None):
-    """Assumes list of dictionaries format, e.g.:
-    [
-        {
-            "Question": "Who was the man behind The Chipmunks?"
-            "Answer": "David Seville"
-        },
-        {
-            "Question": ...
-            "Answer": 
-        }
-        etc.
-    ]
-    
-    and adds translations (e.g. "Answer_it" for Italian answer) using target-set translator
-    
-    NOTE: IS ONE-TO-MANY. 
+def _format_translation(samples, target, mode='q'):
     """
-    # Catch single string input case
-    if isinstance(target_languages, str):
-        target_languages = [target_languages]
+    Formats a list of samples for translation.
+    
+    Args:
+        samples (list): List of samples to be translated
+        target (str): Target language conforming to deep_translator.GoogleTranslator docs, e.g., 'cy' for Welsh, 'hi' for Hindi
+        mode (str): 
+            - 'q' for translation of questions, 
+            - 'qo' for translation of questions to target and the output given in the target language (backtranslation)
+    Returns:
+        A single query string ready to be translated
+    """
+    return [_prepare_query(sample, target, mode) for sample in samples]
 
-    for target_language in target_languages:
-        translator = GoogleTranslator(target=target_language)
-        for i in tqdm(range(0, len(data), batch_size), desc=f"Translating to {target_language}... This may take a while..."):
-            batch = data[i:i + batch_size]
-            
-            # Filter out invalid samples
-            valid_samples = []
-            original_indices = []
-            
-            for index, sample in enumerate(batch):
-                try:
-                    _prepare_query(sample, source_language, mode)  # Just to check if the sample is valid
-                    valid_samples.append(sample)
-                    original_indices.append(index)
-                except KeyError as e:
-                    print(f'Missing data in sample, skipping sample... {e}')
-            
-            # Prepare queries for valid samples
-            queries = [_prepare_query(sample, source_language, mode) for sample in valid_samples]
-            
-            # Translate the valid queries
-            try:
-                translated_queries = translator.translate_batch([q.replace('<<<|||>>>', PLACEHOLDER) for q in queries])
-                translations = [t.replace(PLACEHOLDER, ' <<<|||>>> ') for t in translated_queries]
-                
-                # Reassign translations to the original batch
-                for idx, translation in zip(original_indices, translations):
-                    try:
-                        translated_sample = _process_translation(batch[idx], translation, target_language, mode)
-                        data[i + idx] = translated_sample
-                    except Exception as e:
-                        print(f'Error processing translation for sample {i + idx}, skipping sample... {e}')
-            
-            except Exception as e:
-                print(f'Error translating batch, skipping batch... {e}')
-                continue
+async def translate_language_async(translator, target, samples, delay=5, mode='q'):
+    """
+    Asynchronously translates all samples for a given language with a delay between languages.
     
-    print("Translation successful")
+    Args:
+        translator (deep_translator.GoogleTranslator): Translator object
+        target (str): Target language conforming to deep_translator.GoogleTranslator docs, e.g., 'cy' for Welsh, 'hi' for Hindi
+        samples (list): List of samples to be translated
+        delay (int): Time in seconds to wait between processing each language
+        mode (str): 
+            - 'q' for translation of questions, 
+            - 'qo' for translation of questions to target and the output given in the target language (back-translation)
+    Returns:
+        A list of translated texts
+    """
+    formatted_samples = _format_translation(samples, target, mode)
     
-    if save:
-        if not benchmark_name:
-            raise ValueError("Please set benchmark name")
-        filename = f'{benchmark_name}_translated'
+    async with httpx.AsyncClient() as client:
         try:
-            print(f"Writing to {filename}")
-            path = f'repository/benchmarks/translated/{filename}'
-            write(path, data)
+            # Sending the translation request for all samples
+            translated_samples = await asyncio.to_thread(translator.translate_batch, formatted_samples)
+            print(f"Translated {len(formatted_samples)} samples for language {target}.")
+            await asyncio.sleep(delay)  # Introduce delay between each language
+            return translated_samples
         except Exception as e:
-            raise ValueError(f"Error writing file: {e}")
-        
-    return data
+            logger.error(f"Exception found in translating samples for language {target}: {e}. Returning None.")
+            return None
 
-def _prepare_query(sample, source_language, mode):
+def _prepare_query(sample, target, mode='q', delimiter='|'):
+    """
+    Preprocesses a sample for translation.
+    
+    Args:
+        sample (Sample): Sample object
+        target (str): Target language conforming to deep_translator.GoogleTranslator docs, e.g. 'cy' for Welsh, 'hi' for Hindi
+        mode (str): 
+            - 'q' for translation of questions, 
+            - 'qo' for translation of questions to target and the output given in the target language (backtranslation)
+    Returns:
+        A sample represented as string, ready to be translated
+    """
+
+    # Assemble query as parts (question, answer, output) which are concatenated by a separator
     parts = []
-    if 'q' in mode:
-        q = sample[f"Question_{source_language}"]
-        if not q.endswith('?'):
-            q += '?'
-        parts.append(q)
-    if 'a' in mode:
-        parts.append(sample[f"Answer_{source_language}"])
-    if 'o' in mode and f"Output_{source_language}" in sample:
-        parts.append(sample[f"Output_{source_language}"])
-    if 'r' in mode and f"Result_{source_language}" in sample:
-        parts.append(sample[f"Result_{source_language}"])
-
-    return ' <<<|||>>> '.join(parts)
-
-def _process_translation(sample, translation, target_language, mode):
-    split_translation = re.split(r'\s*<<<\|+\|\|+\s*>>>\s*', translation)
-    keys = []
-    if 'q' in mode:
-        keys.append(f"Question_{target_language}")
-    if 'a' in mode:
-        keys.append(f"Answer_{target_language}")
-    if 'o' in mode and "Output" in sample:
-        keys.append(f"Output_{target_language}")
-    if 'r' in mode and "Result" in sample:
-        keys.append(f"Result_{target_language}")
-
-    if len(split_translation) != len(keys):
-        raise ValueError("Translation split error. Resulting translation: ", split_translation)
-
-    for key, translated_part in zip(keys, split_translation):
-        sample[key] = translated_part.strip()
-
-    return sample
-
-DEBUG = False
-
-if DEBUG:
-    dummy_data = [
-        {
-            "Question": "How old is the earth?",
-            "Answer": "Really old dude",
-        },
-        {
-            "Question": "How tall is the eiffel tower?",
-            "Answer": "Really tall dude"
-        }
-    ]
-    dummy_langs = ['ar', 'nl', 'fr']
-
-    output = translate_data(dummy_data, dummy_langs, save=False)
-    print(output)
+    try:
+        if mode == 'q':
+            q = sample._to_question_str(language='en')
+            parts.append(q)
+        elif mode == 'qo':
+            parts.append(sample._to_question_str(language=target))
+            parts.append(sample._to_output_str(language=target))
+            
+        return delimiter.join(parts)
+    except Exception as e:
+        logger.error(f"Error preparing query: {e}")

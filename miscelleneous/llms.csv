@@ -1,0 +1,52 @@
+﻿Name;Release date;Developer;Number of parameters (million);Corpus size (billion tokens);Training cost (petaFLOP-day);License[c];Notes
+GPT-1;June 2018;OpenAI;117;1;;MIT[121];First GPT model, decoder-only transformer.
+BERT;October 2018;Google;340;4;9[123];Apache 2.0[124];An early and influential language model,[7] but encoder-only and thus not built to be prompted or generative[125]
+XLNet;June 2019;Google;340;40;;Apache 2.0[127];"An alternative to BERT; designed as encoder-only[128][129]"
+GPT-2;February 2019;OpenAI;1500;10;;MIT[133];general-purpose model based on transformer architecture
+GPT-3;May 2020;OpenAI;175000;300;3640[134];proprietary;A fine-tuned variant of GPT-3, termed GPT-3.5, was made available to the public through a web interface called ChatGPT in 2022.[135]
+GPT-Neo;March 2021;EleutherAI;2700;150;;MIT[138];The first of a series of free GPT-3 alternatives released by EleutherAI. GPT-Neo outperformed an equivalent-size GPT-3 model on some benchmarks, but was significantly worse than the largest GPT-3.[138]
+GPT-J;June 2021;EleutherAI;6000;150;200[140];Apache 2.0;GPT-3-style language model
+Megatron-Turing NLG;October 2021;Microsoft and Nvidia;530000;338.6;;Restricted web access;Standard architecture but trained on a supercomputing cluster.
+Ernie 3.0 Titan;December 2021;Baidu;260000;720;;Proprietary;Chinese-language LLM. Ernie Bot is based on this model.
+Claude;December 2021;Anthropic;52000;400;;beta;Fine-tuned for desirable behavior in conversations.[146]
+GLaM (Generalist Language Model);December 2021;Google;1200000;1600;5600[30];Proprietary;Sparse mixture of experts model, making it more expensive to train but cheaper to run inference compared to GPT-3.
+Gopher;December 2021;DeepMind;280000;300;5833[149];Proprietary;Further developed into the Chinchilla model.
+LaMDA (Language Models for Dialog Applications);January 2022;Google;137000;168;4110[151];Proprietary;Specialized for response generation in conversations.
+GPT-NeoX;February 2022;EleutherAI;20000;150;740[140];Apache 2.0;based on the Megatron architecture
+Chinchilla;March 2022;DeepMind;70000;1400;6805[149];Proprietary;Reduced-parameter model trained on more data. Used in the Sparrow bot. Often cited for its neural scaling law.
+PaLM (Pathways Language Model);April 2022;Google;540000;768;29250[149];Proprietary;Trained for ~60 days on ~6000 TPU v4 chips. [149]
+OPT (Open Pretrained Transformer);May 2022;Meta;175000;180;310[140];Non-commercial research[d];GPT-3 architecture with some adaptations from Megatron
+YaLM 100B;June 2022;Yandex;100000;300;;Apache 2.0;English-Russian model based on Microsoft's Megatron-LM.
+Minerva;June 2022;Google;540000;38.5;;Proprietary;"LLM trained for solving ""mathematical and scientific questions using step-by-step reasoning"".[159] Minerva is based on PaLM model, further trained on mathematical and scientific data."
+BLOOM;July 2022;Large collaboration led by Hugging Face;175000;350;;Responsible AI;Essentially GPT-3 but trained on a multi-lingual corpus (30% English excluding programming languages)
+Galactica;November 2022;Meta;120000;106;unknown;CC-BY-NC-4.0;Trained on scientific text and modalities.
+AlexaTM (Teacher Models);November 2022;Amazon;20000;1300;;proprietary[165];bidirectional sequence-to-sequence architecture
+Neuro-sama;December 2022;Independent;Unknown;Unknown;;privately-owned;A language model designed for live-streaming on Twitch.
+LLaMA (Large Language Model Meta AI);February 2023;Meta;65000;1400;6300[167];Non-commercial research[e];Trained on a large 20-language corpus to aim for better performance with fewer parameters.[166] Researchers from Stanford University trained a fine-tuned model based on LLaMA weights, called Alpaca.[168]
+GPT-4;March 2023;OpenAI;Unknown;Unknown;Unknown;proprietary;Available for ChatGPT Plus users and used in several products.
+Falcon;March 2023;Technology Innovation Institute;40000;1000;2800[167];Apache 2.0[174];
+BloombergGPT;March 2023;Bloomberg L.P.;50000;363;;Proprietary;"LLM trained on financial data from proprietary sources, that ""outperforms existing models on financial tasks by significant margins without sacrificing performance on general LLM benchmarks"""
+PanGu-Σ;March 2023;Huawei;1085000;329;;Proprietary;
+OpenAssistant;March 2023;LAION;17000;1500;;Apache 2.0;Trained on crowdsourced open data
+Jurassic-2;March 2023;AI21 Labs;Unknown;Unknown;;Proprietary;Multilingual[179]
+PaLM 2 (Pathways Language Model 2);May 2023;Google;340000;3600;85000[167];Proprietary;Was used in Bard chatbot.[181]
+Llama 2;July 2023;Meta;70000;2000;;Llama 2 license;Successor of LLaMA.
+Claude 2;July 2023;Anthropic;Unknown;Unknown;Unknown;Proprietary;Used in Claude chatbot.[183]
+Falcon 180B;September 2023;Technology Innovation Institute;180000;3500;;Falcon 180B TII license;
+Mistral 7B;September 2023;Mistral AI;7300;Unknown;;Apache 2.0;
+Claude 2.1;November 2023;Anthropic;Unknown;Unknown;Unknown;Proprietary;Used in Claude chatbot. Has a context window of 200,000 tokens, or ~500 pages.[186]
+Grok-1;November 2023;x.AI;Unknown;Unknown;Unknown;Proprietary;Used in Grok chatbot. Grok-1 has a context length of 8,192 tokens and has access to X (Twitter).[187]
+Gemini 1.0;December 2023;Google DeepMind;Unknown;Unknown;Unknown;Proprietary;Multimodal model, comes in three sizes. Used in the chatbot of the same name.[188]
+Mixtral 8x7B;December 2023;Mistral AI;46700;Unknown;Unknown;Apache 2.0;Mixture of experts model, outperforms GPT-3.5 and Llama 2 70B on many benchmarks. All weights were released via torrent.[190]
+Phi-2;December 2023;Microsoft;2700;1400;Unknown;MIT;"So-called small language model, that ""matches or outperforms models up to 25x larger"", trained on ""textbook-quality"" data based on the paper ""Textbooks Are All You Need"". Model training took ""14 days on 96 A100 GPUs"".[191]"
+Eagle 7B;January 2024;RWKV;7520;1100;Unknown;Apache 2.0;"An ""attention-free"" linear transformer based on RWKV-v5 architecture.[192]"
+Gemini 1.5;February 2024;Google DeepMind;Unknown;Unknown;Unknown;Proprietary;Multimodal model, based on a Mixture-of-Experts (MoE) architecture. Context window increased to 1 million tokens, though only 128k will be available for developers.[193]
+Gemma;February 2024;Google DeepMind;7000;6000;Unknown;Apache 2.0[194];
+Claude 3;March 2024;Anthropic;Unknown;Unknown;Unknown;Proprietary;Includes three models, Haiku, Sonnet, and Opus.[195]
+DBRX;March 2024;Databricks and Mosaic ML;136000;12000;;Databricks Open Model License;Training cost 10 million USD.
+Fugaku-LLM;May 2024;Fujitsu, Tokyo Institute of Technology, etc.;13000;380;;The largest model ever trained on CPU-only, on the Fugaku.
+Phi-3;April 2024;Microsoft;14000;4800;;MIT;Microsoft markets them as "small language model".
+Granite Code Models;May 2024;IBM;Unknown;Unknown;Unknown;Apache 2.0;
+Qwen2;June 2024;Alibaba Cloud;72000;3000;;Multiple sizes, the smallest being 0.5B.
+Nemotron-4;June 2024;Nvidia;340000;9000;200,000;NVIDIA Open Model License;Trained for 1 epoch. Trained on 6144 H100 GPUs between December 2023 and May 2024.
+Llama 3.1;July 2024;Meta AI;405000;15600;440,000;Llama 3 license;405B version took 31 million hours on H100-80GB, at 3.8E25 FLOPs.

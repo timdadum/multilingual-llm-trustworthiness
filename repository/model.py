@@ -2,6 +2,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import os
 import json
 import torch
+from logger import logger
 
 def save_model_and_tokenizer(tokenizer, model, tokenizer_path, model_path):
     tokenizer.save_pretrained(tokenizer_path)
@@ -17,7 +18,7 @@ def get_bloomz(model):
     model = AutoModelForCausalLM.from_pretrained(f"bigscience/bloomz-{model}")
     return tokenizer, model
 
-def load_bloomz(model='7b1-mt'):
+def load_bloomz(config, model='560m'):
     """Loads BLOOMZ model from Huggingface checkpoint. If
     it is on disk, it will simply load. If it is not, it will load"""
     # Define the paths for saving the tokenizer and model
