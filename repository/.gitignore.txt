@@ -1,2 +1,2 @@
-multilingual-llm-trustworthiness\repository\models
-multilingual-llm-trustworthiness\repository\.env
+repository\models
+repository\.env
