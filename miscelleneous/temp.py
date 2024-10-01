@@ -1,4 +1,7 @@
 import pandas as pd
+import os
+
+os.chdir("multilingual-llm-trustworthiness\miscelleneous")
 
 # Load the TSV file into a DataFrame with handling for bad lines
 df = pd.read_csv('x-fact.tsv', sep='\t', on_bad_lines='skip')

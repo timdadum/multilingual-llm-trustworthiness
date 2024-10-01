@@ -167,7 +167,6 @@ def query_gemini_batch(batch, backtranslator, model, target):
     except Exception as e:
         logger.error(f"Querying Google unsuccessful: {e}")
         return None
-
     
 def query_local_batch(batch, translator, model, tokenizer, target='en'):
     """Query local model for answering a question"""
@@ -182,8 +181,18 @@ def query_local_batch(batch, translator, model, tokenizer, target='en'):
 
         return text
     except Exception as e:
-        logger.error(f"Querying BLOOMZ unsuccessful: {e}")
+        logger.error(f"Querying model unsuccessful: {e}")
         return None
+    
+def query_llama_batch(pipeline, batch, translator, backtranslator, sys_prompt, target='en'):
+    try: 
+        prompt = "<|SYSTEM|>" + translator.translate(sys_prompt)
+        responses = [pipeline(prompt + "<|USER|>" + {sample}) for sample in batch]
+        return responses
+    except Exception as e:
+        logger.error(f"Querying Llama-3.1 unsuccessful: {e}")
+        return None
+    
 
 def get_local_model_output(benchmark, target, mode='ANS'):
     translator = MyMemoryTranslator(target=target)
