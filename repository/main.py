@@ -1,134 +1,88 @@
-from utils import read, get_subset
 import random
 import os
+from utils import read, get_subset
 from classes import MultilingualBenchmark
 from logger import logger
 
-os.chdir('multilingual-llm-trustworthiness')
+# Set directory to this file
+try:
+    # Get the directory where the script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+except NameError:
+    # If __file__ is not defined (e.g., in interactive mode), use the current working directory
+    script_dir = os.getcwd()
+os.chdir(script_dir)
 
+# Set random seed for reproducibility
 random.seed(42)
+
+# Load the configuration file
 config = read('repository/config.json')
- 
-# SERIES OF SUBSETS (differing from debug to full to other sets)
-language_subset_debug = [
-    'zh-CN', 'en', 'hi', 'nl', 'fi'
-]
 
-languages_subset_small = [
-    'fr', 'nl', 'es', 'cy', 'en',
-    'sw', 'hu', 'bn', 'de', 'ru'
-]
+# Debug and small language subsets for experimentation
+language_subset_debug = ['zh-CN', 'en', 'hi', 'nl', 'fi']
+languages_subset_small = ['fr', 'nl', 'es', 'cy', 'en', 'sw', 'hu', 'bn', 'de', 'ru']
 
-# EN English
-# FR French
-# DE German
-# CS Czech
-# IS Icelandic
-# ZH Chinese
-# JA Japanese
-# RU Russian
-# UK Ukranian
-# HA Hausa
+# Known language subset in ISO 639-1 format
+known_subset = ['en', 'fr', 'de', 'cs', 'is', 'zh-CN', 'ja', 'ru', 'uk', 'ha']
 
-known_subset = [
-    'en',     # English
-    'fr',     # French
-    'de',     # German
-    'cs',     # Czech
-    'is',     # Icelandic
-    'zh-CN',  # Chinese
-    'ja',     # Japanese
-    'ru',     # Russian
-    'uk',     # Ukrainian
-    'ha'      # Hausa
-]
-
-# ISO 639-3 codes for languages (three-letter codes)
+# ISO 639-3 and transformed two-letter ISO 639-1 language codes
 language_subset_iso = [
-    'eng',  # English
-    'rus',  # Russian
-    'deu',  # German
-    'jpn',  # Japanese
-    'spa',  # Spanish
-    'fra',  # French
-    'zho',  # Chinese (Mandarin)
-    'ita',  # Italian
-    'por',  # Portuguese
-    'nld',  # Dutch
-    'vie',  # Vietnamese
-    'ind',  # Indonesian
-    'arb',  # Arabic
-    'swe',  # Swedish
-    'hun',  # Hungarian
-    'fin',  # Finnish
-    'hin',  # Hindi
-    'ben',  # Bengali
-    'lav',  # Latvian
-    'urd',  # Urdu
-    'cym',  # Welsh
-    'swh',  # Swahili
-    'amh',  # Amharic
-    'zul',  # Zulu
-    'mri',  # Maori
+    'eng', 'rus', 'deu', 'jpn', 'spa', 'fra', 'zho', 'ita', 'por', 'nld',
+    'vie', 'ind', 'arb', 'swe', 'hun', 'fin', 'hin', 'ben', 'lav', 'urd',
+    'cym', 'swh', 'amh', 'zul', 'mri'
 ]
 
-# ISO 639-1 codes for languages (two-letter codes, with some variations like zh-CN for Chinese)
 language_subset_transformed = [
-    'en',     # English
-    'ru',     # Russian
-    'de',     # German
-    'ja',     # Japanese
-    'es',     # Spanish
-    'fr',     # French
-    'zh-CN',  # Chinese (Mandarin)
-    'it',     # Italian
-    'pt',     # Portuguese
-    'nl',     # Dutch
-    'vi',     # Vietnamese
-    'id',     # Indonesian
-    'ar',     # Arabic
-    'sv',     # Swedish
-    'hu',     # Hungarian
-    'fi',     # Finnish
-    'hi',     # Hindi
-    'bn',     # Bengali
-    'lv',     # Latvian
-    'ur',     # Urdu
-    'cy',     # Welsh
-    'sw',     # Swahili
-    'am',     # Amharic
-    'zu',     # Zulu
-    'mi',     # Maori
+    'en', 'ru', 'de', 'ja', 'es', 'fr', 'zh-CN', 'it', 'pt', 'nl', 'vi',
+    'id', 'ar', 'sv', 'hu', 'fi', 'hi', 'bn', 'lv', 'ur', 'cy', 'sw', 'am',
+    'zu', 'mi'
 ]
 
-# Create convenient mappings
-iso_to_transformed = {iso: trans for iso, trans in zip(language_subset_iso, language_subset_transformed)}
-transformed_to_iso = {value: key for key, value in iso_to_transformed.items()}
+# Mapping between ISO 639-3 and ISO 639-1 language codes
+iso_to_transformed = dict(zip(language_subset_iso, language_subset_transformed))
+transformed_to_iso = {trans: iso for iso, trans in iso_to_transformed.items()}
 
-benchmark = MultilingualBenchmark(benchmark_name='truthfulqa', 
-                                  model_name='bloomz-7b1', 
-                                  run_name='bloomz-7b1', 
-                                  languages=language_subset_transformed, 
-                                  config=config)
+# Initialize the MultilingualBenchmark object
+benchmark = MultilingualBenchmark(
+    benchmark_name='truthfulqa',
+    model_name='bloomz-7b1',
+    run_name='bloomz-7b1',
+    languages=language_subset_transformed,
+    config=config
+)
 
-# global debug parameter. Set to False if running main with an already existing .json results file.
+# Global debug parameter to control experiment execution
 RUN_EXPERIMENTS = True
 
-if RUN_EXPERIMENTS:
+def run_experiments():
+    """Run the experiments and save the results."""
     logger.info("Now running experiments.")
     benchmark_path = config.get('benchmark', {}).get('path', {})
-    subset = get_subset(benchmark_path, n="Inf")
+    subset = get_subset(benchmark_path, n="Inf")  # Get all subset data
     benchmark.load_benchmark(subset)
     benchmark.run(print_results=True, plot_results=True)
-    benchmark.write_to_json(f'repository/benchmarks/results/{benchmark.benchmark_name}_{benchmark.model_name}.json')
-else:
-    benchmark = benchmark.from_json(r'repository\benchmarks\results\truthfulqa_gpt-4o-mini.json',
-                                    benchmark_name='truthfulqa', 
-                                    model_name='gpt-4o-mini', 
-                                    run_name='gpt-4o-mini', 
-                                    languages=language_subset_transformed, 
-                                    config=config)
+    benchmark.write_to_json(
+        f'repository/benchmarks/results/{benchmark.benchmark_name}_{benchmark.model_name}.json'
+    )
 
-    benchmark._get_metrics()
-    benchmark.print_results()
-    benchmark._plot_results()
+def load_previous_results():
+    """Load previous experiment results from a JSON file."""
+    previous_benchmark = benchmark.from_json(
+        r'repository/benchmarks/results/truthfulqa_gpt-4o-mini.json',
+        benchmark_name='truthfulqa',
+        model_name='gpt-4o-mini',
+        run_name='gpt-4o-mini',
+        languages=language_subset_transformed,
+        config=config
+    )
+    previous_benchmark._get_metrics()
+    previous_benchmark.print_results()
+    previous_benchmark._plot_results()
+
+# Main execution based on RUN_EXPERIMENTS flag
+if __name__ == "__main__":
+    if RUN_EXPERIMENTS:
+        run_experiments()
+    else:
+        load_previous_results()
