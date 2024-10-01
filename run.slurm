@@ -12,3 +12,4 @@ source start.sh
 
 # Run your Python script (ensure this is the correct path to your script)
 srun python repository/main.py
+

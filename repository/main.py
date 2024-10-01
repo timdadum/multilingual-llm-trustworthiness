@@ -13,11 +13,13 @@ except NameError:
     script_dir = os.getcwd()
 os.chdir(script_dir)
 
+print(f'THe current working directory is {os.getcwd()}')
+
 # Set random seed for reproducibility
 random.seed(42)
 
 # Load the configuration file
-config = read('repository/config.json')
+config = read('config.json')
 
 # Debug and small language subsets for experimentation
 language_subset_debug = ['zh-CN', 'en', 'hi', 'nl', 'fi']

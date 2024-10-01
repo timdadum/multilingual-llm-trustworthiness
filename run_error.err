@@ -1,0 +1,47 @@
+ERROR: Invalid requirement: '@': Expected package name at the start of dependency specifier
+    @
+    ^
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+datasets 3.0.1 requires fsspec[http]<=2024.6.1,>=2023.1.0, but you have fsspec 2024.9.0 which is incompatible.
+WARNING: Target directory /tmp/trood/pip/huggingface_hub-0.25.1.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/fsspec already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/tqdm already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/certifi-2024.8.30.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/typing_extensions-4.12.2.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/charset_normalizer-3.3.2.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/typing_extensions.py already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/__pycache__ already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/urllib3-2.2.3.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/packaging already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/urllib3 already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/packaging-24.1.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/filelock already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/tqdm-4.66.5.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/_yaml already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/yaml already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/idna already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/idna-3.10.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/huggingface_hub already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/charset_normalizer already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/certifi already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/requests already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/PyYAML-6.0.2.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/filelock-3.16.1.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/requests-2.32.3.dist-info already exists. Specify --upgrade to force replacement.
+WARNING: Target directory /tmp/trood/pip/bin already exists. Specify --upgrade to force replacement.
+logger - INFO - Now running experiments.
+Traceback (most recent call last):
+  File "/home/nfs/trood/repo/multilingual-llm-trustworthiness/repository/main.py", line 86, in <module>
+    run_experiments()
+  File "/home/nfs/trood/repo/multilingual-llm-trustworthiness/repository/main.py", line 62, in run_experiments
+    subset = get_subset(benchmark_path, n="Inf")  # Get all subset data
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/nfs/trood/repo/multilingual-llm-trustworthiness/repository/utils.py", line 179, in get_subset
+    benchmark = read(benchmark_path)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/nfs/trood/repo/multilingual-llm-trustworthiness/repository/utils.py", line 73, in read
+    with open(path, 'r', encoding='utf-8') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'repository/benchmarks/clean/truthfulqa_mc.json'
+srun: error: grs1: task 0: Exited with exit code 1
+srun: launch/slurm: _step_signal: Terminating StepId=10937100.0
