@@ -1,6 +1,6 @@
 {
     "benchmark": {
-        "path": "repository/benchmarks/clean/truthfulqa_mc.json"
+        "path": "repositorybenchmarks/clean/truthfulqa_mc.json"
     },
     "target": {
         "language": "fi"

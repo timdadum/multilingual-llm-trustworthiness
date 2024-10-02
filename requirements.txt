@@ -1,0 +1,13 @@
+accelerate
+bitsandbytes
+datasets
+deep-translator
+huggingface-hub
+openai
+safetensors
+tokenizers
+torch
+transformers
+google-generativeai
+matplotlib
+seaborn
