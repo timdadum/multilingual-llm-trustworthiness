@@ -55,9 +55,7 @@ def plot_single_metric(data, metric, colormap, subplot_index):
 
 def plot(df):
     """
-    Plots a bar chart for the metric 'a' per language.
-    The chart is labeled with the corresponding language for clarity, and the bars are colored
-    based on the value of the metric using a colormap.
+    Plots an accuracy bar chart per language.
 
     Parameters:
         df (pd.DataFrame): DataFrame containing 'language' and 'a' columns. 
@@ -74,9 +72,9 @@ def plot(df):
 
     # Plot the 'a' metric versus language
     bars = plt.bar(df['lang'], df['a'], color=colormap(df['a'] / df['a'].max()))
-    plt.title('Metric "a" per Language')
+    plt.title('Accuracy ')
     plt.xlabel('Language')
-    plt.ylabel('Metric "a"')
+    plt.ylabel('Accuracy')
 
     # Label each bar with the corresponding value
     for bar in bars:

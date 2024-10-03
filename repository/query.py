@@ -4,6 +4,7 @@ from logger import logger
 import os
 import google.generativeai as genai
 import time
+from utils import threadpool
 
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
@@ -65,24 +66,17 @@ def query_gpt_batch(
         gpt_response = client.chat.completions.create(
             model=engine,
             messages=messages,
-            temperature=0.7, # TODO: make temperature tweakable
+            temperature=0.2, # TODO: make temperature tweakable
             seed=42 # TODO make seed tweakable
         )
 
         # Normalize string for post-processing using unicode NFKC
         output = normalize('NFKC', gpt_response.choices[0].message.content)
-
-        # logger.info(f'OUTPUT\n===================\n{output}')
-
-        # Backtranslate output
-        output = backtranslator.translate(output)
-
-        # logger.info(f'TRANSLATED OUTPUT\n===================\n{output}')
-
-        return output
+        english_response =  backtranslator.translate(output)
+        results[index] = english_response
     except Exception as e:
         logger.error(f"Querying OpenAI unsuccessful: {e}")
-        return None
+        results[index] = None
     
 def query_gemini_batch(batch, backtranslator, model, target):
     """
@@ -150,31 +144,45 @@ def get_local_model_output(benchmark, target, query_batch_size):
     return output
 
 def get_api_output(benchmark, target, api_type, batch_size=4, **kwargs):
-    # Create translator for translation of system prompt
+    # Create translators for translation and backtranslation
     translator = GoogleTranslator(target=target)
     backtranslator = GoogleTranslator(target='en')
     
+    # Create batches from the benchmark
     batches = benchmark.create_batches(size=batch_size)
     
+    # Use threadpooling to handle API queries in parallel
     if api_type == 'openai':
-        output_batched = [query_gpt_batch(batch, 
-                                          translator,
-                                          backtranslator, 
-                                          client=kwargs.get('client'),
-                                          target=target,
-                                          engine=kwargs.get('engine'),
-                                          sys_prompt=kwargs.get('sys_prompt')) for batch in batches]
+        output_batched = threadpool(
+            data=batches, 
+            func=query_gpt_batch, 
+            delay=kwargs.get('delay', 0.1),             # Delay between requests
+            max_workers=kwargs.get('max_workers', 32),  # Number of parallel workers
+            translator=translator,
+            backtranslator=backtranslator, 
+            client=kwargs.get('client'),
+            target=target,
+            engine=kwargs.get('engine'),
+            sys_prompt=kwargs.get('sys_prompt')
+        )
     elif api_type == 'google':
-        output_batched = [query_gemini_batch(batch,
-                                             backtranslator, 
-                                             model=kwargs.get('model'), 
-                                             target=target) for batch in batches]
+        output_batched = threadpool(
+            data=batches, 
+            func=query_gemini_batch, 
+            delay=kwargs.get('delay', 0.1),             # Delay between requests
+            max_workers=kwargs.get('max_workers', 4),   # Number of parallel workers
+            backtranslator=backtranslator, 
+            model=kwargs.get('model'),
+            target=target
+        )
 
+    # Convert the output batches to a dictionary format
     output_dicts = [output_to_dict(output) for output in output_batched]
     
+    # Merge dictionaries into a single output
     output = {}
-    for dict in output_dicts:
-        output.update(dict)
+    for result_dict in output_dicts:
+        output.update(result_dict)
     
     return output
 

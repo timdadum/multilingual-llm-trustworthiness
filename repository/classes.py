@@ -4,14 +4,13 @@ from deep_translator import GoogleTranslator
 from model import load_bloomz
 from openai import OpenAI
 from utils import clean_str, threadpool
-from eval import plot, plot_de
+from plot import plot, plot_de
 import google.generativeai as genai
 import pandas as pd
 import json
 import csv
 import os 
 from logger import logger
-import asyncio
 
 class Sample:
     """
@@ -254,7 +253,10 @@ class MultilingualBenchmark:
         
         # Load translated benchmark already if it exists 
         translated_path = f'repository/benchmarks/translated/{self.benchmark_name}_{len(self.samples)}.json'
+        print(f'TRANSLATED PATH: {translated_path}')
+        print(f'ACTUAL PATH: {"repository/benchmarks/translated/truthfulqa_mc_690.json"}')
         if not os.path.exists(translated_path):
+            print("HUH")
             self.translate_all(data_type="question", save=True)
         else:
             new_instance = self.from_json(self.config)
