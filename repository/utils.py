@@ -6,15 +6,6 @@ import random
 import unicodedata
 import re
 from logger import logger
-
-def split_text(text, delimiter="|"):
-    try:
-        parts = text.split(delimiter)
-        # Remove leading/trailing whitespaces from each part
-        return [part.strip() for part in parts]
-    except Exception as e:
-        logger.error(f"Error splitting text: {e}")
-        return None
     
 def print_unicode_code_points(text: str):
     """Prints the Unicode code points of each character in the text."""
@@ -70,6 +61,7 @@ def read(path, json_lines=False):
     Returns:
         dict: The data read from the JSON file.
     """
+    print(os.getcwd())
     with open(path, 'r', encoding='utf-8') as file:
         if json_lines:
             return [json.loads(line) for line in file]
@@ -162,7 +154,7 @@ def normalize_string(input_string):
 
     return normalized_string
 
-def get_subset(benchmark_path, n=1000):
+def read_subset(benchmark_path, n=1000):
     """
     Selects a random subset from the benchmark and saves it.
     
@@ -174,13 +166,13 @@ def get_subset(benchmark_path, n=1000):
         list: The subset of the benchmark.
     """
     # Read subset or return if it exists
-    subset_path = f'{benchmark_path.replace(".json", "")}_subset_{n}.json'
-    if not os.path.exists(subset_path):
-        benchmark = read(benchmark_path)
-    else:
+    subset_path = benchmark_path + f'_{n}.json'
+    if os.path.exists(subset_path):
         logger.info(f"{subset_path} already exists. Reading subset...")
         subset = read(subset_path)
         return subset
+    else:
+        benchmark = read(benchmark_path + '.json')
 
     # If argument is "inf", return entire subset. Else, sample n samples randomly.
     if n == "Inf":
@@ -216,31 +208,73 @@ def filter_data_by_language(data, language):
     return subset
 
 
-def _threadpool(samples, func, **kwargs):
-    # Initialize empty results
-    results = [None] * len(samples)
+def threadpool(data, func, delay=25, max_workers=256, **kwargs):
+    """
+    Universal threadpool function that parallelizes the execution of 'func' across the 'samples'.
+    func: The function to be executed in parallel.
+    data: The data on which 'func' will be applied.
+    delay: The delay in milliseconds between each request.
+    max_workers: Maximum number of threads to use in the thread pool.
+    kwargs: Any additional arguments required by 'func'.
+    """
+    results = [None] * len(data) # Initialize empty results
     
-    # Thread pool querying
-    with ThreadPoolExecutor(max_workers=8) as executor:
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = []
-        for index, question in enumerate(samples):
-            futures.append(executor.submit(func, index, question, results, **kwargs))
-
-        for future in as_completed(futures):
+        for index, unit in enumerate(data):
+            futures.append(executor.submit(func, index, unit, results, delay, **kwargs))
+        
+        # Collect results as they complete
+        for future in futures:
             future.result()
 
     return results
 
-def calculate_uncertainty_rate(uncertainties):
-    """bools: list of booleans indicating uncertain or not"""
-    b = sum(uncertainties) / len(uncertainties)
-    return b
+# UNUSED?
+# def calculate_uncertainty_rate(uncertainties):
+#     """bools: list of booleans indicating uncertain or not"""
+#     b = sum(uncertainties) / len(uncertainties)
+#     return b
 
-def calculate_uncertainty_accuracy(uncertainties, evaluations):
-    y = sum(u and (e == 1) for u, e in zip(uncertainties, evaluations)) / sum(uncertainties)
-    return y
+# def calculate_uncertainty_accuracy(uncertainties, evaluations):
+#     y = sum(u and (e == 1) for u, e in zip(uncertainties, evaluations)) / sum(uncertainties)
+#     return y
 
-def calculate_uncertainty_f1(tp, fp, fn):
-    """tp, tn, fp, fn = true positives, true negatives, false positives, false negatives"""
-    print(f'tp: {tp}, fp: {fp}, fn: {fn}')
-    return 2 * tp / (2 * tp + fp + fn)
+# def calculate_uncertainty_f1(tp, fp, fn):
+#     """tp, tn, fp, fn = true positives, true negatives, false positives, false negatives"""
+#     print(f'tp: {tp}, fp: {fp}, fn: {fn}')
+#     return 2 * tp / (2 * tp + fp + fn)
+
+def process_output_text(text):
+    """Helper function to process translated output by splitting if necessary."""
+    try:
+        splits = text.split()
+        return splits[1]  # Return second part of the split text for output translation
+    except Exception:
+        logger.warning(f"Splitting failed for text: {text}. Returning None.")
+        return None
+        
+# UNUSED?
+# def create_samples(json_object: dict) -> list:
+#     return [Sample(pair['question_en'], pair['answer_en'], pair['idx']) for pair in json_object]
+
+def run_experiments(benchmark, config):
+    """Run the experiments and save the results."""
+    logger.info("Now running experiments.")
+    
+    # Load data, add to benchmark object
+    path = f"{config['paths']['benchmarks']}/{config['benchmark']['name']}"
+    n = config["benchmark"]["subset_size"]
+    
+    data = read_subset(path, n=n)
+    benchmark.load_benchmark(data)
+    
+    benchmark.run(print_results=True, plot_results=True)
+
+def load_previous_results(benchmark, config):
+    """Load previous experiment results from a JSON file."""
+    previous_benchmark = benchmark.from_json(config)
+    
+    previous_benchmark._get_metrics()
+    previous_benchmark.print_results()
+    previous_benchmark._plot_results()

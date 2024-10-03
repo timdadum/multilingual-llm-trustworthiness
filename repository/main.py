@@ -1,8 +1,7 @@
-import random
 import os
-from utils import read, get_subset
-from classes import MultilingualBenchmark, read_args, run_experiments, load_previous_results
-from logger import logger
+import random
+from utils import read, run_experiments, load_previous_results
+from classes import MultilingualBenchmark
 
 # Set the current working directory to the script location
 try:
@@ -20,9 +19,9 @@ random.seed(config.get('random_seed', 42))
 # Main execution
 if __name__ == "__main__":
     # Initialize the MultilingualBenchmark object with config parameters
-    benchmark = MultilingualBenchmark(read_args(config))   
+    benchmark = MultilingualBenchmark(config)   
 
     if config['experiments'].get('run_experiments', True):
-        run_experiments()
+        run_experiments(benchmark, config)
     else:
         load_previous_results()

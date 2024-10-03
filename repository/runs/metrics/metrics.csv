@@ -1,0 +1,6 @@
+model,benchmark,lang,a
+gpt-4o-mini,truthfulqa_mc,zh-CN,0.75
+gpt-4o-mini,truthfulqa_mc,en,0.5
+gpt-4o-mini,truthfulqa_mc,hi,0.5625
+gpt-4o-mini,truthfulqa_mc,nl,0.4375
+gpt-4o-mini,truthfulqa_mc,fi,0.4375
