@@ -1,28 +1,48 @@
 {
     "benchmark": {
-        "path": "repositorybenchmarks/clean/truthfulqa_mc.json"
-    },
-    "target": {
-        "language": "fi"
-    },
-    "evaluation": {
-        "metric": "accuracy",
-        "cos_sim_thresh": 0.90
+        "name": "truthfulqa",
+        "subset_size": 16
     },
     "paths": {
-        "BLOOMZ_TOKENIZER_PATH": "repository/models/bloomz_tokenizer",
-        "BLOOMZ_MODEL_PATH": "repository/models/bloomz_model" 
+        "benchmarks": "repository/benchmarks",
+        "results": "repository/runs/out",
+        "metrics": "repository/runs/metrics"
     },
-    "models": {
-        "bloomz": "560m"
+    "model": {
+        "name": "gpt-4o-mini"
     },
-    "misc": {
-        "delimiter": "|",
-        "translation_batch_size": null,
-        "gpt_batch_size": 8
+    "language_subsets": {
+        "debug": {
+            "iso_639_1": ["zh-CN", "en", "hi", "nl", "fi"],
+            "iso_639_3": ["zho", "eng", "hin", "nld", "fin"]
+        },
+        "small": {
+            "iso_639_1": ["fr", "nl", "es", "cy", "en", "sw", "hu", "bn", "de", "ru"],
+            "iso_639_3": ["fra", "nld", "spa", "cym", "eng", "swh", "hun", "ben", "deu", "rus"]
+        },
+        "full": {
+            "iso_639_1": [
+                "en", "ru", "de", "ja", "es", "fr", "zh-CN", "it", "pt", "nl", "vi",
+                "id", "ar", "sv", "hu", "fi", "hi", "bn", "lv", "ur", "cy", "sw", "am",
+                "zu", "mi"
+            ],
+            "iso_639_3": [
+                "eng", "rus", "deu", "jpn", "spa", "fra", "zho", "ita", "por", "nld",
+                "vie", "ind", "arb", "swe", "hun", "fin", "hin", "ben", "lav", "urd",
+                "cym", "swh", "amh", "zul", "mri"
+            ]
+        }
     },
     "experiments": {
-        "add_i_dont_know_option": "false"
+        "run_experiments": true,
+        "language_subset": "debug",
+        "run_name": "debug"
+    },
+    "threading_rates": {
+        "llm": 
+    },
+    "miscellaneous": {
+        "random_seed": 42
     }
-}
-
+  }
+  
