@@ -22,7 +22,7 @@ data['Linguistic_Feature'] = np.random.randn(len(data))
 data['Model_Feature'] = np.random.randn(len(data))
 data['Benchmark_Feature'] = np.random.randn(len(data))
 
-# Simulate random effects and observed risk scores (averaged over 10,000 samples)
+# Simulate random effects and observed risk evaluations (averaged over 10,000 samples)
 language_effects = np.random.randn(len(languages))
 model_effects = np.random.randn(len(models))
 benchmark_effects = np.random.randn(len(benchmarks))
@@ -32,8 +32,8 @@ data['Lang_Effect'] = data['Language'].map(dict(zip(languages, language_effects)
 data['Model_Effect'] = data['Model'].map(dict(zip(models, model_effects)))
 data['Bench_Effect'] = data['Benchmark'].map(dict(zip(benchmarks, benchmark_effects)))
 
-# Generate observed risk score (R) based on fixed and random effects
-data['Risk_Score'] = (0.5 * data['Linguistic_Feature'] +
+# Generate observed risk evaluation (R) based on fixed and random effects
+data['Risk_evaluation'] = (0.5 * data['Linguistic_Feature'] +
                       0.3 * data['Model_Feature'] +
                       0.2 * data['Benchmark_Feature'] +
                       data['Lang_Effect'] + 
@@ -41,10 +41,10 @@ data['Risk_Score'] = (0.5 * data['Linguistic_Feature'] +
                       data['Bench_Effect'] +
                       np.random.normal(scale=0.1, size=len(data)))  # Add small noise
 
-# Model the Risk_Score using a hierarchical structure with random effects for Language, Model, and Benchmark
+# Model the Risk_evaluation using a hierarchical structure with random effects for Language, Model, and Benchmark
 
 # MixedLM formula: fixed effects + random intercepts for Language, Model, Benchmark
-model_formula = "Risk_Score ~ Linguistic_Feature + Model_Feature + Benchmark_Feature"
+model_formula = "Risk_evaluation ~ Linguistic_Feature + Model_Feature + Benchmark_Feature"
 # Fit the random effects for Language, Model, and Benchmark
 mixed_model = mixedlm(model_formula, data, groups=data['Language'],
                       re_formula="~Model + Benchmark",  # Random effects for both Model and Benchmark

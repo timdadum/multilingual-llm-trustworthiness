@@ -25,7 +25,7 @@ class Sample:
     output : dict
         Dictionary where the key is the language code and the value is the model's output.
     evaluations : dict
-        Dictionary where the key is the language code and the value is the evaluation score.
+        Dictionary where the key is the language code and the value is the evaluation evaluation.
     idx : int
         The index of the sample for tracking purposes.
     """
@@ -69,7 +69,7 @@ class Sample:
             result[f"answer_en"] = self.answers['en']
             result[f"question_{lang}"] = self.questions.get(lang, None)
             result[f"output_{lang}"] = self.output.get(lang, None)
-            result[f"score_{lang}"] = self.evaluations.get(lang, None)
+            result[f"evaluation_{lang}"] = self.evaluations.get(lang, None)
         return result
 
     @classmethod
@@ -87,8 +87,8 @@ class Sample:
             output = parts[2].strip()
             sample.add_output(language, output)
         if len(parts) >= 3:
-            score = parts[3].strip()
-            sample.score(language, score)
+            evaluation = parts[3].strip()
+            sample.evaluation(language, evaluation)
 
         return sample
 
@@ -98,7 +98,7 @@ class Sample:
             try:
                 out = clean_str(output)
             except (AttributeError, TypeError):
-                self.score(language, 'null')
+                self.evaluation(language, 'null')
                 continue
 
             ans = self.answers.get('en', '').lower().strip()
@@ -142,12 +142,14 @@ class Sample:
         sample = cls(question_en, answer_en, idx)
 
         for language in languages:
-            idx = data.get(f"idx")
             question = data.get(f"question_{language}", None)
             answer = data.get(f"answer_{language}", None)
             output = data.get(f"output_{language}", None)
-            score = data.get(f"score_{language}", None)
-            sample._assign(language, idx, question, answer, output, score)
+            evaluation = data.get(f"evaluation_{language}", None)
+            
+            # Assign all values
+            for value in [question, answer, output, evaluation]:
+                sample.assign(value, language, data_type=f"{str(value)}")
 
         return sample
 
@@ -193,8 +195,9 @@ class MultilingualBenchmark:
             "openai_max_workers": self.config['threadpool']['openai_max_workers']
         }
 
-        # Result state tracking
+        # State tracking
         self.has_results = False
+        self.has_translations = False
 
     def __str__(self):
         return f"Benchmark (model: {self.model_name}, experiment name: {self.run_name}, samples={len(self)})"
@@ -251,19 +254,16 @@ class MultilingualBenchmark:
         if not self.languages or not self.samples:
             raise ValueError("Please ensure this MultilingualBenchmark contains samples and target languages!")
         
-        # Load translated benchmark already if it exists 
-        translated_path = f'repository/benchmarks/translated/{self.benchmark_name}_{len(self.samples)}.json'
-        print(f'TRANSLATED PATH: {translated_path}')
-        print(f'ACTUAL PATH: {"repository/benchmarks/translated/truthfulqa_mc_690.json"}')
-        if not os.path.exists(translated_path):
-            print("HUH")
+        # Create from json
+        new_instance = self.from_json(self.config)
+        self.model_name = new_instance.model_name
+        self.run_name = new_instance.run_name
+        self.languages = new_instance.languages
+        self.samples = new_instance.samples
+
+        # 
+        if not self.has_translations:            
             self.translate_all(data_type="question", save=True)
-        else:
-            new_instance = self.from_json(self.config)
-            self.model_name = new_instance.model_name
-            self.run_name = new_instance.run_name
-            self.languages = new_instance.languages
-            self.samples = new_instance.samples
 
         if 'gpt' in self.model_name.lower():
             self.query_gpt()
@@ -362,44 +362,44 @@ class MultilingualBenchmark:
 
 
 
-    def get_average_score(self, language):
+    def get_average_evaluation(self, language):
         """
-        Calculates the average score for a given language across all samples.
+        Calculates the average evaluation for a given language across all samples.
 
         Parameters
         ----------
         language: str
-            The language for which the average score is to be calculated.
+            The language for which the average evaluation is to be calculated.
 
         Returns
         -------
         float
-            The average score for the given language.
+            The average evaluation for the given language.
         """
-        total_score = 0
+        total_evaluation = 0
         count = 0
         for sample in self.samples:
-            if language in sample.scores:
-                total_score += sample.scores[language]
+            if language in sample.evaluations:
+                total_evaluation += sample.evaluations[language]
                 count += 1
-        return total_score / count if count > 0 else 0
+        return total_evaluation / count if count > 0 else 0
 
-    def get_all_scores(self):
+    def get_all_evaluations(self):
         """
-        Gets all scores for all languages and samples.
+        Gets all evaluations for all languages and samples.
 
         Returns
         -------
         dict
-            A dictionary where keys are languages and values are lists of scores for each sample.
+            A dictionary where keys are languages and values are lists of evaluations for each sample.
         """
-        scores_dict = {}
+        evaluations_dict = {}
         for sample in self.samples:
-            for language, score in sample.scores.items():
-                if language not in scores_dict:
-                    scores_dict[language] = []
-                scores_dict[language].append(score)
-        return scores_dict
+            for language, evaluation in sample.evaluations.items():
+                if language not in evaluations_dict:
+                    evaluations_dict[language] = []
+                evaluations_dict[language].append(evaluation)
+        return evaluations_dict
     
     def create_batches(self, size):
         batches = []
@@ -511,8 +511,8 @@ class MultilingualBenchmark:
     
     def _valid_evals_to_accuracy(self, valid_evals):
         # Calculate accuracy by excluding -1 responses
-        valid_scores = [score for score in valid_evals if score != -1]
-        return sum(valid_scores) / len(valid_scores) if valid_scores else 0
+        valid_evaluations = [evaluation for evaluation in valid_evals if evaluation != -1]
+        return sum(valid_evaluations) / len(valid_evaluations) if valid_evaluations else 0
 
     def print_results(self):
         """Prints all results in an overview"""
@@ -542,7 +542,7 @@ class MultilingualBenchmark:
             data (list of dictionaries): Object containing experiment results in standard format
             languages (list of str): List of languages in data
         Returns:
-            scores (dict): A dictionary with per-language accuracy
+            evaluations (dict): A dictionary with per-language accuracy
         """
         for language in self.languages:
             valid = self._get_valid_evals(language)
@@ -616,7 +616,8 @@ class MultilingualBenchmark:
 
     @classmethod
     def from_json(cls, config):
-        """Initialize class from configuration"""
+        """Initialize class from configuration. Tries to load as much data as is already available based on configuration file. For example,
+        if a translated benchmark exists, it tries to load this already. Likewise, if results exist, it tries to load"""
         # Initialize Benchmark object from JSON
         benchmark = cls(config)
         
@@ -624,8 +625,22 @@ class MultilingualBenchmark:
         model = benchmark.model_name
         languages = benchmark.languages
         
-        with open(f"{config['paths']['results']}\{model}_{benchmark}", 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        # If run exists, load run. If run doesn't exist, load translated benchmark, if that doens't exist, just load non-translated benchmark
+        results_path = f"{config['paths']['results']}/{config['experiments']['name']}.json"
+        translated_path = f"{config['paths']['translated_benchmarks']}/{benchmark.benchmark_name}_{config['benchmark'][ 'subset_size']}.json"
+        default_path = f"{config['paths']['benchmarks']}/{benchmark.benchmark_name}.json"
+        
+        if os.path.exists(results_path):
+            with open(results_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+                benchmark.has_results = True
+        elif os.path.exists(translated_path):
+            with open(translated_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+                benchmark.has_translations = True
+        else:
+            with open(default_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
         
         # Assign file contents to this benchmark's samples
         for i, item in enumerate(data):

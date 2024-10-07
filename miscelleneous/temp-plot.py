@@ -48,8 +48,8 @@ proprietary_vs_open = {
 cwd = os.getcwd()
 
 # Construct the full file path by joining the CWD with the desired filename
-main_criteria_path = os.path.join(cwd, "main_criteria_risk_scores.pdf")
-subcriteria_path = os.path.join(cwd, "subcriteria_risk_scores.pdf")
+main_criteria_path = os.path.join(cwd, "main_criteria_risk_evaluations.pdf")
+subcriteria_path = os.path.join(cwd, "subcriteria_risk_evaluations.pdf")
 proprietary_vs_open_path = os.path.join(cwd, "proprietary_vs_open_source_comparison.pdf")
 
 
@@ -66,21 +66,21 @@ main_values = list(main_criteria.values())
 main_labels = list(main_criteria.keys())
 
 sns.barplot(x=main_values, y=main_labels, palette=[cmap_inverted(value) for value in main_values])
-plt.xlabel('Normalized Risk Score')
-# plt.title('Risk scores per main criterium, averaged over proprietary, open-source and gpt-only scores')
+plt.xlabel('Normalized Risk evaluation')
+# plt.title('Risk evaluations per main criterium, averaged over proprietary, open-source and gpt-only evaluations')
 plt.grid(True, axis='x', linestyle='--', linewidth=0.7)
 plt.xticks(ticks=[i * 0.05 for i in range(14)])  # Increase tick density
 
 # plt.savefig(main_criteria_path, format='pdf')
 
 # Create a ScalarMappable object for the color bar
-norm = plt.Normalize(0, 1)  # Assuming the risk score is between 0 and 1
+norm = plt.Normalize(0, 1)  # Assuming the risk evaluation is between 0 and 1
 sm = plt.cm.ScalarMappable(cmap=cmap_inverted, norm=norm)
 sm.set_array([])  # Required for ScalarMappable to work with colorbar
 
-# Add the color bar to map the color scale to the risk score
+# Add the color bar to map the color scale to the risk evaluation
 cbar = plt.colorbar(sm)
-cbar.set_label('Risk Score')
+cbar.set_label('Risk evaluation')
 plt.gca().invert_yaxis()
 
 # Plotting Subcriteria
@@ -91,21 +91,21 @@ sub_labels = list(subcriteria.keys())
 sns.barplot(x=sub_values, y=sub_labels, palette=[cmap_inverted(value) for value in sub_values])
 
 plt.xticks(ticks=[i * 0.05 for i in range(14)])  # Increase tick density
-plt.xlabel('Normalized Risk Score')
-# plt.title('Risk scores per subcriterium, averaged over proprietary, open-source and gpt-only scores')
+plt.xlabel('Normalized Risk evaluation')
+# plt.title('Risk evaluations per subcriterium, averaged over proprietary, open-source and gpt-only evaluations')
 plt.grid(True, axis='x', linestyle='--', linewidth=0.7)
 plt.gca().invert_yaxis()
 
 # plt.savefig(subcriteria_path, format='pdf')
 
 # Create a ScalarMappable object for the color bar
-norm = plt.Normalize(0, 1)  # Assuming the risk score is between 0 and 1
+norm = plt.Normalize(0, 1)  # Assuming the risk evaluation is between 0 and 1
 sm = plt.cm.ScalarMappable(cmap=cmap_inverted, norm=norm)
 sm.set_array([])  # Required for ScalarMappable to work with colorbar
 
-# Add the color bar to map the color scale to the risk score
+# Add the color bar to map the color scale to the risk evaluation
 cbar = plt.colorbar(sm)
-cbar.set_label('Risk Score')
+cbar.set_label('Risk evaluation')
 
 # Flattening the data for proprietary vs open-source comparison for grouped plot
 df_proprietary_open = pd.DataFrame(proprietary_vs_open, index=["Proprietary", "Open-Source"]).T
@@ -153,21 +153,21 @@ plt.yticks(positions, y_ticks)
 plt.grid(True, axis='x', linestyle='--', linewidth=0.7)
 
 # Create a ScalarMappable object for the color bar
-norm = plt.Normalize(0, 1)  # Assuming the risk score is between 0 and 1
+norm = plt.Normalize(0, 1)  # Assuming the risk evaluation is between 0 and 1
 sm = plt.cm.ScalarMappable(cmap=cmap_inverted, norm=norm)
 sm.set_array([])  # Required for ScalarMappable to work with colorbar
 
-# Add the color bar to map the color scale to the risk score
+# Add the color bar to map the color scale to the risk evaluation
 cbar = plt.colorbar(sm)
-cbar.set_label('Risk Score')
+cbar.set_label('Risk evaluation')
 
 # Adjust the number of ticks for more grid lines
 plt.xticks(ticks=[i * 0.05 for i in range(14)])  # Increase tick density
 
 # Labels and title
-plt.xlabel('Normalized Risk Score')
+plt.xlabel('Normalized Risk evaluation')
 plt.ylabel('Criteria')
-# plt.title('A comparison of criteria-level risk scores between Proprietary vs Open-Source models')
+# plt.title('A comparison of criteria-level risk evaluations between Proprietary vs Open-Source models')
 
 # Layout adjustment
 plt.tight_layout()

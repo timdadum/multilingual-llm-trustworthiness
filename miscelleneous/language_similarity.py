@@ -96,7 +96,7 @@ print("Cosine Similarity to English:")
 for language, similarity in sorted_similarities.items():
     print(f"{language}: {similarity}")
 
-selected_languages_with_scores = [
+selected_languages_with_evaluations = [
     ("eng", 1),                # English
     ("fra", 0.8117540630909456),  # French
     ("deu", 0.9025419790150204),  # German
@@ -120,7 +120,7 @@ selected_languages_with_scores = [
 ]
 
 # Separate the data into labels and values for plotting
-labels, values = zip(*selected_languages_with_scores)
+labels, values = zip(*selected_languages_with_evaluations)
 
 # Create a new figure with a specified figure size
 plt.figure(figsize=(12, 1))
@@ -157,7 +157,7 @@ plt.gca().axes.get_yaxis().set_visible(False)
 plt.grid(True, axis='x', linestyle='--')
 
 # Set a title for the plot
-plt.title('Language Similarity Score (lang2vec, syntatic_knn) to English')
+plt.title('Language Similarity evaluation (lang2vec, syntatic_knn) to English')
 
 # Show the plot
 plt.show()
