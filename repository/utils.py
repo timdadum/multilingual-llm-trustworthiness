@@ -160,7 +160,7 @@ def read_subset(benchmark_path, n=1000):
     
     Args:
         benchmark_path (str): The path to the benchmark file.
-        n (int): The number of samples to select for the subset. If n == "Inf", returns entire benchmark
+        n (int): The number of samples to select for the subset. If n == "all", returns entire benchmark
     
     Returns:
         list: The subset of the benchmark.
@@ -175,7 +175,7 @@ def read_subset(benchmark_path, n=1000):
         benchmark = read(benchmark_path + '.json')
 
     # If argument is "inf", return entire subset. Else, sample n samples randomly.
-    if n == "Inf":
+    if n == "all":
         subset = benchmark
     else:
         subset = random.sample(benchmark, min(n, len(benchmark)))
@@ -266,14 +266,15 @@ def run_experiments(benchmark, config):
     path = f"{config['paths']['benchmarks']}/{config['benchmark']['name']}"
     n = config["benchmark"]["subset_size"]
     
-    data = read_subset(path, n=n)
-    benchmark.load_benchmark(data)
+    if not benchmark.has_benchmark:
+        data = read_subset(path, n=n)
+        benchmark.load_benchmark(data)
     
     benchmark.run(print_results=True, plot_results=True)
 
 def load_previous_results(benchmark, config):
     """Load previous experiment results from a JSON file."""
-    previous_benchmark = benchmark.from_json(config)
+    previous_benchmark = benchmark.initialize_from_json(config)
     
     previous_benchmark._get_metrics()
     previous_benchmark.print_results()

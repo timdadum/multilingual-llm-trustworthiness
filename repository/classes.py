@@ -3,7 +3,7 @@ from query import get_api_output, get_local_model_output
 from deep_translator import GoogleTranslator
 from model import load_bloomz
 from openai import OpenAI
-from utils import clean_str, threadpool
+from utils import clean_str, threadpool, process_output_text
 from plot import plot, plot_de
 import google.generativeai as genai
 import pandas as pd
@@ -142,14 +142,16 @@ class Sample:
         sample = cls(question_en, answer_en, idx)
 
         for language in languages:
-            question = data.get(f"question_{language}", None)
-            answer = data.get(f"answer_{language}", None)
-            output = data.get(f"output_{language}", None)
-            evaluation = data.get(f"evaluation_{language}", None)
-            
-            # Assign all values
-            for value in [question, answer, output, evaluation]:
-                sample.assign(value, language, data_type=f"{str(value)}")
+            values = {
+                "question": data.get(f"question_{language}", None),
+                "answer": data.get(f"answer_{language}", None),
+                "output": data.get(f"output_{language}", None),
+                "evaluation": data.get(f"evaluation_{language}", None)
+            }
+
+            # Now you can loop over the dictionary
+            for key, value in values.items():
+                sample.assign(value, language, data_type=key)
 
         return sample
 
@@ -198,6 +200,42 @@ class MultilingualBenchmark:
         # State tracking
         self.has_results = False
         self.has_translations = False
+        self.has_benchmark = False
+
+        # Initialize from JSON or pre-existing data
+        self._initialize_from_config()
+
+    def _initialize_from_config(self):
+        """Attempts to load benchmark data (results, translations, or default) based on the provided configuration."""
+        # Define paths for potential data sources
+        results_path = f"{self.config['paths']['results']}/{self.config['experiments']['name']}.json"
+        translated_path = f"{self.config['paths']['translated_benchmarks']}/{self.benchmark_name}_{self.config['benchmark']['subset_size']}.json"
+        default_path = f"{self.config['paths']['benchmarks']}/{self.benchmark_name}.json"
+        
+        # Attempt to load results, translations, or default benchmark
+        if os.path.exists(results_path):
+            with open(results_path, 'r', encoding='utf-8') as file:
+                logger.info(f"Loading results from {results_path}...")
+                data = json.load(file)
+                self.has_results = True
+                self.has_results = True
+                self.has_benchmark = True
+        elif os.path.exists(translated_path):
+            with open(translated_path, 'r', encoding='utf-8') as file:
+                logger.info(f"Loading translated benchmark from {translated_path}...")
+                data = json.load(file)
+                self.has_translations = True
+                self.has_benchmark = True
+        else:
+            with open(default_path, 'r', encoding='utf-8') as file:
+                logger.info(f"Loading benchmark from {default_path}...")
+                data = json.load(file)
+                self.has_benchmark = True
+
+        # Assign the loaded data to the benchmark's samples
+        for i, item in enumerate(data):
+            sample = Sample.from_dict(item, idx=i, languages=self.languages)
+            self.add_sample(sample)
 
     def __str__(self):
         return f"Benchmark (model: {self.model_name}, experiment name: {self.run_name}, samples={len(self)})"
@@ -225,7 +263,7 @@ class MultilingualBenchmark:
             sample = Sample(item['question_en'], item['answer_en'], idx=i)
             self.add_sample(sample)
 
-    def translate_all(self, data_type, save=True):
+    def _translate_all(self, data_type, save=True):
         for language in self.languages:
             logger.info(f"Starting async translation for {data_type} to {language}...")
         
@@ -244,8 +282,9 @@ class MultilingualBenchmark:
 
             # Assign translated text to the corresponding sample attributes
             self._assign_translations(translated_batches, language, data_type)
-
+            self.has_translations = True
             logger.info("Asynchronous translation completed successfully!")
+
         if save:
             self._save_translated_benchmark()
 
@@ -253,25 +292,13 @@ class MultilingualBenchmark:
         """Main experiment function"""
         if not self.languages or not self.samples:
             raise ValueError("Please ensure this MultilingualBenchmark contains samples and target languages!")
-        
-        # Create from json
-        new_instance = self.from_json(self.config)
-        self.model_name = new_instance.model_name
-        self.run_name = new_instance.run_name
-        self.languages = new_instance.languages
-        self.samples = new_instance.samples
 
-        # 
-        if not self.has_translations:            
-            self.translate_all(data_type="question", save=True)
+        # Translate if no translations were loaded
+        if not self.has_translations:          
+            self._translate_all(data_type="question", save=True)
 
-        if 'gpt' in self.model_name.lower():
-            self.query_gpt()
-        elif 'gemini' in self.model_name.lower():
-            self.query_gemini()
-        elif 'bloomz' in self.model_name.lower():
-            self.tokenizer, self.model = load_bloomz(config=self.config)
-            self.query_bloomz()
+        self._query_model()
+        self._translate_all(data_type="output")
         
         # Evaluate targets and then filter for null values (TODO: Skip evaluating for any None-values)
         self.evaluate_all()
@@ -293,6 +320,15 @@ class MultilingualBenchmark:
     
     def _json_format(self):
         return [sample._to_dict() for sample in self.samples]
+    
+    def _query_model(self):
+        if 'gpt' in self.model_name.lower():
+                self.query_gpt()
+        elif 'gemini' in self.model_name.lower():
+            self.query_gemini()
+        elif 'bloomz' in self.model_name.lower():
+            self.tokenizer, self.model = load_bloomz(config=self.config)
+            self.query_bloomz()
 
     def write_to_json(self, path):
         logger.info("Writing benchmark to json...")
@@ -341,7 +377,7 @@ class MultilingualBenchmark:
 
                     # Process the output if necessary
                     if data_type == "output":
-                        translated_text = self.process_output_text(translated_text)
+                        translated_text = process_output_text(translated_text)
                     
                     # Assign the translation to the sample
                     try:
@@ -596,8 +632,9 @@ class MultilingualBenchmark:
 
     def _save_translated_benchmark(self):
         """Save translated QA pairs as .json - saves a lot of time during the experiment"""
-        save_path = f'{self.config["paths"]["translated_benchmarks"]}/{self.benchmark_name}_{len(self.samples)}.json' 
+        save_path = f'{self.config["paths"]["translated_benchmarks"]}/{self.benchmark_name}_{self.config["benchmark"]["subset_size"]}.json' 
         logger.info(f"Now saving translated benchmark to {save_path}")
+        
         self.write_to_json(save_path)
         logger.info("Saved succesfully!")
             
@@ -614,40 +651,43 @@ class MultilingualBenchmark:
             logger.info('No results recorded yet for plotting. Please run cls.run() first.')
 
 
-    @classmethod
-    def from_json(cls, config):
-        """Initialize class from configuration. Tries to load as much data as is already available based on configuration file. For example,
-        if a translated benchmark exists, it tries to load this already. Likewise, if results exist, it tries to load"""
-        # Initialize Benchmark object from JSON
-        benchmark = cls(config)
+    # @classmethod
+    # def initialize_from_json(cls, config):
+    #     """Initialize class from configuration. Tries to load as much data as is already available based on configuration file. For example,
+    #     if a translated benchmark exists, it tries to load this already. Likewise, if results exist, it tries to load"""
+    #     # Initialize Benchmark object from JSON
+    #     benchmark = cls(config)
+    #     languages = benchmark.languages
         
-        # Isolate model and languages
-        model = benchmark.model_name
-        languages = benchmark.languages
-        
-        # If run exists, load run. If run doesn't exist, load translated benchmark, if that doens't exist, just load non-translated benchmark
-        results_path = f"{config['paths']['results']}/{config['experiments']['name']}.json"
-        translated_path = f"{config['paths']['translated_benchmarks']}/{benchmark.benchmark_name}_{config['benchmark'][ 'subset_size']}.json"
-        default_path = f"{config['paths']['benchmarks']}/{benchmark.benchmark_name}.json"
-        
-        if os.path.exists(results_path):
-            with open(results_path, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                benchmark.has_results = True
-        elif os.path.exists(translated_path):
-            with open(translated_path, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                benchmark.has_translations = True
-        else:
-            with open(default_path, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-        
-        # Assign file contents to this benchmark's samples
-        for i, item in enumerate(data):
-            sample = Sample.from_dict(item, idx=i, languages=languages)
-            benchmark.add_sample(sample)
+    #     # If run exists, load run. If run doesn't exist, load translated benchmark, if that doens't exist, just load non-translated benchmark
+    #     results_path = f"{config['paths']['results']}/{config['experiments']['name']}.json"
+    #     translated_path = f"{config['paths']['translated_benchmarks']}/{benchmark.benchmark_name}_{config['benchmark'][ 'subset_size']}.json"
+    #     default_path = f"{config['paths']['benchmarks']}/{benchmark.benchmark_name}.json"
 
-        # Set results toggle to True
-        benchmark.has_results = True
+    #     if os.path.exists(results_path):
+    #         with open(results_path, 'r', encoding='utf-8') as file:
+    #             logger.info(f"Loading results at {results_path}...")
+    #             data = json.load(file)
+    #             benchmark.has_results = True
+    #     elif os.path.exists(translated_path):
+    #         with open(translated_path, 'r', encoding='utf-8') as file:
+    #             logger.info(f"Loading translated benchmark at {translated_path}...")
+    #             data = json.load(file)
+    #             benchmark.has_translations = True
+    #     else:
+    #         with open(default_path, 'r', encoding='utf-8') as file:
+    #             logger.info(f"Loading benchmark at {default_path}...")
+    #             data = json.load(file)
+        
+    #     # Assign file contents to this benchmark's samples
+    #     for i, item in enumerate(data):
+    #         sample = Sample.from_dict(item, idx=i, languages=languages)
+    #         benchmark.add_sample(sample)
 
-        return benchmark
+    #     # Finalize initialization
+    #     benchmark.model_name = config[].model_name
+    #     benchmark.run_name = new_instance.run_name
+    #     benchmark.languages = new_instance.languages
+    #     benchmark.samples = new_instance.samples
+
+    #     return benchmark

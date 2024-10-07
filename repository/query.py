@@ -66,14 +66,14 @@ def query_gpt_batch(
         gpt_response = client.chat.completions.create(
             model=engine,
             messages=messages,
-            temperature=0.2, # TODO: make temperature tweakable
-            seed=42 # TODO make seed tweakable
+            temperature=0.2, # TODO: make temperature tweakable from config.json
+            seed=42 # TODO make seed tweakable from config.json
         )
 
         # Normalize string for post-processing using unicode NFKC
         output = normalize('NFKC', gpt_response.choices[0].message.content)
-        english_response =  backtranslator.translate(output)
-        results[index] = english_response
+        # english_response =  backtranslator.translate(output)
+        results[index] = output
     except Exception as e:
         logger.error(f"Querying OpenAI unsuccessful: {e}")
         results[index] = None
