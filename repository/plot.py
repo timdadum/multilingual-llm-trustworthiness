@@ -3,23 +3,23 @@ import numpy as np
 import seaborn as sns
 import matplotlib.cm as cm
 
-def sort_metrics(df):
-    """
-    Sorts the DataFrame by each metric in descending order.
+# def sort_metrics(df):
+#     """
+#     Sorts the DataFrame by each metric in descending order.
 
-    Parameters:
-        df (pd.DataFrame): DataFrame containing 'language', 'a', 'b', 'y', and 'k' columns.
+#     Parameters:
+#         df (pd.DataFrame): DataFrame containing 'language', 'a', 'b', 'y', and 'k' columns.
 
-    Returns:
-        dict: A dictionary containing sorted DataFrames for each metric.
-    """
-    sorted_metrics = {
-        'a': df.sort_values(by=['a'], ascending=False),
-        'b': df.sort_values(by=['b'], ascending=False),
-        'y': df.sort_values(by=['y'], ascending=False),
-        'k': df.sort_values(by=['k'], ascending=False)
-    }
-    return sorted_metrics
+#     Returns:
+#         dict: A dictionary containing sorted DataFrames for each metric.
+#     """
+#     sorted_metrics = {
+#         'a': df.sort_values(by=['a'], ascending=False),
+#         'b': df.sort_values(by=['b'], ascending=False),
+#         'y': df.sort_values(by=['y'], ascending=False),
+#         'k': df.sort_values(by=['k'], ascending=False)
+#     }
+#     return sorted_metrics
 
 def plot_single_metric(data, metric, colormap, subplot_index):
     """
@@ -58,11 +58,11 @@ def plot(df):
     Plots an accuracy bar chart per language.
 
     Parameters:
-        df (pd.DataFrame): DataFrame containing 'language' and 'a' columns. 
-                           The DataFrame is sorted by the 'a' metric before plotting.
+        df (pd.DataFrame): DataFrame containing language and accuracy. 
+                           The DataFrame is sorted by accuracy before plotting.
     """
     # Sort the DataFrame by accuracy column
-    df = df.sort_values(by='a')
+    df = df.sort_values(by='accuracy')
 
     # Create a colormap
     colormap = cm.get_cmap('viridis')
@@ -71,7 +71,7 @@ def plot(df):
     plt.figure(figsize=(10, 6))
 
     # Plot the 'a' metric versus language
-    bars = plt.bar(df['lang'], df['a'], color=colormap(df['a'] / df['a'].max()))
+    bars = plt.bar(df['lang'], df['accuracy'], color=colormap(df['accuracy'] / df['accuracy'].max()))
     plt.title('Accuracy ')
     plt.xlabel('Language')
     plt.ylabel('Accuracy')
@@ -90,20 +90,20 @@ def plot(df):
 
 def plot_de(df, english_lang='en'):
     """
-    Plots the difference in the 'a' metric between each language and English.
+    Plots the difference in the accuracy between each language and English.
 
     Parameters:
-        df (pd.DataFrame): DataFrame containing 'language' and 'a' columns.
+        df (pd.DataFrame): DataFrame containing 'language' and 'accuracy' columns.
         english_lang (str): The language code for English in the DataFrame (default is 'en').
     """
     # Find the accuracy for English
-    english_accuracy = df[df['lang'] == english_lang]['a'].values[0]
+    english_accuracy = df[df['lang'] == english_lang]['accuracy'].values[0]
 
     # Calculate the difference with English accuracy
-    df['a_diff'] = df['a'] - english_accuracy
+    df['accuracy_diff'] = df['accuracy'] - english_accuracy
 
     # Sort the DataFrame by the difference
-    df = df.sort_values(by='a_diff')
+    df = df.sort_values(by='accuracy_diff')
 
     # Create a colormap
     colormap = cm.get_cmap('coolwarm')
@@ -111,11 +111,11 @@ def plot_de(df, english_lang='en'):
     # Set up the figure
     plt.figure(figsize=(10, 6))
 
-    # Plot the difference in 'a' metric versus language
-    bars = plt.bar(df['lang'], df['a_diff'], color=colormap(df['a_diff'] / df['a_diff'].abs().max()))
-    plt.title('Difference in Metric "a" Compared to English')
+    # Plot the difference in accuracy versus language
+    bars = plt.bar(df['lang'], df['accuracy_diff'], color=colormap(df['accuracy_diff'] / df['accuracy_diff'].abs().max()))
+    plt.title('Relative accuracy difference Compared to English')
     plt.xlabel('Language')
-    plt.ylabel('Difference in Metric "a"')
+    plt.ylabel('Difference in accuracy')
 
     # Label each bar with the corresponding value
     for bar in bars:

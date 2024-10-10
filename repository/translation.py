@@ -1,5 +1,7 @@
 from logger import logger
 import time
+import json
+import unicodedata
 
 def prepare_translation_batches(batches, data_type):
     """Prepares batched benchmark for translation"""
@@ -32,91 +34,21 @@ def translate_batch(index, batch, results, delay, translator):
 
     except Exception as e:
         results[index] = None  # Handle any translation failure
-        logger.warning(f"Translation failed for a batch")
+        logger.warning(f"Translation failed for a batch: {e}")
         return -1
 
-
-# PROBABLY REPLACED BY GENERAL _THREADPOOL() CALL
-# async def translate_async(translator, text_batches):
-#     """
-#     translator = translator object (deeptranslator.GoogleTranslator)
-#     text_batches = list of text batches (each batch is a list of strings) to be translated in parallel
-#     """
-#     # Function to translate a single batch
-#     async def translate_single_batch(batch):
-#         return await asyncio.to_thread(translator.translate_batch, batch)
-
-#     # Create tasks to translate each batch in parallel
-#     tasks = [translate_single_batch(batch) for batch in text_batches]
-
-#     # Run all batch translations concurrently and gather results
-#     translated_batches = await asyncio.gather(*tasks)
-
-#     # Flatten the list of lists into a single list of translated texts
-#     # translated_texts = [text for batch in translated_batches for text in batch]
-
-#     return translated_batches
-
-# async def translate_single_batch(translator, text_batch):
-#     """
-#     translator = translator object (which contains a method called translate_batch, it's deeptranslator.GoogleTranslator)
-#     text_batch = list of strings
-#     """
-#     translated_texts = await translator.translate_batch(text_batch)
-#     return translated_texts
-
-# async def translate_language_async(translator, target, samples, delay=5, mode='q'):
-#     """
-#     Asynchronously translates all samples for a given language with a delay between languages.
+def load_translation_table(json_file):
+    with open(json_file, 'r', encoding='utf-8') as f:
+        return json.load(f)
     
-#     Args:
-#         translator (deep_translator.GoogleTranslator): Translator object
-#         target (str): Target language conforming to deep_translator.GoogleTranslator docs, e.g., 'cy' for Welsh, 'hi' for Hindi
-#         samples (list): List of samples to be translated
-#         delay (int): Time in seconds to wait between processing each language
-#         mode (str): 
-#             - 'q' for translation of questions, 
-#             - 'qo' for translation of questions to target and the output given in the target language (back-translation)
-#     Returns:
-#         A list of translated texts
-#     """
-#     formatted_samples = _format_translation(samples, target, mode)
+def character_translate(text, translation_table):
+    # Normalize text for consistency
+    normalized_text = unicodedata.normalize('NFKC', text)
     
-#     async with httpx.AsyncClient() as client:
-#         try:
-#             # Sending the translation request for all samples
-#             translated_samples = await asyncio.to_thread(translator.translate_batch, formatted_samples)
-#             print(f"Translated {len(formatted_samples)} samples for language {target}.")
-#             await asyncio.sleep(delay)  # Introduce delay between each language
-#             return translated_samples
-#         except Exception as e:
-#             logger.error(f"Exception found in translating samples for language {target}: {e}. Returning None.")
-#             return None
-
-# def _prepare_query(sample, target, mode='q', delimiter='|'):
-#     """
-#     Preprocesses a sample for translation.
+    # Translate character-by-character
+    translated_text = []
+    for char in normalized_text:
+        # If the character is in the mapping, translate it; otherwise, use �
+        translated_text.append(translation_table.get(char, '�'))
     
-#     Args:
-#         sample (Sample): Sample object
-#         target (str): Target language conforming to deep_translator.GoogleTranslator docs, e.g. 'cy' for Welsh, 'hi' for Hindi
-#         mode (str): 
-#             - 'q' for translation of questions, 
-#             - 'qo' for translation of questions to target and the output given in the target language (backtranslation)
-#     Returns:
-#         A sample represented as string, ready to be translated
-#     """
-
-#     # Assemble query as parts (question, answer, output) which are concatenated by a separator
-#     parts = []
-#     try:
-#         if mode == 'q':
-#             q = sample._to_question_str(language='en')
-#             parts.append(q)
-#         elif mode == 'qo':
-#             parts.append(sample._to_question_str(language=target))
-#             parts.append(sample._to_output_str(language=target))
-            
-#         return delimiter.join(parts)
-#     except Exception as e:
-#         logger.error(f"Error preparing query: {e}")
+    return ''.join(translated_text)

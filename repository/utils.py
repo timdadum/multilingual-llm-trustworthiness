@@ -190,6 +190,35 @@ def read_subset(benchmark_path, n=1000):
 
     return subset
 
+def take_subset(benchmark, n):
+    """
+    Returns a subset of the benchmark dataset. If n='all', the full dataset is returned.
+    
+    Parameters:
+    ----------
+    benchmark : list[dict]
+        List of dictionary objects (representing a Sample).
+    n : int or str
+        Number of items to include, or 'all' for the full dataset.
+    
+    Returns:
+    -------
+    list
+        The selected subset of the benchmark.
+    """
+    if n == "all":
+        logger.info("_take_subset called with n='all'. Returning full benchmark.")
+        return benchmark
+    else:
+        subset = random.sample(benchmark, min(n, len(benchmark)))
+        
+        # Add indices 
+        for i, sample in enumerate(subset):
+            subset[i]._assign_index(i)
+
+        logger.info('Subset created.')
+        return subset
+
 def filter_data_by_language(data, language):
     """
     Filters the data to include only entries that end with the specified language suffix.

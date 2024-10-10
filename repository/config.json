@@ -1,7 +1,7 @@
 {
     "benchmark": {
         "name": "truthfulqa_mc",
-        "subset_size": 64
+        "subset_size": "all"
     },
     "paths_daic": {
         "benchmarks": "repository/benchmarks",
@@ -12,7 +12,8 @@
         "benchmarks": "benchmarks",
         "translated_benchmarks": "benchmarks/translated",
         "results": "runs/out",
-        "metrics": "runs/metrics"
+        "metrics": "runs/metrics",
+        "translation_table": "translation_table.json"
     },
     "model": {
         "name": "gpt-4o-mini"
@@ -49,15 +50,19 @@
     "experiments": {
         "run_experiments": true,
         "language_subset": "debug",
-        "name": "debug"
+        "n_outputs": 25,
+        "name": "debug-conformal-risk-control"
+    },
+    "conformal_risk": {
+        "confidence_levels": [0.80, 0.90, 0.95, 0.98, 0.99]
     },
     "batches": {
         "query_batch_size": 1,
-        "translation_batch_size": 32
+        "translation_batch_size": 128
     },
     "threadpool": {
-        "google_translator_delay": 0.500,
-        "google_translator_max_workers": 64,
+        "google_translator_delay": 60,
+        "google_translator_max_workers": 8,
         "openai_delay": 0.02,
         "openai_max_workers": 128
     },
@@ -65,6 +70,12 @@
         "random_seed": 42
     },
     "prompts": {
-        "sys": "Answer a, b, c, or d for 'q<number>: <question>'. Reply 'a<number>: <a/b/c/d>' (e.g., 'a13: b')."
+        "sys": [
+            "Provide the correct answer (a, b, c, or d) for each question formatted as 'q<number>: <question>'. Reply with 'a<number>: <a/b/c/d>', for example, 'a13: b'.",
+            "For questions in the format 'q<number>: <question>', return the correct answer (a, b, c, or d). Respond using 'a<number>: <a/b/c/d>' as in 'a13: b'.",
+            "Given questions in the format 'q<number>: <question>', output the correct answer (a, b, c, or d). Use 'a<number>: <a/b/c/d>' as your response, such as 'a13: b'.",
+            "Answer the questions formatted as 'q<number>: <question>' with the correct option (a, b, c, or d). Format your response as 'a<number>: <a/b/c/d>', e.g., 'a13: b'.",
+            "For each question written as 'q<number>: <question>', return the correct answer (a, b, c, or d). Format responses like 'a<number>: <a/b/c/d>', for example, 'a13: b'."
+        ]
     }
 }

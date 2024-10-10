@@ -1,9 +1,9 @@
-from translation import translate_batch, prepare_translation_batches
+from translation import translate_batch, prepare_translation_batches, load_translation_table, character_translate
 from query import get_api_output, get_local_model_output
 from deep_translator import GoogleTranslator
 from model import load_bloomz
 from openai import OpenAI
-from utils import clean_str, threadpool, process_output_text
+from utils import clean_str, threadpool, take_subset
 from plot import plot, plot_de
 import google.generativeai as genai
 import pandas as pd
@@ -11,6 +11,7 @@ import json
 import csv
 import os 
 from logger import logger
+from risk import conformal_risk_control
 
 class Sample:
     """
@@ -36,13 +37,13 @@ class Sample:
         self.evaluations = {}
         self.idx = idx
 
-    def __str__(self, language='en'):
-        """String representation of the sample object."""
-        separator = "|"
-        output_str = f"q{self.idx}: {self.questions[language]} {separator} a{self.idx}: {self.answers[language]}"
-        output_str += f" {separator} o{self.idx}: {self.output.get(language, None)}"
-        output_str += f" {separator} e{self.idx}: {self.evaluations.get(language, None)}"
-        return output_str
+    # def __str__(self, language='en'):
+    #     """String representation of the sample object."""
+    #     separator = "|"
+    #     output_str = f"q{self.idx}: {self.questions[language]} {separator} a{self.idx}: {self.answers[language]}"
+    #     output_str += f" {separator} o{self.idx}: {self.output.get(language, None)}"
+    #     output_str += f" {separator} e{self.idx}: {self.evaluations.get(language, None)}"
+    #     return output_str
 
     def _contains_nan(self, language):
         """Check if any key parts of the sample contain NaN or invalid values."""
@@ -61,6 +62,10 @@ class Sample:
     def _to_output_str(self, language='en'):
         """Return the output string for the given language."""
         return self.output.get(language, None)
+    
+    def _assign_index(self, i):
+        """Assigns index i to sample"""
+        self.idx = i
 
     def _to_dict(self):
         """Convert the sample object into a dictionary."""
@@ -93,21 +98,27 @@ class Sample:
         return sample
 
     def evaluate(self):
-        """Evaluate the sample by comparing the output to the correct answer."""
+        """Evaluate the sample by comparing the output answers to the correct answer.
+        
+        Assigns a list of evaluations to self object"""
         for language, output in self.output.items():
-            try:
-                out = clean_str(output)
-            except (AttributeError, TypeError):
-                self.evaluation(language, 'null')
-                continue
+            evaluations = []
+            for answer in output:
+                try:
+                    answer = clean_str(answer)
+                except (AttributeError, TypeError):
+                    evaluations.append(None)
 
-            ans = self.answers.get('en', '').lower().strip()
-            if out == ans:
-                self.assign(1, language, data_type='evaluation')
-            elif out in ['a', 'b', 'c', 'd']:
-                self.assign(0, language, data_type='evaluation')
-            else:
-                self.assign('null', language, data_type='evaluation')
+                correct_answer = clean_str(self.answers.get('en', None))
+                if answer == correct_answer:
+                    evaluations.append(1)
+                elif answer in ['a', 'b', 'c', 'd']:
+                    evaluations.append(0)
+                else:
+                    evaluations.append(None)
+                    logger.warning("Found invalid evaluation...") #TODO: Add more info here
+            
+            self.assign(evaluations, language, data_type="evaluation")
 
     def assign(self, value, language, data_type):
         """
@@ -183,6 +194,7 @@ class MultilingualBenchmark:
         self.query_batch_size = config['batches']['query_batch_size']
         self.translation_batch_size = config['batches']['translation_batch_size']
         self.language_subset_name = config['experiments']['language_subset']
+        self.sys_prompts = config["prompts"]["sys"] # per-language range of system prompts
         
         # Languages based on the subset chosen in experiments
         self.languages = config["language_subsets"][self.language_subset_name]["iso_639_1"]
@@ -218,7 +230,7 @@ class MultilingualBenchmark:
                 logger.info(f"Loading results from {results_path}...")
                 data = json.load(file)
                 self.has_results = True
-                self.has_results = True
+                self.has_translations = True
                 self.has_benchmark = True
         elif os.path.exists(translated_path):
             with open(translated_path, 'r', encoding='utf-8') as file:
@@ -239,12 +251,9 @@ class MultilingualBenchmark:
 
     def __str__(self):
         return f"Benchmark (model: {self.model_name}, experiment name: {self.run_name}, samples={len(self)})"
-    
+
     def get_languages(self):
         print(f'Benchmark uses languages {self.languages}')
-
-    def _sort(self):
-        self.samples = sorted(self.samples, key=lambda obj: obj.idx)
 
     def add_sample(self, sample):
         """
@@ -257,15 +266,31 @@ class MultilingualBenchmark:
         """
         self.samples.append(sample)
 
-    def load_benchmark(self, data: dict):
-        """Uses predefined data format!"""
-        for i, item in enumerate(data):
-            sample = Sample(item['question_en'], item['answer_en'], idx=i)
-            self.add_sample(sample)
+    def _character_translate_all(self, data_type="output"):
+        """Maps all output characters, which are not in Latin, to Latin using a simple character-based translation
+        lookup table"""
+        table = load_translation_table(self.config['paths']['translation_table'])
+        
+        for sample in self.samples:
+            data = getattr(sample, data_type) # dict
 
-    def _translate_all(self, data_type, save=True):
+            for language in self.languages:
+                answers = []
+                try:
+                    for ans in data[language]:
+                            latin_text = character_translate(ans, table)
+                            latin_answer = None if '�' in latin_text else latin_text
+                            answers.append(latin_answer)
+                except TypeError:
+                    # Very likely a None entry encountered: Leave value as None
+                    answers.append(None)
+                
+            # Assign
+            data[language] = answers
+
+    def _translate_all(self, data_type, save=False):
         for language in self.languages:
-            logger.info(f"Starting async translation for {data_type} to {language}...")
+            logger.info(f"Starting async translation for {data_type} (type: {language})...")
         
             batches = self.create_batches(self.translation_batch_size)
             text_batches = prepare_translation_batches(batches, data_type)
@@ -275,16 +300,16 @@ class MultilingualBenchmark:
             translated_batches=threadpool(
                 data=text_batches,
                 func=translate_batch,
-                delay=self.threadpooling['google_translator_delay'],                # 2-second delay between requests
+                delay=self.threadpooling['google_translator_delay'],                # Delay between requests to avoid limits
                 max_workers=self.threadpooling['google_translator_max_workers'],    # Number of workers for threadpool
-                translator=translator                                               # Specify if it's 'question' or 'output'
+                translator=translator                                               
             )
 
             # Assign translated text to the corresponding sample attributes
             self._assign_translations(translated_batches, language, data_type)
-            self.has_translations = True
             logger.info("Asynchronous translation completed successfully!")
 
+        self.has_translations = True
         if save:
             self._save_translated_benchmark()
 
@@ -293,15 +318,26 @@ class MultilingualBenchmark:
         if not self.languages or not self.samples:
             raise ValueError("Please ensure this MultilingualBenchmark contains samples and target languages!")
 
+        # Assign subset
+        subset = take_subset(self.samples, 
+                             n=self.config['benchmark']['subset_size'])
+        self.samples = subset
+
         # Translate if no translations were loaded
-        if not self.has_translations:          
+        if self.has_translations:          
+            logger.info("Translations already available. Skipping question translations...")
+        else:
             self._translate_all(data_type="question", save=True)
 
-        self._query_model()
-        self._translate_all(data_type="output")
-        
+        if self.has_results:
+            logger.info("Results already available. Skipping queries...")
+        else:
+            self._query_model()
+            self._character_translate_all(data_type="output")
+            
         # Evaluate targets and then filter for null values (TODO: Skip evaluating for any None-values)
         self.evaluate_all()
+        self._calculate_risks()
         self._get_metrics()
         self.has_results = True
 
@@ -323,12 +359,9 @@ class MultilingualBenchmark:
     
     def _query_model(self):
         if 'gpt' in self.model_name.lower():
-                self.query_gpt()
+            self.query_gpt()
         elif 'gemini' in self.model_name.lower():
             self.query_gemini()
-        elif 'bloomz' in self.model_name.lower():
-            self.tokenizer, self.model = load_bloomz(config=self.config)
-            self.query_bloomz()
 
     def write_to_json(self, path):
         logger.info("Writing benchmark to json...")
@@ -375,10 +408,6 @@ class MultilingualBenchmark:
                     # Calculate the index in the samples list
                     index = i * batch_size + j
 
-                    # Process the output if necessary
-                    if data_type == "output":
-                        translated_text = process_output_text(translated_text)
-                    
                     # Assign the translation to the sample
                     try:
                         self.samples[index].assign(
@@ -396,7 +425,10 @@ class MultilingualBenchmark:
         except Exception as e:
             logger.error(f"Translation assignment failed for batch: {e}")
 
-
+    def _calculate_risks(self):
+        risks = conformal_risk_control(self, self.config['conformal_risk']['confidence_levels'])
+        for lang in risks:
+            self.metrics[lang].update(risks[lang])
 
     def get_average_evaluation(self, language):
         """
@@ -416,13 +448,13 @@ class MultilingualBenchmark:
         count = 0
         for sample in self.samples:
             if language in sample.evaluations:
-                total_evaluation += sample.evaluations[language]
-                count += 1
+                total_evaluation += sum(sample.evaluations[language])
+                count += len(sample.evaluations[language])
         return total_evaluation / count if count > 0 else 0
 
     def get_all_evaluations(self):
         """
-        Gets all evaluations for all languages and samples.
+        Gets all evaluations for all languages and samples. #TODO: improve this docstring - a little vague..
 
         Returns
         -------
@@ -431,10 +463,10 @@ class MultilingualBenchmark:
         """
         evaluations_dict = {}
         for sample in self.samples:
-            for language, evaluation in sample.evaluations.items():
+            for language, evaluations in sample.evaluations.items():
                 if language not in evaluations_dict:
                     evaluations_dict[language] = []
-                evaluations_dict[language].append(evaluation)
+                evaluations_dict[language].extend(evaluations)
         return evaluations_dict
     
     def create_batches(self, size):
@@ -454,30 +486,46 @@ class MultilingualBenchmark:
         
         return batches
     
-    def _assign_all_output(self, language, output: dict):
+    def _assign_output(self, language, output: dict):
         """
-        Takes dict: {0: Mars, 1: five, 2: etc.}, where 0 represents sample with idx 0 and Mars represents the output
-        """
-        # Sort benchmark such that we can
-        for sample in self.samples: # TODO Substitute this with a non-looping solution
-            if sample.idx in output:
-                answer = output[sample.idx]
-                sample.output[language] = answer
+        Takes dict: {0: Mars, 1: five, 2: etc.}, where 0 represents sample with idx 0 and Mars represents the output.
 
-    # UNUSED?
-    # def _assign_all_evaluations(self, target: str, evals: dict):
-    #     """
-    #     Assign evaluations to samples.
+        This function assigns the output values to the corresponding Sample objects in self.samples based on the index (idx).
         
-    #     Parameters:
-    #         target (str): The evaluation target.
-    #         evals (dict): Dictionary where keys are sample indices and values are evaluation results.
-    #                 Example: {0: "mars", 1: "five", 2: "etc."}
-    #     """
-    #     for sample in self.samples:
-    #         contains_nan = sample._contains_nan(target)
-    #         sample.evaluations[target] = None if contains_nan else evals.get(sample.idx, None)
+        Args:
+            language (str): The language for which the output should be assigned.
+            output (dict): Dictionary where keys are sample indices and values are the output to be assigned.
+        """
+        # Create a dictionary to map sample indices to Sample objects
+        sample_map = {sample.idx: sample for sample in self.samples}
+
+        # Assign output values to the corresponding samples
+        for idx, out in output.items():
+            if idx in sample_map:
+                sample_map[idx].output[language] = out
+            else:
+                logger.warning(f"Sample with idx {idx} not found in self.samples.")
     
+    def query_local_model(self):
+        """
+        Queries benchmark using all languages using GPT models
+        """
+        for language in self.languages:
+            logger.info(f'Now querying {self.model_name} for language {language}')
+            try:
+                output = get_local_model_output(
+                    self, 
+                    language, 
+                    api_type='openai', 
+                    batch_size=self.config['batches']['query_batch_size'], 
+                    client=client, 
+                    engine=self.model_name, 
+                    sys_prompts=self.config['prompts']['sys'],
+                    n_outputs=self.config['experiments']['n_outputs'])
+                self._assign_output(language, output)
+            except Exception as e:
+                logger.critical(f"Error encountered querying {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
+
     def query_gpt(self):
         """
         Queries benchmark using all languages using GPT models
@@ -493,8 +541,9 @@ class MultilingualBenchmark:
                     batch_size=self.config['batches']['query_batch_size'], 
                     client=client, 
                     engine=self.model_name, 
-                    sys_prompt=self.config['prompts']['sys'])
-                self._assign_all_output(language, output)
+                    sys_prompts=self.config['prompts']['sys'],
+                    n_outputs=self.config['experiments']['n_outputs'])
+                self._assign_output(language, output)
             except Exception as e:
                 logger.critical(f"Error encountered querying {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
 
@@ -514,26 +563,17 @@ class MultilingualBenchmark:
 
             logger.info(f'Now querying {self.model_name} for language {language}')
             try:
-                output = get_api_output(self, language, api_type='google', batch_size=self.gpt_batch_size, model=model)
-                self._assign_all_output(language, output)
+                output = get_api_output(self, 
+                                        language, 
+                                        api_type='google', 
+                                        batch_size=self.gpt_batch_size, 
+                                        model=model)
+                self._assign_output(language, output)
             except Exception as e:
                 logger.critical(f"Error encountered querying {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
 
-    def query_bloomz(self):
-        """
-        Queries benchmark using all languages using BLOOMZ models
-        """
-        for language in self.languages:
-            logger.info(f'Now querying {self.model_name} for language {language}')
-            try:
-                output = get_local_model_output(
-                    self, 
-                    language, 
-                    query_batch_size=self.config["experiments"]["query_batch_size"]
-                )
-                self._assign_all_output(language, output)
-            except Exception as e:
-                logger.critical(f"Error encountered querying {self.model_name} in language code {language}. Skipping language... \n ERROR: {e}")
+    def query_llama(self):
+
 
     def evaluate_all(self):
         """Evaluate for all languages their answers using direct answer matching"""
@@ -542,8 +582,8 @@ class MultilingualBenchmark:
             sample.evaluate()
 
     def _get_valid_evals(self, language):
-        evals = [sample.evaluations.get(language, None) for sample in self.samples]
-        return [float(eval) for eval in evals if (eval != 'null') and (eval is not None)]
+        evals = [sample.evaluations.get(language, []) for sample in self.samples]
+        return [float(eval) for sublist in evals for eval in sublist if eval not in ['null', None]]
     
     def _valid_evals_to_accuracy(self, valid_evals):
         # Calculate accuracy by excluding -1 responses
@@ -552,20 +592,37 @@ class MultilingualBenchmark:
 
     def print_results(self):
         """Prints all results in an overview"""
-        
+
         # Formatting the output
         output = "\nExperiment Results:\n"
         output += "=" * 20 + "\n"
-        
+
         for language in self.metrics.keys():
             # Calculate valid samples
             valid_evals = self._get_valid_evals(language)
             valid_count = len(valid_evals)
-            total_count = len(self.samples)
 
+            # Add basic language-specific metrics
             output += f"Target Language: {language}\n"
-            output += f"a: {self.metrics[language]['a']}\n"
-            output += f"Valid: {valid_count}/{total_count}\n"
+            output += f"Accuracy (avg over N): {self.metrics[language]['accuracy']:.2f}\n"
+            output += f"Valid: {100*valid_count / len(self.samples) / self.config['experiments']['n_outputs']:.2f}%\n"
+            
+            # Add CRC results for the language, including all specified confidence intervals
+            output += "Conformal Risk Control (CRC) Results:\n"
+            output += f"  Nonconformity Score (80%): {self.metrics[language]['ncr80']:.3f}\n"
+            output += f"  Miscoverage Rate (80%): {self.metrics[language]['mc80']:.3f}\n"
+            output += f"  Nonconformity Score (90%): {self.metrics[language]['ncr90']:.3f}\n"
+            output += f"  Miscoverage Rate (90%): {self.metrics[language]['mc90']:.3f}\n"
+            output += f"  Nonconformity Score (95%): {self.metrics[language]['ncr95']:.3f}\n"
+            output += f"  Miscoverage Rate (95%): {self.metrics[language]['mc95']:.3f}\n"
+            output += f"  Nonconformity Score (98%): {self.metrics[language]['ncr98']:.3f}\n"
+            output += f"  Miscoverage Rate (98%): {self.metrics[language]['mc98']:.3f}\n"
+            output += f"  Nonconformity Score (99%): {self.metrics[language]['ncr99']:.3f}\n"
+            output += f"  Miscoverage Rate (99%): {self.metrics[language]['mc99']:.3f}\n"
+            
+            # Conformity Score
+            output += f"  Conformity Score: {self.metrics[language]['conf']:.3f}\n"
+            
             output += "-" * 20 + "\n"
 
         print(output)
@@ -584,7 +641,7 @@ class MultilingualBenchmark:
             valid = self._get_valid_evals(language)
             acc = self._valid_evals_to_accuracy(valid)
 
-            self.metrics[language].update({'a': acc})
+            self.metrics[language].update({'accuracy': acc})
 
         if save:
             self._save_metrics()
@@ -609,7 +666,7 @@ class MultilingualBenchmark:
 
         # Open the file in append mode to add new rows without overwriting existing data
         with open(path, mode='a', newline='') as f:
-            columns = ['model', 'benchmark', 'lang', 'a']  # Ensure all columns are included
+            columns = ['model', 'benchmark', 'lang', 'accuracy', 'ncr80', 'ncr90', 'ncr95', 'ncr98', 'ncr99', 'conf', 'mc80', 'mc90', 'mc95', 'mc98', 'mc99'] # Ensure all columns are included
             writer = csv.DictWriter(f, fieldnames=columns)
 
             # If the file is being created, write the header
@@ -649,45 +706,3 @@ class MultilingualBenchmark:
             plot_de(metrics)
         else:
             logger.info('No results recorded yet for plotting. Please run cls.run() first.')
-
-
-    # @classmethod
-    # def initialize_from_json(cls, config):
-    #     """Initialize class from configuration. Tries to load as much data as is already available based on configuration file. For example,
-    #     if a translated benchmark exists, it tries to load this already. Likewise, if results exist, it tries to load"""
-    #     # Initialize Benchmark object from JSON
-    #     benchmark = cls(config)
-    #     languages = benchmark.languages
-        
-    #     # If run exists, load run. If run doesn't exist, load translated benchmark, if that doens't exist, just load non-translated benchmark
-    #     results_path = f"{config['paths']['results']}/{config['experiments']['name']}.json"
-    #     translated_path = f"{config['paths']['translated_benchmarks']}/{benchmark.benchmark_name}_{config['benchmark'][ 'subset_size']}.json"
-    #     default_path = f"{config['paths']['benchmarks']}/{benchmark.benchmark_name}.json"
-
-    #     if os.path.exists(results_path):
-    #         with open(results_path, 'r', encoding='utf-8') as file:
-    #             logger.info(f"Loading results at {results_path}...")
-    #             data = json.load(file)
-    #             benchmark.has_results = True
-    #     elif os.path.exists(translated_path):
-    #         with open(translated_path, 'r', encoding='utf-8') as file:
-    #             logger.info(f"Loading translated benchmark at {translated_path}...")
-    #             data = json.load(file)
-    #             benchmark.has_translations = True
-    #     else:
-    #         with open(default_path, 'r', encoding='utf-8') as file:
-    #             logger.info(f"Loading benchmark at {default_path}...")
-    #             data = json.load(file)
-        
-    #     # Assign file contents to this benchmark's samples
-    #     for i, item in enumerate(data):
-    #         sample = Sample.from_dict(item, idx=i, languages=languages)
-    #         benchmark.add_sample(sample)
-
-    #     # Finalize initialization
-    #     benchmark.model_name = config[].model_name
-    #     benchmark.run_name = new_instance.run_name
-    #     benchmark.languages = new_instance.languages
-    #     benchmark.samples = new_instance.samples
-
-    #     return benchmark

@@ -49,7 +49,8 @@ prompt = "<|begin_of_text>"
 # Generate text based on the input prompt
 outputs = pipeline(
     prompt,
-    max_new_tokens=256,
+    max_new_tokens=8,
+    num_return_sequences=25
 )
 
 # Print the generated text
